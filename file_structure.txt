@@ -1,0 +1,64 @@
+Python_SQL_MagazineApp/
+    requirements.txt
+    test.py
+    README.md
+    app.py
+    queries/
+        example.py
+        update/
+            queries.py
+        delete/
+            queries.py
+        read/
+            final_project_queries.sql
+            queries.py
+        create/
+            queries.py
+    models/
+        __init__.py
+        parser.py
+        db_model.py
+        record_types/
+            Subscription.py
+            Profile.py
+            Magazine.py
+            Customer.py
+            Payment.py
+
+    meta_info/
+        Final Project Proposal.docx
+        Final Project ER Diagrams - tarekE_erinL_connorL (1).pdf
+        CPSC408-finalProject-rubric.docx
+        FinalProjectOutline.pdf
+   
+    controllers/
+        db_helper.py
+        ui_helper.py
+        __init__.py
+
+    data/
+        Magazine.csv
+        categories.py
+        data_helper.py
+        Customer.csv
+        Profile.csv
+        DataExplorer.ipynb
+        Payment.csv
+        RandData.csv
+        gen_data.py
+        Subscription.csv
+        Flat.csv
+        depracated/
+            Magazine.csv
+            magazineTable.csv
+            Customer.csv
+            Profile.csv
+            syntheticSubscriptionData.xlsx
+            Payment.csv
+            Subscription.csv
+            Flat.csv
+    views/
+        auth.py
+        admin.py
+        root.py
+
