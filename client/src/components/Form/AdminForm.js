@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import styles from './form.module.css';
-export const Form = () => {
+import styles from './adminform.module.css';
+export const AdminForm = () => {
 	const [ password, setPassword ] = useState('');
 	const handleChange = (e) => {
 		setPassword(e.target.value);
@@ -22,7 +22,7 @@ export const Form = () => {
 	return (
 		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['admin-form-body']}>
-				<label for="password">Password</label>
+				<label for="password">Enter Password:</label>
 				<input
 					onChange={(e) => handleChange(e)}
 					value={password}

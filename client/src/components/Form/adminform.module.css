@@ -7,7 +7,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	align-items: center;
 }
 
 .password-input {
@@ -16,4 +15,5 @@
 
 .submit-button {
 	width: 100px;
+	align-self: flex-end;
 }

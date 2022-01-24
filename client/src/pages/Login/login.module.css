@@ -1,0 +1,11 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+}
+.login-radio-section {
+	margin: 1.5rem auto;
+	display: flex;
+	justify-content: space-evenly;
+}

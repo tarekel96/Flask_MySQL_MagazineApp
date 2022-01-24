@@ -1,26 +1,26 @@
 // import libraries
-import Login from './pages/Login/Login';
 import axios from 'axios';
+// import library components
+import { Routes, Route } from 'react-router-dom';
+// import pages
+import Login from './pages/Login/Login';
+// import components
+import { Container } from './components/Container/Container';
 // import styles
-import './App.css';
+import './styles/App.css';
+import loginStyles from './pages/Login/login.module.css';
 
 function App() {
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		return axios
-			.post('http://127.0.0.1:5000/auth/admin', {
-				password: 'password'
-			})
-			.then((res) => {
-				console.log(res.data);
-			})
-			.catch((e) => console.log(`Error: Unsuccessful request,\n${e}`));
-	};
-
+	const LoginPage = () => (
+		<Container className={loginStyles['container']}>
+			<Login />
+		</Container>
+	);
 	return (
 		<div className="App">
-			Home page
-			<Login />
+			<Routes>
+				<Route path="/" exact={true} element={<LoginPage />} />
+			</Routes>
 		</div>
 	);
 }
