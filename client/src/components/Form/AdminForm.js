@@ -1,18 +1,30 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './adminform.module.css';
 export const AdminForm = () => {
+	let navigate = useNavigate();
+
 	const [ password, setPassword ] = useState('');
 	const handleChange = (e) => {
 		setPassword(e.target.value);
 	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		console.log('/');
 		return axios
-			.post('http://127.0.0.1:5000/auth/admin', { password })
+			.post('http://127.0.0.1:5000/auth/admin', JSON.stringify({ password }), {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
 			.then((res) => {
 				console.log(res);
-				if (res.status === 201) alert(res.data);
+				if (res.status === 201) {
+					alert(res.data);
+					navigate('/admin');
+				}
 			})
 			.catch((e) => {
 				console.log(e);
