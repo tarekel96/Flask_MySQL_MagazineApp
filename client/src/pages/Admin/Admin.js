@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Admin = () => {
@@ -8,22 +8,27 @@ const Admin = () => {
 
 	const getAllMags = () => {
 		return axios
-			.post('http://127.0.0.1:5000/auth/magazine_catalog', {
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
+			.get('http://127.0.0.1:5000/auth/magazine_catalog')
 			.then((res) => {
-				console.log(res);
 				if (res.status === 201) {
 					return res;
 				}
+				console.log(res);
+			})
+			.then((json) => {
+				setContent(json.data);
 			})
 			.catch((e) => {
 				console.log(e);
 				alert(e);
 			});
 	};
+
+	// useEffect(() => {
+	// 	fetch('http://127.0.0.1:5000/auth/magazine_catalog')
+	// 		.then((res) => res.json())
+	// 		.then((data) => console.log(data));
+	// }, []);
 
 	const handleUserinput = (name) => {
 		setUserSelection(name);
@@ -38,8 +43,10 @@ const Admin = () => {
 	};
 
 	const handleSubmit = (e) => {
+		getAllMags();
 		e.preventDefault();
-		setContent(getAllMags());
+		console.log('CONTENT');
+		console.log(content);
 	};
 
 	return (
@@ -56,10 +63,11 @@ const Admin = () => {
 							checked={viewAllMags}
 							onChange={(e) => handleUserinput(e.target.name)}
 						/>
+						<input type="submit" />
 					</li>
 				</ol>
 			</form>
-			<ul>{content.map((item) => <li>{item}</li>)}</ul>
+			<ul>{content.map((item) => <li key={item.magID}>{item.magazineName}</li>)}</ul>
 		</div>
 	);
 };
