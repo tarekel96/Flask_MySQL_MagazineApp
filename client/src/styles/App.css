@@ -1,1 +1,5 @@
-
+body {
+	background-color: #ecf0f1;
+	width: 100vw;
+	min-height: 100vh;
+}

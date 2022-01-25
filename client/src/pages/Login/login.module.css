@@ -2,10 +2,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 80vh;
+	height: 100%;
 }
 .login-radio-section {
-	margin: 1.5rem auto;
+	margin: 0 auto 1.5rem auto;
 	display: flex;
 	justify-content: space-evenly;
 }

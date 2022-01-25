@@ -1,7 +1,6 @@
 # import Python classes that represent the MySQL Tables
 # from record_types.Customer import Customer
 import os
-import json
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, Blueprint, request, g
 from controllers.auth_helper import auth_helper as auth

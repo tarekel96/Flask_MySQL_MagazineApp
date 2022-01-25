@@ -25,9 +25,9 @@ const Login = () => {
 				</Fragment>
 			)}
 			<div className={styles['login-radio-section']}>
-				<label for="admin">Admin</label>
+				<label htmlFor="admin">Admin</label>
 				<input type="radio" name="admin" value={isAdmin} onChange={handleSelection} checked={isAdmin} />
-				<label for="user">User</label>
+				<label htmlFor="user">User</label>
 				<input type="radio" name="user" value={!isAdmin} onChange={handleSelection} checked={!isAdmin} />
 			</div>
 		</div>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+import { MagItem } from '../../components/MagItem/MagItem';
 import axios from 'axios';
+import styles from './admin.module.css';
 
 const Admin = () => {
 	const [ content, setContent ] = useState([]);
@@ -23,12 +25,6 @@ const Admin = () => {
 				alert(e);
 			});
 	};
-
-	// useEffect(() => {
-	// 	fetch('http://127.0.0.1:5000/auth/magazine_catalog')
-	// 		.then((res) => res.json())
-	// 		.then((data) => console.log(data));
-	// }, []);
 
 	const handleUserinput = (name) => {
 		setUserSelection(name);
@@ -67,7 +63,19 @@ const Admin = () => {
 					</li>
 				</ol>
 			</form>
-			<ul>{content.map((item) => <li key={item.magID}>{item.magazineName}</li>)}</ul>
+			<div className={styles['grid-container']}>
+				<div className={styles['items-container']}>
+					{content.map((item) => (
+						<MagItem
+							key={item.magID}
+							magID={item.magID}
+							magazineName={item.magazineName}
+							cost={item.magazinePrice}
+							category={item.category}
+						/>
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };

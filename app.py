@@ -36,15 +36,15 @@ def pre_process():
 
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
-    # app.config["MYSQL_DATABASE_USER"] = os.getenv("user")
-    # app.config["MYSQL_DATABASE_PASSWORD"] = os.getenv("password")
-    # app.config["MYSQL_DATABASE_DB"] = os.getenv("database")
-    # app.config["MYSQL_DATABASE_HOST"] = os.getenv("hostname")
     db = SQLAlchemy(app)
     return db
 
 
-pre_process()
-app = create_app()
-db = init_db(app)
+def main():
+    pre_process()
+    app = create_app()
+    db = init_db(app)
+
+if __name__ == "main":
+    main()
 

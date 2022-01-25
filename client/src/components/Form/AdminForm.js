@@ -34,7 +34,7 @@ export const AdminForm = () => {
 	return (
 		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['admin-form-body']}>
-				<label for="password">Enter Password:</label>
+				<label htmlFor="password">Enter Password:</label>
 				<input
 					onChange={(e) => handleChange(e)}
 					value={password}

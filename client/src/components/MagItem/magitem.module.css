@@ -1,0 +1,42 @@
+.mag-item-container {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-areas: "id name" "price category";
+	width: 400px;
+	height: 175px;
+	background-color: #b4f1f1;
+	border-style: solid;
+	border-color: rgb(190, 190, 190);
+	border-radius: 6px;
+	box-shadow: 8px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+	transition: all 0.25s;
+}
+
+.mag-item-container:hover {
+	cursor: pointer;
+	transform: scale(102.5%);
+}
+
+.mag-item-p {
+	margin: 0;
+	padding: 0;
+}
+
+.mag-id {
+	grid-area: id;
+	padding-left: 25%;
+}
+
+.mag-name {
+	grid-area: name;
+}
+
+.mag-price {
+	grid-area: price;
+	padding-left: 25%;
+}
+
+.mag-category {
+	grid-area: category;
+}

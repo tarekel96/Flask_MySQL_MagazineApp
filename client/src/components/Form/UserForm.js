@@ -26,7 +26,7 @@ export const UserForm = () => {
 	return (
 		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['admin-form-body']}>
-				<label for="password">Enter Email:</label>
+				<label htmlFor="password">Enter Email:</label>
 				<input
 					onChange={(e) => handleChangeEmail(e)}
 					value={password}
@@ -35,7 +35,7 @@ export const UserForm = () => {
 					placeholder="email.."
 					className={styles['email-input']}
 				/>
-				<label for="password">Enter Password:</label>
+				<label htmlFor="password">Enter Password:</label>
 				<input
 					onChange={(e) => handleChangePassword(e)}
 					value={password}
