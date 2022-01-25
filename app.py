@@ -1,6 +1,9 @@
 # import API modules
-from flask import Flask
+import os
+from venv import create
+from flask import Flask, g
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 # import Flask local modules
 from config import Config
 from routes.auth import auth_bp_config
@@ -23,28 +26,25 @@ def create_app():
     
     return app
 
-# app = create_app()
-
-def main():
-    print('here')
-    # # app is the WSGI instance
-    # app = Flask(__name__)
-    
-    # @app.route("/")
-    # def hello_world():
-    #     return "<p>Hello, World!</p>"
+def pre_process():
     # parses csv data into Python instances stored in lists
     parser = Parser()
     # connects to MySQL DB, removes tables (if exits), and creates tables
     #   second bool is if on cloud instance or not 
     db = DB_Model(parser, False, False) # set the first bool to True for first run
-
-    run_program(db)
-
-    app = create_app()
-
-    print('here2')
     db.destructor()
 
-if __name__ == "__main__":
-    main()
+def init_db(app):
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+    # app.config["MYSQL_DATABASE_USER"] = os.getenv("user")
+    # app.config["MYSQL_DATABASE_PASSWORD"] = os.getenv("password")
+    # app.config["MYSQL_DATABASE_DB"] = os.getenv("database")
+    # app.config["MYSQL_DATABASE_HOST"] = os.getenv("hostname")
+    db = SQLAlchemy(app)
+    return db
+
+
+pre_process()
+app = create_app()
+db = init_db(app)
+

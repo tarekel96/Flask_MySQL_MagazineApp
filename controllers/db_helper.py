@@ -3,6 +3,99 @@ import pandas as pd
 
 # helper class for preparing data for db operations
 class db_helper():
+        
+        @staticmethod
+        def to_py_dict(lst, keys):
+                ret = [ ]
+                for item in lst:
+                        curr_dict = { }
+                        for i, attr in enumerate(item):
+                                curr_dict[keys[i]] = attr 
+                        ret.append(curr_dict)
+                return ret
+
+        @staticmethod
+        # function to execute a single query with no payload
+        def single_query(connection, cursor, query):
+                try:
+                        cursor.execute(query)
+                        connection.commit()
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+        
+
+        @staticmethod
+         # function to execute a single query with no payload
+        def single_query_payload(connection, cursor, query, payload):
+                try:
+                        cursor.execute(query, payload)
+                        connection.commit()
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+
+        @staticmethod
+        # function to execute fetch records
+        def get_records(cursor, query, keys):
+                print('in get records')
+                try:
+                        cursor.execute(query)
+                        results = cursor.fetchall()
+                        dict_results = db_helper.to_py_dict(results, keys)
+                        return dict_results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+        
+        @staticmethod
+        # function that fetches the first element of tuple record which is always the id
+        def get_record_ids(connection, cursor, query,):
+                try:
+                        cursor.execute(query)
+                        results = cursor.fetchall()
+                        results = [i[0] for i in results]
+                        return results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+        
+        @staticmethod
+        # function to fetch a single record
+        def get_record(connection, cursor, query, payload, key):
+                try:
+                        cursor.execute(query, {key: payload[0]})
+                        results = cursor.fetchone()
+                        return results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+
+        @staticmethod
+        # function to execute fetch records
+        def get_records_payload(connection, cursor, query, payload):
+                try:
+                        cursor.execute(query, payload)
+                        results = cursor.fetchall()
+                        return results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+
+        @staticmethod
+        # function for bulk inserting records
+        def single_insert(connection, cursor, query, record, do_not_commit=False):
+                try:
+                        cursor.execute(query,record)
+                        if do_not_commit == False:
+                                connection.commit()
+                        print("Query executed..")
+                except Exception as err:
+                        print(f"Error: An error occurred in trying bulk insert records.\n{err}")
+
+        @staticmethod
+        # function for bulk inserting records
+        def bulk_insert(connection, cursor, query, records):
+                try:
+                        cursor.executemany(query,records)
+                        connection.commit()
+                        print("Query executed..")
+                except Exception as err:
+                        print(f"Error: An error occurred in trying bulk insert records.\n{err}")
 
         # given a list of model instances, 
         # create list consisting of tuples of each model's fields 
