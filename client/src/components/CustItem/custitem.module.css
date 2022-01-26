@@ -1,0 +1,42 @@
+.cust-item-container {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-areas: "id username" "fist-name last-name";
+	width: 400px;
+	height: 175px;
+	background-color: #b4f1f1;
+	border-style: solid;
+	border-color: rgb(190, 190, 190);
+	border-radius: 6px;
+	box-shadow: 8px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+	transition: all 0.25s;
+}
+
+.cust-item-container:hover {
+	cursor: pointer;
+	transform: scale(102.5%);
+}
+
+.cust-item-p {
+	margin: 0;
+	padding: 0;
+}
+
+.cust-id {
+	grid-area: id;
+	padding-left: 25%;
+}
+
+.cust-username {
+	grid-area: username;
+}
+
+.cust-fist-name {
+	grid-area: fist-name;
+	padding-left: 25%;
+}
+
+.cust-last-name {
+	grid-area: last-name;
+}

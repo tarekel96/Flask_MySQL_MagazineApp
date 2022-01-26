@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
 import { MagItem } from '../../components/MagItem/MagItem';
+import { CustItem } from '../../components/CustItem/CustItem';
 import axios from 'axios';
 import styles from './admin.module.css';
 
 const Admin = () => {
 	const [ showForm, setFormVisibility ] = useState(true);
 	const [ content, setContent ] = useState([]);
-	const [ userSelection, setUserSelection ] = useState('view_all_mags');
+	const [ userSelection, setUserSelection ] = useState('');
 	const [ viewAllMags, setViewAllMags ] = useState(false);
+	const [ fetchedMags, setMagFetchStatus ] = useState(false);
+	const [ viewAllCust, setViewAllCust ] = useState(false);
+	const [ fetchedCusts, setCustFetchStatus ] = useState(false);
 
-	const getAllMags = () => {
+	const falsifyStates = (arr) => arr.forEach((setState) => setState(false));
+
+	const getAllMags = async () => {
+		cleanForm();
 		try {
-			return axios
+			return await axios
 				.get('http://127.0.0.1:5000/auth/magazine_catalog')
 				.then((res) => {
 					if (res.status === 201) {
@@ -21,6 +28,7 @@ const Admin = () => {
 				})
 				.then((json) => {
 					setContent(json.data);
+					setMagFetchStatus(true);
 				})
 				.catch((e) => {
 					console.log(e);
@@ -32,12 +40,71 @@ const Admin = () => {
 		}
 	};
 
-	const handleUserinput = (name) => {
+	const layoutMags = () => {
+		return content.map((item) => (
+			<MagItem
+				key={item.magID}
+				magID={item.magID}
+				magazineName={item.magazineName}
+				cost={item.magazinePrice}
+				category={item.category}
+			/>
+		));
+	};
+
+	const magIsReady = () => content.length !== 0 && fetchedMags === true;
+
+	const getAllCust = async () => {
+		cleanForm();
+		try {
+			return await axios
+				.get('http://127.0.0.1:5000/auth/customers')
+				.then((res) => {
+					if (res.status === 201) {
+						return res;
+					}
+					console.log(res);
+				})
+				.then((json) => {
+					setContent(json.data);
+					setCustFetchStatus(true);
+				})
+				.catch((e) => {
+					console.log(e);
+					alert(e);
+				});
+		} catch (e) {
+			console.log('An error occurred in fetching the data; see below:');
+			console.log(e);
+		}
+	};
+
+	const layoutCusts = () => {
+		return content.map((item) => (
+			<CustItem
+				key={item.custID}
+				custID={item.custID}
+				userName={item.userName}
+				firstName={item.firstName}
+				lastName={item.lastName}
+			/>
+		));
+	};
+
+	const custIsReady = () => content.length !== 0 && fetchedCusts === true;
+
+	const handleUserInput = (name) => {
 		setUserSelection(name);
 		switch (name) {
 			case 'view_all_mags':
 				setUserSelection('view_all_mags');
 				setViewAllMags(true);
+				falsifyStates([ setViewAllCust ]);
+				break;
+			case 'view_all_cust':
+				setUserSelection('view_all_cust');
+				setViewAllCust(true);
+				falsifyStates([ setViewAllMags ]);
 				break;
 			default:
 				return '';
@@ -45,10 +112,19 @@ const Admin = () => {
 	};
 
 	const handleSubmit = (e) => {
-		getAllMags();
 		e.preventDefault();
-		console.log('CONTENT');
-		console.log(content);
+		switch (userSelection) {
+			case 'view_all_mags':
+				falsifyStates([ setCustFetchStatus ]);
+				getAllMags();
+				break;
+			case 'view_all_cust':
+				falsifyStates([ setMagFetchStatus ]);
+				getAllCust();
+				break;
+			default:
+				return '';
+		}
 	};
 
 	const toggleForm = () => {
@@ -57,6 +133,16 @@ const Admin = () => {
 
 	const handleClear = () => {
 		setContent([]);
+		falsifyStates([ setViewAllMags, setViewAllMags ]);
+	};
+
+	const cleanForm = () => {
+		setContent([]);
+	};
+
+	const retItems = () => {
+		if (magIsReady()) return layoutMags();
+		if (custIsReady()) return layoutCusts();
 	};
 
 	return (
@@ -85,7 +171,7 @@ const Admin = () => {
 								name="view_all_mags"
 								value={viewAllMags}
 								checked={viewAllMags}
-								onChange={(e) => handleUserinput(e.target.name)}
+								onChange={(e) => handleUserInput(e.target.name)}
 							/>
 						</li>
 						<li>
@@ -93,9 +179,9 @@ const Admin = () => {
 							<input
 								type="radio"
 								name="view_all_cust"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
+								value={viewAllCust}
+								checked={viewAllCust}
+								onChange={(e) => handleUserInput(e.target.name)}
 							/>
 						</li>
 						<li>
@@ -172,17 +258,7 @@ const Admin = () => {
 				''
 			)}
 			<div className={styles['grid-container']}>
-				<div className={styles['items-container']}>
-					{content.map((item) => (
-						<MagItem
-							key={item.magID}
-							magID={item.magID}
-							magazineName={item.magazineName}
-							cost={item.magazinePrice}
-							category={item.category}
-						/>
-					))}
-				</div>
+				<div className={styles['items-container']}>{retItems()}</div>
 			</div>
 		</div>
 	);

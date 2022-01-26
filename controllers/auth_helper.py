@@ -37,3 +37,21 @@ class auth_helper():
                         response = Response("{\n'message': 'Error - Unknown Error.'\n}", status=500, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
+
+        @staticmethod
+        def get_customers(session):
+                cursor = session.execute(RE_QUERIES["CUST_GET_ALL"]).cursor
+                try:
+                        data = db_helper.get_records(cursor, RE_QUERIES["CUST_GET_ALL"], ["custID", "firstName", "lastName", "userName"])
+                        json_data = json.dumps(data)
+                        response = Response(json_data, status=201, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except mysql.connector.Error as err:
+                        response = Response("{\n'message': {err}\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except:
+                        response = Response("{\n'message': 'Error - Unknown Error.'\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response

@@ -48,7 +48,7 @@ QUERIES = {
                         ''',
         "CUST_GET_ALL":
                         '''
-                        SELECT firstName, lastName, username
+                        SELECT custID, firstName, lastName, username
                         FROM customer;
                         ''',
         "CUST_GET_BY_YEAR":

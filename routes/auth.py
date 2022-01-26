@@ -35,3 +35,12 @@ def get_catalog():
                 db = SQLAlchemy(app)
                 session = db.session()
                 return auth.get_catalog(session)
+
+@auth_bp.route('/customers', methods=['GET'])
+def get_customers():
+        app = Flask(__name__)
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+        with app.app_context():
+                db = SQLAlchemy(app)
+                session = db.session()
+                return auth.get_customers(session)
