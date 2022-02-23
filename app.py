@@ -1,4 +1,5 @@
 # import API modules
+from distutils.log import debug
 import os
 from venv import create
 from flask import Flask, g
@@ -16,7 +17,6 @@ from views.root import run_program
 def create_app():
     # app is the WSGI instance
     app = Flask(__name__)
-    app.run(debug=True)
     CORS(app)
     app.config.from_object(Config)
     # bind blue prints to WSGI app
@@ -44,8 +44,11 @@ def main():
     pre_process()
     app = create_app()
     db = init_db(app)
-    app.run()
+    return app
 
-if __name__ == "main":
-    main()
+
+
+if __name__ == "__main__":
+    app = main()
+    app.run(debug=True)
 
