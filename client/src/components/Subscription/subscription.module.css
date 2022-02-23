@@ -1,0 +1,26 @@
+.subscription-article {
+	width: 80vw;
+	height: 80px;
+	background-color: skyblue;
+	border-radius: 6px;
+}
+
+td,
+th {
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px;
+}
+
+.subscription-article:not(:last-of-type) {
+	margin-bottom: 5px;
+}
+
+.subscription-article:nth-child(even) {
+	background-color: rgb(184, 211, 245);
+}
+
+.subscription-labels {
+	width: 80vw;
+	height: 80px;
+}

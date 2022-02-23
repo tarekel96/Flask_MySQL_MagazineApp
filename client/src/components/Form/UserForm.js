@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import styles from './adminform.module.css';
+import styles from './userform.module.css';
 export const UserForm = () => {
+	let navigate = useNavigate();
+
 	const [ email, setEmail ] = useState('');
 	const handleChangeEmail = (e) => {
 		setEmail(e.target.value);
@@ -12,20 +15,11 @@ export const UserForm = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		return axios
-			.post('http://127.0.0.1:5000/auth/admin', { password })
-			.then((res) => {
-				console.log(res);
-				if (res.status === 201) alert(res.data);
-			})
-			.catch((e) => {
-				console.log(e);
-				alert(e);
-			});
+		return navigate('/user');
 	};
 	return (
-		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
-			<div className={styles['admin-form-body']}>
+		<form className={styles['user-form']} onSubmit={(e) => handleSubmit(e)}>
+			<div className={styles['user-form-body']}>
 				<label htmlFor="password">Enter Email:</label>
 				<input
 					onChange={(e) => handleChangeEmail(e)}

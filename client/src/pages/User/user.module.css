@@ -1,0 +1,22 @@
+.user-section {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.user-header {
+	text-align: center;
+	margin-top: 10%;
+	width: 100%;
+}
+
+.user-subs-header {
+	text-align: center;
+	width: 100%;
+}
+
+.user-subs {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}

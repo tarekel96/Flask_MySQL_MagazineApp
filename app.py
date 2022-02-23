@@ -44,6 +44,7 @@ def main():
     pre_process()
     app = create_app()
     db = init_db(app)
+    app.run()
 
 if __name__ == "main":
     main()

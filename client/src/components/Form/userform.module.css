@@ -1,0 +1,19 @@
+.user-form {
+	display: flex;
+	width: 100%;
+}
+
+.user-form-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.password-input {
+	margin: 1rem auto;
+}
+
+.submit-button {
+	width: 100px;
+	align-self: flex-end;
+}
