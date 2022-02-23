@@ -27,6 +27,17 @@ def admin_auth():
         if request.method == 'POST':
                 return auth.admin_login(request)
 
+@auth_bp.route('/login', methods=['POST'])
+def user_auth():
+        # user attempt to login as admin via form data
+        if request.method == 'POST':
+                app = Flask(__name__)
+                app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+                with app.app_context():
+                        db = SQLAlchemy(app)
+                        session = db.session()
+                        return auth.user_login(request, session)
+
 @auth_bp.route('/magazine_catalog', methods=['GET'])
 def get_catalog():
         app = Flask(__name__)

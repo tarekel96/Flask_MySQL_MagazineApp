@@ -46,7 +46,7 @@ class db_helper():
         
         @staticmethod
         # function that fetches the first element of tuple record which is always the id
-        def get_record_ids(connection, cursor, query,):
+        def get_record_ids(connection, cursor, query):
                 try:
                         cursor.execute(query)
                         results = cursor.fetchall()
@@ -57,9 +57,19 @@ class db_helper():
         
         @staticmethod
         # function to fetch a single record
-        def get_record(connection, cursor, query, payload, key):
+        def get_record(cursor, query, payload, key):
                 try:
                         cursor.execute(query, {key: payload[0]})
+                        results = cursor.fetchone()
+                        return results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
+        
+        @staticmethod
+        # function to fetch a single record
+        def get_record_no_payload(cursor, query):
+                try:
+                        cursor.execute(query)
                         results = cursor.fetchone()
                         return results
                 except Exception as err:

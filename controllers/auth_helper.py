@@ -21,6 +21,33 @@ class auth_helper():
                         return response
 
         @staticmethod
+        def user_login(request, session):
+                req_dict = json.loads(request.data)
+                print("in here")
+                username = req_dict["username"]
+                print(f"{username=}")
+                # db_helper.single_query_payload(session, )
+                print('here 0')
+                # cursor = session.execute(RE_QUERIES["CUST_GET_BY_USERNAME"], (username, )).cursor
+                cursor = session.execute(RE_QUERIES["CUST_GET_TEST"]).cursor
+                # db.get_record(RE_QUERIES["CUST_GET_BY_USERNAME"], tuple([username, ]), "username")
+                print('here 1')
+                try:
+                        print("before data")
+                        # data = db_helper.get_record(cursor, RE_QUERIES["CUST_GET_BY_USERNAME"],\
+                        #         (username,), "username")
+                        data = db_helper.get_record_no_payload(cursor, RE_QUERIES["CUST_GET_TEST"])
+                        print("after data", data)
+                        json_data = json.dumps(data)
+                        response = Response(json_data, status=201, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except:
+                        response = Response("{\n'message': 'Error - Unknown Error.'\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+
+        @staticmethod
         def get_catalog(session):
                 cursor = session.execute(RE_QUERIES["MAGS_GET_CATALOG"]).cursor
                 try:

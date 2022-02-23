@@ -61,7 +61,13 @@ QUERIES = {
                         '''
                         SELECT *
                         FROM customer
-                        WHERE username = %(username)s;
+                        WHERE username = %s;
+                        ''',
+        "CUST_GET_TEST":
+                        '''
+                        SELECT *
+                        FROM customer
+                        WHERE username = '6LiI-Dorothy';
                         ''',
         "REC_STATUS_BY_USERNAME":
                         '''
