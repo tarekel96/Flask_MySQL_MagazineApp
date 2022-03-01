@@ -58,6 +58,8 @@ class db_helper():
         @staticmethod
         # function to fetch a single record
         def get_record(cursor, query, payload, key):
+                print('in get_record():')
+                print({key: payload[0]})
                 try:
                         cursor.execute(query, {key: payload[0]})
                         results = cursor.fetchone()

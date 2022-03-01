@@ -23,22 +23,24 @@ class auth_helper():
         @staticmethod
         def user_login(request, session):
                 req_dict = json.loads(request.data)
-                print("in here")
                 username = req_dict["username"]
-                print(f"{username=}")
-                # db_helper.single_query_payload(session, )
-                print('here 0')
-                # cursor = session.execute(RE_QUERIES["CUST_GET_BY_USERNAME"], (username, )).cursor
-                cursor = session.execute(RE_QUERIES["CUST_GET_TEST"]).cursor
-                # db.get_record(RE_QUERIES["CUST_GET_BY_USERNAME"], tuple([username, ]), "username")
-                print('here 1')
+                query = f"SELECT * FROM customer WHERE username = '{username}';"
                 try:
-                        print("before data")
-                        # data = db_helper.get_record(cursor, RE_QUERIES["CUST_GET_BY_USERNAME"],\
-                        #         (username,), "username")
-                        data = db_helper.get_record_no_payload(cursor, RE_QUERIES["CUST_GET_TEST"])
-                        print("after data", data)
-                        json_data = json.dumps(data)
+                        cursor = session.execute(query).cursor
+                except:
+                        response = Response("{\n'message': 'Error - Unknown error with user login.'\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                try:
+                        data = db_helper.get_record_no_payload(cursor, query)
+                        user = {
+                                "user_id": data[0],
+                                "user_first_name": data[1],
+                                "user_last_name": data[2],
+                                "user_username": data[3],
+                                "user_password": data[4],
+                                "user_start_date": str(data[5])[:10] # convert datetime obj -> str
+                        }
+                        json_data = json.dumps(user)
                         response = Response(json_data, status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response

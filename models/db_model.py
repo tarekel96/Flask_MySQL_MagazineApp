@@ -148,8 +148,15 @@ class DB_Model():
         # function to fetch a single record
         def get_record(self,query,payload, key):
                 try:
+                        # print('here')
+                        # print(payload[0])
+                        # print(f"SELECT * FROM customer WHERE username = {payload[0]};")
+                        # query = self.cursor.execute(f"SELECT * FROM customer WHERE username = '{payload[0]}';")
+                        # print(query)
+                        # self.cursor.execute(query)
                         self.cursor.execute(query, {key: payload[0]})
                         results = self.cursor.fetchone()
+                        print(f'results\n{results}')
                         return results
                 except Exception as err:
                         print(f"Error: An error occurred in trying execute a single query.\n{err}")

@@ -23,7 +23,7 @@ def create_app():
     blueprints = [auth_bp_config]
     for bp in blueprints:
         app.register_blueprint(bp[0], url_prefix=bp[1])
-    
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     return app
 
 def pre_process():

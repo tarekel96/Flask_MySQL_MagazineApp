@@ -61,7 +61,7 @@ QUERIES = {
                         '''
                         SELECT *
                         FROM customer
-                        WHERE username = %s;
+                        WHERE username = '(%s)';
                         ''',
         "CUST_GET_TEST":
                         '''
