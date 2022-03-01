@@ -26,7 +26,11 @@ export const UserForm = () => {
 			.then((res) => {
 				console.log(res);
 				if (res.status === 201) {
-					alert(res.data);
+					console.log(res);
+					const successMessage = `Success: Logged in as ${res.data['user_username']}.\nWelcome ${res.data[
+						'user_first_name'
+					]} ${res.data['user_last_name']}!`;
+					alert(successMessage);
 					navigate('/dashboard');
 				}
 			})

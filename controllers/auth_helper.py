@@ -30,6 +30,7 @@ class auth_helper():
                 except:
                         response = Response("{\n'message': 'Error - Unknown error with user login.'\n}", status=500, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
                 try:
                         data = db_helper.get_record_no_payload(cursor, query)
                         user = {
