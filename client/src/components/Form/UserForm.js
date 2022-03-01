@@ -5,9 +5,9 @@ import styles from './userform.module.css';
 export const UserForm = () => {
 	let navigate = useNavigate();
 
-	const [ email, setEmail ] = useState('');
-	const handleChangeEmail = (e) => {
-		setEmail(e.target.value);
+	const [ username, setUsername ] = useState('');
+	const handleChangeUsername = (e) => {
+		setUsername(e.target.value);
 	};
 	const [ password, setPassword ] = useState('');
 	const handleChangePassword = (e) => {
@@ -15,19 +15,37 @@ export const UserForm = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		return navigate('/user');
+		console.log({ username, password });
+		// return navigate('/user');
+		return axios
+			.post('http://127.0.0.1:5000/auth/login', JSON.stringify({ username, password }), {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			.then((res) => {
+				console.log(res);
+				if (res.status === 201) {
+					alert(res.data);
+					navigate('/dashboard');
+				}
+			})
+			.catch((e) => {
+				console.log(e);
+				alert(e);
+			});
 	};
 	return (
 		<form className={styles['user-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['user-form-body']}>
-				<label htmlFor="password">Enter Email:</label>
+				<label htmlFor="username">Enter Username:</label>
 				<input
-					onChange={(e) => handleChangeEmail(e)}
-					value={password}
+					onChange={(e) => handleChangeUsername(e)}
+					value={username}
 					type="text"
-					name="email"
-					placeholder="email.."
-					className={styles['email-input']}
+					name="username"
+					placeholder="username.."
+					className={styles['username-input']}
 				/>
 				<label htmlFor="password">Enter Password:</label>
 				<input
