@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import { useUserContext } from '../../context/UserContext';
 import { Subscription, SubscriptionLabels } from '../../components/Subscription/Subscription';
 import styles from './user.module.css';
 
 const User = () => {
-	const [ username, setUsername ] = useState('jsmith');
-	const [ name, setName ] = useState('John Smith');
+	const user = useUserContext()['user'];
 
 	return (
 		<section className={styles['user-section']}>
 			<header className={styles['user-header']}>
-				<h2>Welcome {name}!</h2>
+				<h2>Welcome {user !== null ? user['user_first_name'] : 'John Doe'}!</h2>
 			</header>
 			<h3 className={styles['user-subs-header']}>Subscriptions</h3>
 			<section className={styles['user-subs']}>

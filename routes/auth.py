@@ -36,6 +36,7 @@ def user_auth():
                 with app.app_context():
                         db = SQLAlchemy(app)
                         session = db.session()
+                        SQLALCHEMY_TRACK_MODIFICATIONS = False
                         return auth.user_login(request, session)
 
 @auth_bp.route('/magazine_catalog', methods=['GET'])
@@ -45,6 +46,7 @@ def get_catalog():
         with app.app_context():
                 db = SQLAlchemy(app)
                 session = db.session()
+                SQLALCHEMY_TRACK_MODIFICATIONS = False
                 return auth.get_catalog(session)
 
 @auth_bp.route('/customers', methods=['GET'])
@@ -54,4 +56,5 @@ def get_customers():
         with app.app_context():
                 db = SQLAlchemy(app)
                 session = db.session()
+                SQLALCHEMY_TRACK_MODIFICATIONS = False
                 return auth.get_customers(session)

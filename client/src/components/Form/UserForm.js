@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useUserContext } from '../../context/UserContext';
 import styles from './userform.module.css';
 export const UserForm = () => {
+	const user = useUserContext()['user'];
+	const setUser = useUserContext()['updateUser'];
+
 	let navigate = useNavigate();
 
 	const [ username, setUsername ] = useState('');
@@ -15,8 +19,6 @@ export const UserForm = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// console.log({ username, password });
-		// return navigate('/user');
 		return axios
 			.post('http://127.0.0.1:5000/auth/login', JSON.stringify({ username, password }), {
 				headers: {
@@ -32,6 +34,15 @@ export const UserForm = () => {
 					]} ${res.data['user_last_name']}!`;
 					alert(successMessage);
 					const userID = res.data['user_id'];
+					const chosenUser = {
+						user_id: res.data['user_id'],
+						user_first_name: res.data['user_first_name'],
+						user_last_name: res.data['user_last_name'],
+						user_username: res.data['user_username'],
+						user_password: res.data['user_password'],
+						user_start_date: res.data['user_start_date']
+					};
+					setUser(chosenUser);
 					navigate(`/dashboard/${userID}`);
 				}
 				else if (res.status === 401) {

@@ -11,9 +11,7 @@ class auth_helper():
         def admin_login(request):
                 req_dict = json.loads(request.data)
                 user_pw = req_dict["password"]
-                print(f'here{req_dict}')
                 if user_pw == "password":
-                        print('here')
                         response = Response("{\n'message': 'Is Authenticated'\n}", status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
@@ -31,7 +29,6 @@ class auth_helper():
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
                 password = req_dict["password"]
-                print(f"Password: {password}")
                 if password == None:
                         response = Response("{\n'message': 'Error - No password was provided.'\n}", status=400, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
