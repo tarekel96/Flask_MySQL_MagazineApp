@@ -15,7 +15,7 @@ export const UserForm = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log({ username, password });
+		// console.log({ username, password });
 		// return navigate('/user');
 		return axios
 			.post('http://127.0.0.1:5000/auth/login', JSON.stringify({ username, password }), {
@@ -31,7 +31,14 @@ export const UserForm = () => {
 						'user_first_name'
 					]} ${res.data['user_last_name']}!`;
 					alert(successMessage);
-					navigate('/dashboard');
+					const userID = res.data['user_id'];
+					navigate(`/dashboard/${userID}`);
+				}
+				else if (res.status === 401) {
+					const errorMessage = `${res.data}\nError: Invalid password provided.`;
+					console.log(res.status);
+					console.log(errorMessage);
+					alert(errorMessage);
 				}
 			})
 			.catch((e) => {

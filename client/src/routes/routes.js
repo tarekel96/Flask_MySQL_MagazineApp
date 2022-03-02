@@ -29,7 +29,7 @@ export const routes = [
 		exact: true
 	},
 	{
-		path: '/dashboard',
+		path: '/dashboard/:id',
 		component: <UserPage />,
 		exact: true
 	},

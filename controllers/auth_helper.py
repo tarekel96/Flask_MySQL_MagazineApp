@@ -11,7 +11,9 @@ class auth_helper():
         def admin_login(request):
                 req_dict = json.loads(request.data)
                 user_pw = req_dict["password"]
+                print(f'here{req_dict}')
                 if user_pw == "password":
+                        print('here')
                         response = Response("{\n'message': 'Is Authenticated'\n}", status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
@@ -24,6 +26,16 @@ class auth_helper():
         def user_login(request, session):
                 req_dict = json.loads(request.data)
                 username = req_dict["username"]
+                if username == None:
+                        response = Response("{\n'message': 'Error - No username was provided.'\n}", status=400, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                password = req_dict["password"]
+                print(f"Password: {password}")
+                if password == None:
+                        response = Response("{\n'message': 'Error - No password was provided.'\n}", status=400, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
                 query = f"SELECT * FROM customer WHERE username = '{username}';"
                 try:
                         cursor = session.execute(query).cursor
@@ -33,6 +45,10 @@ class auth_helper():
                         return response
                 try:
                         data = db_helper.get_record_no_payload(cursor, query)
+                        if data == None:
+                                response = Response('''{\n"message": "Error - Username could not be found."\n}''', status=404, mimetype='application/json')
+                                response.headers.add('Access-Control-Allow-Origin', '*')
+                                return response
                         user = {
                                 "user_id": data[0],
                                 "user_first_name": data[1],
@@ -41,6 +57,10 @@ class auth_helper():
                                 "user_password": data[4],
                                 "user_start_date": str(data[5])[:10] # convert datetime obj -> str
                         }
+                        if user["user_password"] != password:
+                                response = Response('''{\n"message": "Error - An incorrect password was entered."\n}''', status=401, mimetype='application/json')
+                                response.headers.add('Access-Control-Allow-Origin', '*')
+                                return response
                         json_data = json.dumps(user)
                         response = Response(json_data, status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')

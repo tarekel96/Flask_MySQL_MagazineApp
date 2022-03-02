@@ -22,6 +22,7 @@ export const AdminForm = () => {
 			.then((res) => {
 				console.log(res);
 				if (res.status === 201) {
+					console.log(res);
 					alert(res.data);
 					navigate('/admin');
 				}
