@@ -1,8 +1,9 @@
 .container {
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: baseline;
 	height: 100%;
+	padding-top: 2.5%;
 }
 .login-radio-section {
 	margin: 0 auto 1.5rem auto;

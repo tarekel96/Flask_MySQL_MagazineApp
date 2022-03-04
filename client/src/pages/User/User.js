@@ -7,7 +7,6 @@ import styles from './user.module.css';
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
-	console.log(subs);
 	return (
 		<section className={styles['user-section']}>
 			<header className={styles['user-header']}>

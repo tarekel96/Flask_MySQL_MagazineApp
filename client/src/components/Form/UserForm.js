@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import styles from './userform.module.css';
@@ -80,6 +80,9 @@ export const UserForm = () => {
 					placeholder="password.."
 					className={styles['password-input']}
 				/>
+				<Link to="/signup" className={styles['signupLink']}>
+					Don't have an account? Register!
+				</Link>
 				<input type="submit" className={styles['submit-button']} />
 			</div>
 		</form>
