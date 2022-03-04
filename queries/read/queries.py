@@ -93,6 +93,14 @@ QUERIES = {
                         INNER JOIN magazine AS m ON m.magID = s.magID
                         WHERE c.username = %s;
                         ''',
+        "SUB_GET_BY_ID":
+                        '''
+                        SELECT m.magazineName, m.cost, s.startDate, s.endDate
+                        FROM customer AS c
+                        INNER JOIN subscription AS s ON s.custID = c.custID
+                        INNER JOIN magazine AS m ON m.magID = s.magID
+                        WHERE c.custID = %s;
+                        ''',
         "MAGS_MAX_BUY_CAP":
                         '''
                         SELECT MAX(M.category) AS numOfCategory, P.zipCode AS zipCode

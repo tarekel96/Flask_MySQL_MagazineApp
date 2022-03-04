@@ -35,7 +35,6 @@ class db_helper():
         @staticmethod
         # function to execute fetch records
         def get_records(cursor, query, keys):
-                print('in get records')
                 try:
                         cursor.execute(query)
                         results = cursor.fetchall()
@@ -76,10 +75,20 @@ class db_helper():
                         return results
                 except Exception as err:
                         print(f"Error: An error occurred in trying execute a single query.\n{err}")
+        
+        @staticmethod
+        # function to fetch a single record
+        def get_records_no_payload(cursor, query):
+                try:
+                        cursor.execute(query)
+                        results = cursor.fetchall()
+                        return results
+                except Exception as err:
+                        print(f"Error: An error occurred in trying execute a single query.\n{err}")
 
         @staticmethod
         # function to execute fetch records
-        def get_records_payload(connection, cursor, query, payload):
+        def get_records_payload(cursor, query, payload):
                 try:
                         cursor.execute(query, payload)
                         results = cursor.fetchall()

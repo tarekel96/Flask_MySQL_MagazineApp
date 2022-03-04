@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 # import Flask local modules
 from config import Config
 from routes.auth import auth_bp_config
+from routes.user import user_bp_config
 # import local modules
 from models.parser import Parser
 from models.db_model import DB_Model
@@ -20,7 +21,7 @@ def create_app():
     CORS(app)
     app.config.from_object(Config)
     # bind blue prints to WSGI app
-    blueprints = [auth_bp_config]
+    blueprints = [auth_bp_config, user_bp_config]
     for bp in blueprints:
         app.register_blueprint(bp[0], url_prefix=bp[1])
     SQLALCHEMY_TRACK_MODIFICATIONS = False

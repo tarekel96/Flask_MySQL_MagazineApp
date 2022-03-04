@@ -6,6 +6,7 @@ import styles from './userform.module.css';
 export const UserForm = () => {
 	const user = useUserContext()['user'];
 	const setUser = useUserContext()['updateUser'];
+	const fetchSubs = useUserContext()['fetchSubs'];
 
 	let navigate = useNavigate();
 
@@ -43,6 +44,7 @@ export const UserForm = () => {
 						user_start_date: res.data['user_start_date']
 					};
 					setUser(chosenUser);
+					fetchSubs(userID);
 					navigate(`/dashboard/${userID}`);
 				}
 				else if (res.status === 401) {
