@@ -20,18 +20,21 @@ const User = () => {
 						{subs === null ? (
 							<Loading />
 						) : (
-							subs.map((sub) => (
-								<Subscription
-									subID={sub.id}
-									magazineName={sub.name}
-									cost={sub.price}
-									category={sub.category}
-									startDate={sub.startDate}
-									endDate={sub.endDate}
-									subscribed={sub.subscribed}
-									key={sub.id}
-								/>
-							))
+							<Fragment>
+								<SubscriptionLabels />
+								{subs.map((sub) => (
+									<Subscription
+										subID={sub.id}
+										magazineName={sub.name}
+										cost={sub.price}
+										category={sub.category}
+										startDate={sub.startDate}
+										endDate={sub.endDate}
+										subscribed={sub.subscribed}
+										key={sub.id}
+									/>
+								))}
+							</Fragment>
 						)}
 					</tbody>
 				</table>
