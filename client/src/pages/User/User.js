@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import { Subscription, SubscriptionLabels } from '../../components/Subscription/Subscription';
+import { Loading } from '../../components/Loading/Loading';
 import styles from './user.module.css';
 
 const User = () => {
@@ -17,11 +18,7 @@ const User = () => {
 				<table className={styles['subscriptions']}>
 					<tbody>
 						{subs === null ? (
-							<Fragment>
-								<SubscriptionLabels />
-								<Subscription />
-								<Subscription />
-							</Fragment>
+							<Loading />
 						) : (
 							subs.map((sub) => (
 								<Subscription
@@ -32,6 +29,7 @@ const User = () => {
 									startDate={sub.startDate}
 									endDate={sub.endDate}
 									subscribed={sub.subscribed}
+									key={sub.id}
 								/>
 							))
 						)}
