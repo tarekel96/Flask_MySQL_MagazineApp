@@ -5,12 +5,19 @@
 html,
 body,
 #root {
-	margin: 0;
+	/* VARIABLES */
+	--color-background: #093545;
+	--color-primary: #224957;
+	--color-secondary: #20df7f;
+	--color-text: #fff;
+	--font-family: 'Lexend Deca', sans-serif;
+
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
 		'Droid Sans', 'Helvetica Neue', sans-serif;
+	/* SPACING */
+	--border-radius-form: 10px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	height: 100%;
 }
 
 code {

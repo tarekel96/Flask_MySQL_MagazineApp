@@ -1,12 +1,35 @@
 .container {
 	display: flex;
-	justify-content: center;
-	align-items: baseline;
+	flex-direction: column;
+	justify-content: baseline;
+	align-items: center;
 	height: 100%;
 	padding-top: 2.5%;
+	width: 80%;
+	margin: 0 auto;
 }
-.login-radio-section {
-	margin: 0 auto 1.5rem auto;
+
+.login-sub-container {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-radio-section {
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
 	justify-content: space-evenly;
+	width: 100%;
+}
+
+.login-radio-section label {
+	font-size: 24px;
+	padding-right: 7.5px;
+}
+
+.formHeader {
+	font-size: 64px;
+	line-height: 80px;
 }

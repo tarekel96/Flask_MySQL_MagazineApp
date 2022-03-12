@@ -12,25 +12,29 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<section className={styles['login-sub-container']}>
 			{isAdmin ? (
 				<Fragment>
-					<h2>Admin Login Page</h2>
+					<h2 className={styles['formHeader']}>Sign In (Admin)</h2>
 					<AdminForm />
 				</Fragment>
 			) : (
 				<Fragment>
-					<h2>User Login Page</h2>
+					<h2 className={styles['formHeader']}>Sign In</h2>
 					<UserForm />
 				</Fragment>
 			)}
 			<div className={styles['login-radio-section']}>
-				<label htmlFor="admin">Admin</label>
-				<input type="radio" name="admin" value={isAdmin} onChange={handleSelection} checked={isAdmin} />
-				<label htmlFor="user">User</label>
-				<input type="radio" name="user" value={!isAdmin} onChange={handleSelection} checked={!isAdmin} />
+				<div>
+					<label htmlFor="admin">Admin</label>
+					<input type="radio" name="admin" value={isAdmin} onChange={handleSelection} checked={isAdmin} />
+				</div>
+				<div>
+					<label htmlFor="user">User</label>
+					<input type="radio" name="user" value={!isAdmin} onChange={handleSelection} checked={!isAdmin} />
+				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Button } from '../Button/Button';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
@@ -62,7 +63,7 @@ export const UserForm = () => {
 	return (
 		<form className={styles['user-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['user-form-body']}>
-				<label htmlFor="username">Enter Username:</label>
+				{/*		<label htmlFor="username">Enter Username:</label>*/}
 				<input
 					onChange={(e) => handleChangeUsername(e)}
 					value={username}
@@ -71,7 +72,7 @@ export const UserForm = () => {
 					placeholder="username.."
 					className={styles['username-input']}
 				/>
-				<label htmlFor="password">Enter Password:</label>
+				{/*<label htmlFor="password">Enter Password:</label>*/}
 				<input
 					onChange={(e) => handleChangePassword(e)}
 					value={password}
@@ -83,7 +84,10 @@ export const UserForm = () => {
 				<Link to="/signup" className={styles['signupLink']}>
 					Don't have an account? Register!
 				</Link>
-				<input type="submit" className={styles['submit-button']} />
+				<Button type="submit" className={styles['submit-button']}>
+					Login
+				</Button>
+				{/*<input type="submit" className={styles['submit-button']} />*/}
 			</div>
 		</form>
 	);

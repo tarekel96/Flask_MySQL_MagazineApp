@@ -5,7 +5,6 @@ import NotFound from '../pages/NotFound/NotFound';
 import Signup from '../pages/Signup/Signup';
 import { Container } from '../components/Container/Container';
 import loginStyles from '../pages/Login/login.module.css';
-
 const LoginPage = () => (
 	<Container className={loginStyles['container']}>
 		<Login />

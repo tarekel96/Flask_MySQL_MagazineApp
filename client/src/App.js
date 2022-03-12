@@ -1,3 +1,4 @@
+import { Footer } from './components/Footer/Footer';
 // import routes
 import { routes } from './routes/routes';
 // import libraries
@@ -18,6 +19,7 @@ function App() {
 					))}
 				</Routes>
 			</div>
+			<Footer className="footer" />
 		</UserProvider>
 	);
 }
