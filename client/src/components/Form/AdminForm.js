@@ -1,3 +1,4 @@
+import { Button } from '../Button/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -35,16 +36,20 @@ export const AdminForm = () => {
 	return (
 		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['admin-form-body']}>
-				<label htmlFor="password">Enter Password:</label>
-				<input
-					onChange={(e) => handleChange(e)}
-					value={password}
-					type="text"
-					name="password"
-					placeholder="password.."
-					className={styles['password-input']}
-				/>
-				<input type="submit" className={styles['submit-button']} />
+				{/*<label htmlFor="password">Enter Password:</label>*/}
+				<div>
+					<input
+						onChange={(e) => handleChange(e)}
+						value={password}
+						type="text"
+						name="password"
+						placeholder="password.."
+						className={styles['password-input']}
+					/>
+				</div>
+				<Button type="submit" className={styles['submit-button']}>
+					Authenticate
+				</Button>
 			</div>
 		</form>
 	);

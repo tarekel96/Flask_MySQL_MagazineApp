@@ -5,6 +5,8 @@ import NotFound from '../pages/NotFound/NotFound';
 import Signup from '../pages/Signup/Signup';
 import { Container } from '../components/Container/Container';
 import loginStyles from '../pages/Login/login.module.css';
+import adminStyles from '../pages/Admin/admin.module.css';
+
 const LoginPage = () => (
 	<Container className={loginStyles['container']}>
 		<Login />
@@ -14,6 +16,12 @@ const LoginPage = () => (
 const UserPage = () => (
 	<Container>
 		<User />
+	</Container>
+);
+
+const AdminPage = () => (
+	<Container className={adminStyles['container']}>
+		<Admin />
 	</Container>
 );
 
