@@ -43,7 +43,7 @@ export const AdminForm = () => {
 						value={password}
 						type="text"
 						name="password"
-						placeholder="password.."
+						placeholder="Password.."
 						className={styles['password-input']}
 					/>
 				</div>

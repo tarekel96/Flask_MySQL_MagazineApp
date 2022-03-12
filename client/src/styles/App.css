@@ -10,6 +10,8 @@ body {
 }
 input {
 	background-color: var(--color-primary);
+	border: none;
+	color: var(--color-text);
 }
 a {
 	color: var(--color-secondary);

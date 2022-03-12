@@ -69,7 +69,7 @@ export const UserForm = () => {
 					value={username}
 					type="text"
 					name="username"
-					placeholder="username.."
+					placeholder="Username.."
 					className={styles['username-input']}
 				/>
 				{/*<label htmlFor="password">Enter Password:</label>*/}
@@ -78,7 +78,7 @@ export const UserForm = () => {
 					value={password}
 					type="text"
 					name="password"
-					placeholder="password.."
+					placeholder="Password.."
 					className={styles['password-input']}
 				/>
 				<Link to="/signup" className={styles['signupLink']}>
