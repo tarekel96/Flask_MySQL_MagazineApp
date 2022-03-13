@@ -2,7 +2,7 @@
 # from record_types.Customer import Customer
 import os
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, Blueprint, request, g
+from flask import Flask, Blueprint, request, Response
 from controllers.auth_helper import auth_helper as auth
 
 def init_db(app):
@@ -19,7 +19,9 @@ auth_bp_config = (auth_bp, "/auth")
 
 @auth_bp.route('/', methods=['GET'])
 def index():
-        return "auth index"
+        response = Response('{\n"Message": "Auth Index"\n}', status=201, mimetype='application/json')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
 @auth_bp.route('/admin', methods=['POST'])
 def admin_auth():

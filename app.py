@@ -50,6 +50,7 @@ def main():
 
 
 if __name__ == "__main__":
+    print("here")
     app = main()
     app.run(debug=True)
 
