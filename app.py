@@ -15,6 +15,7 @@ from models.db_model import DB_Model
 from queries.create.queries import QUERIES as CRE_QUERIES
 from views.root import run_program
 
+
 def create_app():
     # app is the WSGI instance
     app = Flask(__name__)
@@ -27,16 +28,21 @@ def create_app():
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     return app
 
+
 def pre_process():
     # parses csv data into Python instances stored in lists
     parser = Parser()
     # connects to MySQL DB, removes tables (if exits), and creates tables
-    #   second bool is if on cloud instance or not 
-    db = DB_Model(parser, False, False) # set the first bool to True for first run
+    # set the first bool to True for first run,
+    # second bool is if on cloud instance or not
+    db = DB_Model(parser, False, False)
     db.destructor()
 
+
 def init_db(app):
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:\
+        {os.getenv("password")}@{os.getenv("hostname")}/\
+            {os.getenv("database")}'
     db = SQLAlchemy(app)
     return db
 
@@ -48,9 +54,6 @@ def main():
     return app
 
 
-
 if __name__ == "__main__":
-    print("here")
     app = main()
     app.run(debug=True)
-
