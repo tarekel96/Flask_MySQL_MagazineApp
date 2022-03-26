@@ -3,6 +3,7 @@ import { Button } from '../Button/Button';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
+import { setupLocalStorage } from '../../auth/auth';
 import styles from './userform.module.css';
 export const UserForm = () => {
 	const user = useUserContext()['user'];
@@ -19,6 +20,7 @@ export const UserForm = () => {
 	const handleChangePassword = (e) => {
 		setPassword(e.target.value);
 	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		return axios
@@ -45,6 +47,7 @@ export const UserForm = () => {
 						user_start_date: res.data['user_start_date']
 					};
 					setUser(chosenUser);
+					setupLocalStorage(chosenUser.user_id);
 					fetchSubs(userID);
 					navigate(`/dashboard/${userID}`);
 				}

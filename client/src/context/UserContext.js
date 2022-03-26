@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+// import {}
 // context objects
 const UserContext = createContext(null);
 // context hooks: These hooks make so dont have to import useContext with useUserContext, in each file
@@ -20,6 +21,7 @@ export const UserProvider = ({ children }) => {
 
 	const logout = useCallback(() => {
 		setUser(null);
+		localStorage.clear();
 		alert('You are now logged out.');
 		navigate('/');
 	}, []);
