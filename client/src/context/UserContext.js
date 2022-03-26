@@ -44,6 +44,28 @@ export const UserProvider = ({ children }) => {
 		}
 	}, []);
 
+	const fetchSubStatus = useCallback(async (id, subID) => {
+		try {
+			return axios
+				.get(`http://127.0.0.1:5000/user/subs/${id}`)
+				.then((res) => {
+					if (res.status === 201) {
+						return res;
+					}
+					console.log(res);
+				})
+				.then((json) => {
+					return json.data[subID].subscribed;
+				})
+				.catch((e) => {
+					console.log(e);
+					alert(e);
+				});
+		} catch (e) {
+			console.log(`Error: An error occurred in trying to fetch subscriptions.\n${e}`);
+		}
+	}, []);
+
 	// memoize the full context value
 	const contextValue = useMemo(
 		() => ({

@@ -17,7 +17,11 @@ const User = () => {
 				<table className={styles['subscriptions']}>
 					<tbody>
 						{subs === null ? (
-							<Loading />
+							<tr>
+								<td colSpan="4">
+									<Loading />
+								</td>
+							</tr>
 						) : (
 							<Fragment>
 								<SubscriptionLabels />
@@ -29,7 +33,7 @@ const User = () => {
 										category={sub.category}
 										startDate={sub.startDate}
 										endDate={sub.endDate}
-										subscribed={sub.subscribed}
+										// subscribed={sub.subscribed}
 										key={sub.id}
 									/>
 								))}
