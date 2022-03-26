@@ -1,3 +1,4 @@
+import { RequireAuth } from '../auth/auth';
 import Login from '../pages/Login/Login';
 import Admin from '../pages/Admin/Admin';
 import User from '../pages/User/User';
@@ -43,7 +44,11 @@ export const routes = [
 	},
 	{
 		path: '/dashboard/:id',
-		component: <UserPage />,
+		component: (
+			<RequireAuth>
+				<UserPage />
+			</RequireAuth>
+		),
 		exact: true
 	},
 	{
