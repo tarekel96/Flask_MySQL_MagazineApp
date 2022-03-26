@@ -5,6 +5,7 @@ export const Button = ({ children }, className, type = 'submit') => {
 		return (
 			<input
 				placeholder={children}
+				value={children}
 				className={`${styles['button']} ${className !== undefined && className}`}
 				type={type}
 			/>

@@ -1,12 +1,14 @@
 import { Fragment } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import { Subscription, SubscriptionLabels } from '../../components/Subscription/Subscription';
+import { Button } from '../../components/Button/Button';
 import { Loading } from '../../components/Loading/Loading';
 import styles from './user.module.css';
 
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
+	const logout = useUserContext()['logout'];
 	return (
 		<section className={styles['user-section']}>
 			<header className={styles['user-header']}>
@@ -33,7 +35,6 @@ const User = () => {
 										category={sub.category}
 										startDate={sub.startDate}
 										endDate={sub.endDate}
-										// subscribed={sub.subscribed}
 										key={sub.id}
 									/>
 								))}
@@ -42,6 +43,9 @@ const User = () => {
 					</tbody>
 				</table>
 			</section>
+			<form onSubmit={logout} className={styles['logout-btn-container']}>
+				<Button type="submit">Logout</Button>
+			</form>
 		</section>
 	);
 };

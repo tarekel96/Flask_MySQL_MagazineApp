@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // context objects
 const UserContext = createContext(null);
@@ -8,6 +9,7 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }) => {
+	let navigate = useNavigate('/');
 	// default state of user obj
 	const [ user, setUser ] = useState(null);
 	const [ subs, setSubs ] = useState(null);
@@ -18,6 +20,8 @@ export const UserProvider = ({ children }) => {
 
 	const logout = useCallback(() => {
 		setUser(null);
+		alert('You are now logged out.');
+		navigate('/');
 	}, []);
 
 	const fetchSubs = useCallback(async (id) => {
@@ -73,9 +77,10 @@ export const UserProvider = ({ children }) => {
 			updateUser,
 			logout,
 			subs,
-			fetchSubs
+			fetchSubs,
+			fetchSubStatus
 		}),
-		[ user, updateUser, logout, subs, fetchSubs ]
+		[ user, updateUser, logout, subs, fetchSubs, fetchSubStatus ]
 	);
 
 	return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

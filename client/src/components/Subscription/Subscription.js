@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import styles from './subscription.module.css';
 
@@ -9,10 +9,16 @@ export const Subscription = ({
 	category = 'children',
 	startDate = '10/12/2021',
 	endDate = '03/01/2022'
-	// subscribed = true
 }) => {
+	const user = useUserContext()['user'];
 	const fetchSubStatus = useUserContext()['fetchSubStatus'];
-	const [ subscribed, setSubscribed ] = useState(fetchSubStatus);
+	const [ subscribed, setSubscribed ] = useState(false);
+
+	// useEffect(() => {
+	// 	if (user !== null) {
+	// 		setSubscribed(fetchSubStatus(user.user_id, subID));
+	// 	}
+	// }, []);
 	const handleChange = () => setSubscribed((prevState) => !prevState);
 	// TODO - make handle submit
 
