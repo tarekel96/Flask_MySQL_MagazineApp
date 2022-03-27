@@ -16,7 +16,7 @@ QUERIES = {
                         custID INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
                         firstName VARCHAR(50),
                         lastName VARCHAR(50),
-                        username VARCHAR(50),
+                        username VARCHAR(50) UNIQUE,
                         password VARCHAR(50),
                         recCreateDate DATE DEFAULT (CURRENT_DATE)
                         );

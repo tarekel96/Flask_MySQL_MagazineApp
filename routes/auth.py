@@ -39,8 +39,19 @@ def user_auth():
                 with app.app_context():
                         db = SQLAlchemy(app)
                         session = db.session()
-
                         return auth.user_login(request, session)
+
+@auth_bp.route('/signup', methods=['POST'])
+def user_signup():
+        # user attempt to login as admin via form data
+        if request.method == 'POST':
+                app = Flask(__name__)
+                app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+                app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+                with app.app_context():
+                        db = SQLAlchemy(app)
+                        session = db.session()
+                        return auth.user_signup(session, request, session)
 
 @auth_bp.route('/magazine_catalog', methods=['GET'])
 def get_catalog():

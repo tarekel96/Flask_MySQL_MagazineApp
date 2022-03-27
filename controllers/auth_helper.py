@@ -68,6 +68,46 @@ class auth_helper():
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
 
+
+        @staticmethod
+        def user_signup(connection, request, session):
+                req_dict = json.loads(request.data)
+                username = req_dict["user_username"]
+                query = f"SELECT * FROM customer WHERE username = '{username}';"
+                print(f"Username {username}")
+                try:
+                        cursor = session.execute(query).cursor
+                except:
+                        response = Response("{\n'message': 'Error - Unknown error with user signup.'\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                data = db_helper.get_record_no_payload(cursor, query)
+                if data != None:
+                        response = Response('''{\n"message": "Error - Username already exists."\n}''', status=404, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                user = {
+                        "user_first_name": req_dict["user_first_name"],
+                        "user_last_name": req_dict["user_last_name"],
+                        "user_username": req_dict["user_username"],
+                        "user_password": req_dict["user_password"],
+                }
+                query = """INSERT INTO customer (firstName, lastName, username, password)
+                VALUES (%s, %s, %s, %s)"""
+                payload = (user["user_first_name"], user["user_last_name"], user["user_username"], user["user_password"], )
+                try:
+                        print('before cursor')
+                        data = db_helper.single_query_payload(connection, cursor, query, payload)
+                        print(f"Data {data}")
+                        response = Response('''{\n"message": "Success - User has been added to the database."\n}''', status=201, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except mysql.connector.Error as err:
+                        print(err)
+                        response = Response("{\n'message': 'Error - An error occurred in creating a new user.'\n}", status=502, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+
         @staticmethod
         def get_catalog(session):
                 cursor = session.execute(RE_QUERIES["MAGS_GET_CATALOG"]).cursor

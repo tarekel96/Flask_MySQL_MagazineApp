@@ -17,6 +17,7 @@ class db_helper():
         # function to execute a single query with no payload
         def single_query(connection, cursor, query):
                 try:
+                        print(f"connection: {connection}")
                         cursor.execute(query)
                         connection.commit()
                 except Exception as err:
@@ -27,6 +28,7 @@ class db_helper():
          # function to execute a single query with no payload
         def single_query_payload(connection, cursor, query, payload):
                 try:
+                        print('in here')
                         cursor.execute(query, payload)
                         connection.commit()
                 except Exception as err:
