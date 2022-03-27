@@ -61,7 +61,9 @@ export const UserProvider = ({ children }) => {
 					console.log(res);
 				})
 				.then((json) => {
-					return json.data[subID].subscribed;
+					let subs = json.data;
+					let selectedSub = subs.find((sub) => sub.id === subID);
+					return selectedSub.subscribed;
 				})
 				.catch((e) => {
 					console.log(e);

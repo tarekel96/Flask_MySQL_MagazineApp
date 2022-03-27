@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Loading } from '../Loading/Loading';
 import { useUserContext } from '../../context/UserContext';
 import styles from './subscription.module.css';
 
@@ -13,27 +14,43 @@ export const Subscription = ({
 	const user = useUserContext()['user'];
 	const fetchSubStatus = useUserContext()['fetchSubStatus'];
 	const [ subscribed, setSubscribed ] = useState(false);
+	const [ loading, setLoading ] = useState(true);
 
-	// useEffect(() => {
-	// 	if (user !== null) {
-	// 		setSubscribed(fetchSubStatus(user.user_id, subID));
-	// 	}
-	// }, []);
+	useEffect(
+		() => {
+			if (user !== null) {
+				console.log(`SubID ${subID}`);
+				setSubscribed(fetchSubStatus(user.user_id, subID));
+				setLoading(false);
+			}
+		},
+		[ fetchSubStatus, subID, user ]
+	);
 	const handleChange = () => setSubscribed((prevState) => !prevState);
 	// TODO - make handle submit
 
 	return (
-		<tr className={styles['subscription-article']}>
-			<td>{subID}</td>
-			<td>{magazineName}</td>
-			<td>${cost}</td>
-			<td>{category}</td>
-			<td>{startDate}</td>
-			<td>{endDate}</td>
-			<td>
-				<input type="checkbox" checked={subscribed} onChange={handleChange} value={subscribed} />
-			</td>
-		</tr>
+		<React.Fragment>
+			{loading === true ? (
+				<tr>
+					<td>
+						<Loading />
+					</td>
+				</tr>
+			) : (
+				<tr className={styles['subscription-article']}>
+					<td>{subID}</td>
+					<td>{magazineName}</td>
+					<td>${cost}</td>
+					<td>{category}</td>
+					<td>{startDate}</td>
+					<td>{endDate}</td>
+					<td>
+						<input type="checkbox" checked={subscribed} onChange={handleChange} value={subscribed} />
+					</td>
+				</tr>
+			)}
+		</React.Fragment>
 	);
 };
 
