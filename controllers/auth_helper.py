@@ -74,7 +74,6 @@ class auth_helper():
                 req_dict = json.loads(request.data)
                 username = req_dict["user_username"]
                 query = f"SELECT * FROM customer WHERE username = '{username}';"
-                print(f"Username {username}")
                 try:
                         cursor = session.execute(query).cursor
                 except:
@@ -83,7 +82,7 @@ class auth_helper():
                         return response
                 data = db_helper.get_record_no_payload(cursor, query)
                 if data != None:
-                        response = Response('''{\n"message": "Error - Username already exists."\n}''', status=404, mimetype='application/json')
+                        response = Response('''{\n"message": "Error - Username already exists."\n}''', status=400, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
                 user = {
@@ -96,9 +95,7 @@ class auth_helper():
                 VALUES (%s, %s, %s, %s)"""
                 payload = (user["user_first_name"], user["user_last_name"], user["user_username"], user["user_password"], )
                 try:
-                        print('before cursor')
                         data = db_helper.single_query_payload(connection, cursor, query, payload)
-                        print(f"Data {data}")
                         response = Response('''{\n"message": "Success - User has been added to the database."\n}''', status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
