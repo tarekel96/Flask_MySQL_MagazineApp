@@ -35,28 +35,29 @@ def user_auth():
         if request.method == 'POST':
                 app = Flask(__name__)
                 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+                app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
                 with app.app_context():
                         db = SQLAlchemy(app)
                         session = db.session()
-                        SQLALCHEMY_TRACK_MODIFICATIONS = False
+
                         return auth.user_login(request, session)
 
 @auth_bp.route('/magazine_catalog', methods=['GET'])
 def get_catalog():
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         with app.app_context():
                 db = SQLAlchemy(app)
                 session = db.session()
-                SQLALCHEMY_TRACK_MODIFICATIONS = False
                 return auth.get_catalog(session)
 
 @auth_bp.route('/customers', methods=['GET'])
 def get_customers():
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         with app.app_context():
                 db = SQLAlchemy(app)
                 session = db.session()
-                SQLALCHEMY_TRACK_MODIFICATIONS = False
                 return auth.get_customers(session)

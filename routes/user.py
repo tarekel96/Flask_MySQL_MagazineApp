@@ -31,8 +31,8 @@ def test_id(id):
 def get_catalog(id):
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         with app.app_context():
                 db = SQLAlchemy(app)
                 session = db.session()
-                SQLALCHEMY_TRACK_MODIFICATIONS = False
                 return user_helper.get_subscriptions(session, id)
