@@ -9,6 +9,7 @@ const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
 	const logout = useUserContext()['logout'];
+
 	return (
 		<section className={styles['user-section']}>
 			<header className={styles['user-header']}>
@@ -16,15 +17,11 @@ const User = () => {
 			</header>
 			<h3 className={styles['user-subs-header']}>Subscriptions</h3>
 			<section className={styles['user-subs']}>
-				<table className={styles['subscriptions']}>
-					<tbody>
-						{subs === null ? (
-							<tr>
-								<td colSpan="4">
-									<Loading />
-								</td>
-							</tr>
-						) : (
+				{subs === null || subs.length === 0 ? (
+					<Loading />
+				) : subs !== null && Object.keys(subs[0]).length !== 0 ? (
+					<table className={styles['subscriptions']}>
+						<tbody>
 							<Fragment>
 								<SubscriptionLabels />
 								{subs.map((sub) => (
@@ -39,9 +36,11 @@ const User = () => {
 									/>
 								))}
 							</Fragment>
-						)}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				) : (
+					<h1>No Subscriptions</h1>
+				)}
 			</section>
 			<form onSubmit={logout} className={styles['logout-btn-container']}>
 				<Button type="submit">Logout</Button>

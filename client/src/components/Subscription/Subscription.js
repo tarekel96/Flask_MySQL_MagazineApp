@@ -38,17 +38,19 @@ export const Subscription = ({
 					</td>
 				</tr>
 			) : (
-				<tr className={styles['subscription-article']}>
-					<td>{subID}</td>
-					<td>{magazineName}</td>
-					<td>${cost}</td>
-					<td>{category}</td>
-					<td>{startDate}</td>
-					<td>{endDate}</td>
-					<td>
-						<input type="checkbox" checked={subscribed} onChange={handleChange} value={subscribed} />
-					</td>
-				</tr>
+				subscribed !== null && (
+					<tr className={styles['subscription-article']}>
+						<td>{subID}</td>
+						<td>{magazineName}</td>
+						<td>${cost}</td>
+						<td>{category}</td>
+						<td>{startDate}</td>
+						<td>{endDate}</td>
+						<td>
+							<input type="checkbox" checked={subscribed} onChange={handleChange} value={subscribed} />
+						</td>
+					</tr>
+				)
 			)}
 		</React.Fragment>
 	);
