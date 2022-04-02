@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useAuthContext } from '../../context/AdminContext';
+import { Button } from '../../components/Button/Button';
 import { MagItem } from '../../components/MagItem/MagItem';
 import { CustItem } from '../../components/CustItem/CustItem';
 import axios from 'axios';
 import styles from './admin.module.css';
 
 const Admin = () => {
+	const logoutAuth = useAuthContext()['logoutAuth'];
 	const [ showForm, setFormVisibility ] = useState(true);
 	const [ content, setContent ] = useState([]);
 	const [ userSelection, setUserSelection ] = useState('');
@@ -148,6 +151,9 @@ const Admin = () => {
 	return (
 		<div>
 			<h1 className={styles['admin-header']}>Admin Page</h1>
+			<form onSubmit={logoutAuth} className={styles['logout-btn-container']}>
+				<Button type="submit">Logout</Button>
+			</form>
 			{!showForm ? (
 				<div className={styles['show-btn-wrapper']}>
 					<button className={styles['show-btn']} onClick={toggleForm}>

@@ -19,12 +19,15 @@ export const UserProvider = ({ children }) => {
 		setUser(newUser);
 	}, []);
 
-	const logout = useCallback(() => {
-		setUser(null);
-		localStorage.clear();
-		alert('You are now logged out.');
-		navigate('/');
-	}, []);
+	const logout = useCallback(
+		() => {
+			setUser(null);
+			localStorage.clear();
+			alert('You are now logged out.');
+			navigate('/');
+		},
+		[ navigate ]
+	);
 
 	const fetchSubs = useCallback(async (id) => {
 		try {

@@ -1,4 +1,4 @@
-import { RequireAuth } from '../auth/auth';
+import { RequireAuth, RequireAdminAuth } from '../auth/auth';
 import Login from '../pages/Login/Login';
 import Admin from '../pages/Admin/Admin';
 import User from '../pages/User/User';
@@ -39,7 +39,11 @@ export const routes = [
 	},
 	{
 		path: '/admin',
-		component: <Admin />,
+		component: (
+			<RequireAdminAuth>
+				<AdminPage />
+			</RequireAdminAuth>
+		),
 		exact: true
 	},
 	{

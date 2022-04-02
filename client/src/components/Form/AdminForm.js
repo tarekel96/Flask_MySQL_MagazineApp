@@ -1,9 +1,11 @@
 import { Button } from '../Button/Button';
+import { useAuthContext } from '../../context/AdminContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './adminform.module.css';
 export const AdminForm = () => {
+	const authenticateAdmin = useAuthContext()['authenticateAdmin'];
 	let navigate = useNavigate();
 
 	const [ password, setPassword ] = useState('');
@@ -24,6 +26,7 @@ export const AdminForm = () => {
 				console.log(res);
 				if (res.status === 201) {
 					console.log(res);
+					authenticateAdmin();
 					alert(res.data);
 					navigate('/admin');
 				}

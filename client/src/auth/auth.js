@@ -1,10 +1,18 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
+import { useAuthContext } from '../context/AdminContext';
 
 export const RequireAuth = ({ children }) => {
 	let location = useLocation();
 	const user = useUserContext()['user'];
 	let isAuthenticated = user !== null && user !== undefined;
+	return isAuthenticated ? children : <Navigate to="/" state={{ from: location }} replace={true} />;
+};
+
+export const RequireAdminAuth = ({ children }) => {
+	let location = useLocation();
+	let admin = useAuthContext()['isAdmin'];
+	let isAuthenticated = admin !== null && admin !== undefined && admin !== false;
 	return isAuthenticated ? children : <Navigate to="/" state={{ from: location }} replace={true} />;
 };
 
