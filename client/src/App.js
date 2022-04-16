@@ -1,8 +1,6 @@
 import { Footer } from './components/Footer/Footer';
 // import routes
 import { routes } from './routes/routes';
-// import libraries
-import axios from 'axios';
 // import library components
 import { Routes, Route } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';

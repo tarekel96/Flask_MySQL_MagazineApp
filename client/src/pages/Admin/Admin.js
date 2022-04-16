@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '../../context/AdminContext';
 import { Button } from '../../components/Button/Button';
 import { MagItem } from '../../components/MagItem/MagItem';

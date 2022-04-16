@@ -1,10 +1,30 @@
 .table-container {
         background-color: rgb(26, 32, 39);
+        border-radius: 4px;
 }
-.table-container, .table, .table thead tr th, .table tbody tr td  {
+/* table {
+        border-collapse: collapse;
+} */
+
+.table-container table, .table-container .table thead tr th {
+        font-weight: 500;
+}
+
+.table-container, .table-container .table, .table-container .table thead tr th, .table-container .table tbody tr td  {
         color: rgb(255, 255, 255);
 }
-table thead {
+.table-container table thead tr, .table-container table thead tr th, .table-container table tbody tr, .table-container table tbody tr td {
+        border-top: 1px solid rgb(81, 81, 81);
+        border-bottom: 1px solid rgb(81, 81, 81);
+}
+
+.table-container table thead tr, .table-container table tbody tr {
+        border-right: 1px solid rgb(81, 81, 81);
+        border-left: 1px solid rgb(81, 81, 81);
+
+}
+
+table thead tr {
         background-color: rgb(18, 18, 18);
 }
 
@@ -14,13 +34,3 @@ table tbody tr:nth-child(odd) {
 table tbody tr:nth-child(even) {
         background-color: rgb(26, 32, 39);
 }
-
-/* rgba(255, 255, 255, 0.08) */
-/* rgb(26, 32, 39) */
-
-/* 
-username: 
-6LiI-Dorothy
-password: 
-!9Fq
-*/

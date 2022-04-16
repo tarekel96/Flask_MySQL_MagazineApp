@@ -1,11 +1,9 @@
-import { Fragment } from 'react';
 import { useUserContext } from '../../context/UserContext';
-import { Subscription, SubscriptionLabels } from '../../components/Subscription/Subscription';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
 import { Button } from '../../components/Button/Button';
 import { Loading } from '../../components/Loading/Loading';
 import styles from './user.module.css';
-// @mui/material/
+
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
@@ -23,24 +21,6 @@ const User = () => {
 				) : subs !== null && Object.keys(subs[0]).length !== 0 ? (
 					<UserSubsTable subs={subs} />
 				) : (
-					// <table className={styles['subscriptions']}>
-					// 	<tbody>
-					// 		<Fragment>
-					// 			<SubscriptionLabels />
-					// 			{subs.map((sub) => (
-					// 				<Subscription
-					// 					subID={sub.id}
-					// 					magazineName={sub.name}
-					// 					cost={sub.price}
-					// 					category={sub.category}
-					// 					startDate={sub.startDate}
-					// 					endDate={sub.endDate}
-					// 					key={sub.id}
-					// 				/>
-					// 			))}
-					// 		</Fragment>
-					// 	</tbody>
-					// </table>
 					<h1>No Subscriptions</h1>
 				)}
 			</section>

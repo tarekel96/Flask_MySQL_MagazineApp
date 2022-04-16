@@ -6,7 +6,7 @@ import { useUserContext } from '../../context/UserContext';
 import { setupLocalStorage } from '../../auth/auth';
 import styles from './userform.module.css';
 export const UserForm = () => {
-	const user = useUserContext()['user'];
+	//const user = useUserContext()['user'];
 	const setUser = useUserContext()['updateUser'];
 	const fetchSubs = useUserContext()['fetchSubs'];
 

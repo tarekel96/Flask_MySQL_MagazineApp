@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { SmallLoading } from '../Loading/Loading';
 import { useUserContext } from '../../context/UserContext';
@@ -41,8 +40,8 @@ export const UserSubsTable = ({
 		const user = useUserContext()['user'];
 		const fetchSubStatus = useUserContext()['fetchSubStatus'];
 		const [ subscribed, setSubscribed ] = useState(false);
-		const [ loading, setLoading ] = useState(false);
-		// const [ loading, setLoading ] = useState(true);
+		//const [ loading, setLoading ] = useState(false);
+		const [ loading, setLoading ] = useState(true);
 
 		useEffect(
 			() => {
@@ -85,8 +84,6 @@ export const UserSubsTable = ({
 			</Fragment>
 		);
 	};
-
-	const numOfCols = column_names.length;
 
 	return (
 		<TableContainer className={styles['table-container']}>
