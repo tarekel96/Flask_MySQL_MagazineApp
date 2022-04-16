@@ -3,6 +3,7 @@ import Login from '../pages/Login/Login';
 import Admin from '../pages/Admin/Admin';
 import User from '../pages/User/User';
 import NotFound from '../pages/NotFound/NotFound';
+import Test from '../pages/Test/Test';
 import Signup from '../pages/Signup/Signup';
 import { Container } from '../components/Container/Container';
 import loginStyles from '../pages/Login/login.module.css';
@@ -53,6 +54,11 @@ export const routes = [
 				<UserPage />
 			</RequireAuth>
 		),
+		exact: true
+	},
+	{
+		path: '/test',
+		component: <Test />,
 		exact: true
 	},
 	{

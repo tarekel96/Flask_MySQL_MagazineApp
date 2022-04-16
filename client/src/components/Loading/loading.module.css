@@ -2,6 +2,12 @@
 	height: 100%;
 	width: 100%;
 }
+.loadingSectionSmall, .loadingSectionSmall > img {
+	height: 100%;
+	width: 100%;
+	max-height: 50px;
+	max-width: 50px;
+}
 .loadingImg {
 	margin: 0 auto;
 }

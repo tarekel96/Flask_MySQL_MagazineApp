@@ -6,3 +6,11 @@ export const Loading = () => {
 		</section>
 	);
 };
+
+export const SmallLoading = () => {
+	return (
+		<section className={styles['loadingSectionSmall']}>
+			<img src={'/assets/images/loading.gif'} className={styles['loadingImg']} alt="loading" />
+		</section>
+	);
+};

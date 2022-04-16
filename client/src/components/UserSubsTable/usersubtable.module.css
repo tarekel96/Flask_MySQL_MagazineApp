@@ -1,0 +1,26 @@
+.table-container {
+        background-color: rgb(26, 32, 39);
+}
+.table-container, .table, .table thead tr th, .table tbody tr td  {
+        color: rgb(255, 255, 255);
+}
+table thead {
+        background-color: rgb(18, 18, 18);
+}
+
+table tbody tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.08);
+}
+table tbody tr:nth-child(even) {
+        background-color: rgb(26, 32, 39);
+}
+
+/* rgba(255, 255, 255, 0.08) */
+/* rgb(26, 32, 39) */
+
+/* 
+username: 
+6LiI-Dorothy
+password: 
+!9Fq
+*/
