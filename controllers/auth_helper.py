@@ -1,9 +1,8 @@
-import re
 from queries.read.queries import QUERIES as RE_QUERIES
 from controllers.db_helper import db_helper
 import json
 import mysql.connector
-from flask import Response, jsonify
+from flask import Response
 
 # auth helper Class
 class auth_helper():

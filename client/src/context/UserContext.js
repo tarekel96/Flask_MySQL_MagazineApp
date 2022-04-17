@@ -38,12 +38,14 @@ export const UserProvider = ({ children }) => {
 			return axios
 				.get(`http://127.0.0.1:5000/user/subs/${id}`)
 				.then((res) => {
+					console.log(res);
 					if (res.status === 201) {
 						return res;
 					}
 					console.log(res);
 				})
 				.then((json) => {
+					console.log(json.data);
 					setSubs(json.data);
 				})
 				.catch((e) => {
