@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
 import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 import { Loading } from '../../components/Loading/Loading';
 import styles from './user.module.css';
-import { useState } from 'react';
 
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
 	const logout = useUserContext()['logout'];
+	const navToCatalog = useUserContext()['navToCatalog'];
 
 	const [ isOpen, toggle ] = useState(false);
 	const handleClick = () => toggle((prev) => !prev);
@@ -28,7 +29,7 @@ const User = () => {
 					<h1>No Subscriptions</h1>
 				)}
 			</section>
-			<TopRightMenu logout={logout} isOpen={isOpen} handleClick={handleClick} />
+			<TopRightMenu isOpen={isOpen} handleClick={handleClick} />
 		</section>
 	);
 };

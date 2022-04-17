@@ -29,6 +29,10 @@ export const UserProvider = ({ children }) => {
 		[ navigate ]
 	);
 
+	const navToHome = useCallback((id) => navigate(`/dashboard/${id}`), [ navigate ]);
+
+	const navToCatalog = useCallback((id) => navigate(`/catalog/${id}`), [ navigate ]);
+
 	const fetchSubs = useCallback(async (id) => {
 		try {
 			return axios
@@ -84,11 +88,13 @@ export const UserProvider = ({ children }) => {
 			user,
 			updateUser,
 			logout,
+			navToHome,
+			navToCatalog,
 			subs,
 			fetchSubs,
 			fetchSubStatus
 		}),
-		[ user, updateUser, logout, subs, fetchSubs, fetchSubStatus ]
+		[ user, updateUser, logout, navToHome, navToCatalog, subs, fetchSubs, fetchSubStatus ]
 	);
 
 	return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

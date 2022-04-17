@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
@@ -9,11 +9,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import { useUserContext } from '../../context/UserContext';
 import styles from './toprightmenu.module.css';
-import { red } from '@mui/material/colors';
 
-export const TopRightMenu = ({ logout }) => {
+export const TopRightMenu = () => {
+	const logout = useUserContext()['logout'];
+	const navToHome = useUserContext()['navToHome'];
+	const navToCatalog = useUserContext()['navToCatalog'];
+
 	const [ isOpen, setOpen ] = useState(false);
 	const toggleDrawer = (e) => {
 		if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
@@ -30,11 +35,58 @@ export const TopRightMenu = ({ logout }) => {
 			onKeyDown={(e) => toggleDrawer(e)}
 		>
 			<List>
-				<ListItem button onClick={logout}>
+				<ListItem
+					button
+					onClick={navToHome}
+					sx={{
+						'&:hover': {
+							color: '#20df7f',
+							'& svg': {
+								color: '#20df7f'
+							}
+						}
+					}}
+				>
+					<ListItemIcon>
+						<LoyaltyIcon sx={{ color: 'rgb(255, 255, 255)' }} />
+					</ListItemIcon>
+					<ListItemText primary={'My Subscriptions'} />
+				</ListItem>
+				<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
+				<ListItem
+					button
+					onClick={navToCatalog}
+					sx={{
+						'&:hover': {
+							color: '#20df7f',
+							'& svg': {
+								color: '#20df7f'
+							}
+						}
+					}}
+				>
+					<ListItemIcon>
+						<ImportContactsIcon sx={{ color: 'rgb(255, 255, 255)' }} />
+					</ListItemIcon>
+					<ListItemText primary={'View Catalog'} />
+				</ListItem>
+				<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
+				<ListItem
+					button
+					onClick={logout}
+					sx={{
+						'&:hover': {
+							color: '#20df7f',
+							'& svg': {
+								color: '#20df7f'
+							}
+						}
+					}}
+				>
 					<ListItemIcon>
 						<LogoutIcon sx={{ color: 'rgb(255, 255, 255)' }} />
 					</ListItemIcon>
-					<ListItemText primary={'Logout'} />
+					<ListItemText primary={'Sign Out'} />
 				</ListItem>
 			</List>
 			<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />

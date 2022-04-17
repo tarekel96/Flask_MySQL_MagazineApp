@@ -5,6 +5,8 @@ import User from '../pages/User/User';
 import NotFound from '../pages/NotFound/NotFound';
 import Test from '../pages/Test/Test';
 import Signup from '../pages/Signup/Signup';
+import Catalog from '../pages/Catalog/Catalog';
+import { TopRightMenu } from '../components/TopRightMenu/TopRightMenu';
 import { Container } from '../components/Container/Container';
 import loginStyles from '../pages/Login/login.module.css';
 import adminStyles from '../pages/Admin/admin.module.css';
@@ -15,11 +17,14 @@ const LoginPage = () => (
 	</Container>
 );
 
-const UserPage = () => (
-	<Container>
-		<User />
-	</Container>
-);
+const UserPage = () => {
+	return (
+		<Container>
+			<User />
+			<TopRightMenu />
+		</Container>
+	);
+};
 
 const AdminPage = () => (
 	<Container className={adminStyles['container']}>
@@ -52,6 +57,16 @@ export const routes = [
 		component: (
 			<RequireAuth>
 				<UserPage />
+			</RequireAuth>
+		),
+		exact: true
+	},
+	{
+		path: '/catalog/:id',
+		component: (
+			<RequireAuth>
+				<Catalog />
+				<TopRightMenu />
 			</RequireAuth>
 		),
 		exact: true
