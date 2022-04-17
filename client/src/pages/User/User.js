@@ -1,13 +1,62 @@
 import { useUserContext } from '../../context/UserContext';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
-import { Button } from '../../components/Button/Button';
+import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 import { Loading } from '../../components/Loading/Loading';
 import styles from './user.module.css';
+import { useState } from 'react';
 
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
 	const logout = useUserContext()['logout'];
+
+	const [ isOpen, toggle ] = useState(false);
+	const handleClick = () => toggle((prev) => !prev);
+
+	// const TopRightMenu = () => {
+	// 	return (
+	// 		<artcile className={styles['top-right-menu-wrapper']}>
+	// 			<Button
+	// 				id="basic-button"
+	// 				aria-controls={isOpen ? 'basic-menu' : undefined}
+	// 				aria-haspopup="true"
+	// 				aria-expanded={isOpen ? 'true' : undefined}
+	// 				onClick={handleClick}
+	// 				className={styles['top-right-menu-btn']}
+	// 			>
+	// 				<MenuIcon className={styles['menu-icon']} />
+	// 			</Button>
+	// 			<Menu
+	// 				className={styles['top-right-menu']}
+	// 				id="basic-menu"
+	// 				anchorEl={isOpen}
+	// 				open={isOpen}
+	// 				onClose={handleClick}
+	// 				anchorOrigin={{
+	// 					vertical: 'top',
+	// 					horizontal: 'right'
+	// 				}}
+	// 				transformOrigin={{
+	// 					vertical: 'top',
+	// 					horizontal: 'right'
+	// 				}}
+	// 				// MenuListProps={{
+	// 				// 	'aria-labelledby': 'basic-button'
+	// 				// }}
+	// 			>
+	// 				<Stack direction="row" spacing={2}>
+	// 					<Paper>
+	// 						<MenuList>
+	// 							<MenuItem onClick={logout} className={styles['logout-btn']}>
+	// 								Logout
+	// 							</MenuItem>
+	// 						</MenuList>
+	// 					</Paper>
+	// 				</Stack>
+	// 			</Menu>
+	// 		</artcile>
+	// 	);
+	// };
 
 	return (
 		<section className={styles['user-section']}>
@@ -24,9 +73,7 @@ const User = () => {
 					<h1>No Subscriptions</h1>
 				)}
 			</section>
-			<form onSubmit={logout} className={styles['logout-btn-container']}>
-				<Button type="submit">Logout</Button>
-			</form>
+			<TopRightMenu logout={logout} isOpen={isOpen} handleClick={handleClick}/>
 		</section>
 	);
 };

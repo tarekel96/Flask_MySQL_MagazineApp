@@ -1,10 +1,15 @@
-import { Fragment } from 'react';
-import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
+import { Fragment, useState } from 'react';
+// import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
+import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 
 const Test = () => {
+	const [ isOpen, toggle ] = useState(false);
+	const handleClick = () => toggle((prev) => !prev);
+	const logout = () => console.log('logout');
 	return (
 		<Fragment>
-			<UserSubsTable
+			<TopRightMenu isOpen={isOpen} handleClick={handleClick} logout={logout} />
+			{/*<UserSubsTable
 				subs={[
 					{
 						id: 1,
@@ -31,7 +36,7 @@ const Test = () => {
 						endDate: '06/01/2023'
 					}
 				]}
-			/>
+			/>*/}
 		</Fragment>
 	);
 };

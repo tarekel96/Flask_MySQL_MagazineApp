@@ -98,7 +98,7 @@ export const UserSubsTable = ({
 							category={sub.category}
 							startDate={sub.startDate}
 							endDate={sub.endDate}
-							key={sub.id}
+							key={sub.id + ' ' + sub.name + ' ' + sub.startDate}
 						/>
 					))}
 				</TableBody>
