@@ -24,9 +24,7 @@ export const UserSubsTable = ({
 		return (
 			<TableHead
 				sx={{
-					'& .MuiTableRow-root:nth-child(odd)': {
-						backgroundColor: 'rgb(18, 18, 18)'
-					}
+					backgroundColor: 'rgb(18, 18, 18)'
 				}}
 			>
 				<TableRow>{column_names.map((col_name) => <TableCell>{col_name}</TableCell>)}</TableRow>

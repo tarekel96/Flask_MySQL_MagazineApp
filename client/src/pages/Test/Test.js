@@ -1,11 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
-import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
+//import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 
 const Test = () => {
-	const [ isOpen, toggle ] = useState(false);
-	const handleClick = () => toggle((prev) => !prev);
-	const logout = () => console.log('logout');
 	return (
 		<Fragment>
 			{/*<TopRightMenu isOpen={isOpen} handleClick={handleClick} logout={logout} /> */}

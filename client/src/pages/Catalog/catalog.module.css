@@ -1,0 +1,9 @@
+.catalog-page {
+        height: 1000px;
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+}
