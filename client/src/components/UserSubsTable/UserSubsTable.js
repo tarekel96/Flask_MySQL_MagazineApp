@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import { SmallLoading } from '../Loading/Loading';
 import { useUserContext } from '../../context/UserContext';
-import styles from './usersubtable.module.css';
 export const UserSubsTable = ({
 	column_names = [
 		'Subscription ID',
@@ -23,7 +22,13 @@ export const UserSubsTable = ({
 }) => {
 	const TableHeader = () => {
 		return (
-			<TableHead styles={styles['table-header']}>
+			<TableHead
+				sx={{
+					'& .MuiTableRow-root:nth-child(odd)': {
+						backgroundColor: 'rgb(18, 18, 18)'
+					}
+				}}
+			>
 				<TableRow>{column_names.map((col_name) => <TableCell>{col_name}</TableCell>)}</TableRow>
 			</TableHead>
 		);
@@ -57,7 +62,12 @@ export const UserSubsTable = ({
 		return (
 			<Fragment>
 				{loading === true ? (
-					<TableRow>
+					<TableRow
+						sx={{
+							borderTop: '2px solid rgb(81, 81, 81)',
+							borderBottom: '2px solid rgb(81, 81, 81)'
+						}}
+					>
 						<TableCell>{subID}</TableCell>
 						<TableCell>{magazineName}</TableCell>
 						<TableCell>${cost}</TableCell>
@@ -69,7 +79,12 @@ export const UserSubsTable = ({
 						</TableCell>
 					</TableRow>
 				) : (
-					<TableRow>
+					<TableRow
+						sx={{
+							borderTop: '2px solid rgb(81, 81, 81)',
+							borderBottom: '2px solid rgb(81, 81, 81)'
+						}}
+					>
 						<TableCell>{subID}</TableCell>
 						<TableCell>{magazineName}</TableCell>
 						<TableCell>${cost}</TableCell>
@@ -86,10 +101,33 @@ export const UserSubsTable = ({
 	};
 
 	return (
-		<TableContainer className={styles['table-container']}>
-			<Table className={styles['table']}>
+		<TableContainer
+			sx={{
+				backgroundColor: 'rgb(18, 18, 18)',
+				borderRadius: '4px',
+				'& .MuiTableCell-root': {
+					color: 'rgb(255, 255, 255)'
+				},
+				'& .MuiTableHead-root': {
+					fontWeight: 500
+				}
+			}}
+		>
+			<Table>
 				<TableHeader />
-				<TableBody>
+				<TableBody
+					sx={{
+						borderTop: '2px solid rgb(81, 81, 81)',
+						borderBottom: '2px solid rgb(81, 81, 81)',
+						borderCollapse: 'collapse',
+						'& tr:nth-child(even)': {
+							backgroundColor: 'rgb(26, 32, 39)'
+						},
+						'& tr:nth-child(odd)': {
+							backgroundColor: 'rgba(255, 255, 255, 0.08)'
+						}
+					}}
+				>
 					{subs.map((sub) => (
 						<SubEntry
 							subID={sub.id}

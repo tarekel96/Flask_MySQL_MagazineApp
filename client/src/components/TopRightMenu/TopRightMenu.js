@@ -15,6 +15,7 @@ import { useUserContext } from '../../context/UserContext';
 import styles from './toprightmenu.module.css';
 
 export const TopRightMenu = () => {
+	const user = useUserContext()['user'];
 	const logout = useUserContext()['logout'];
 	const navToHome = useUserContext()['navToHome'];
 	const navToCatalog = useUserContext()['navToCatalog'];
@@ -37,7 +38,7 @@ export const TopRightMenu = () => {
 			<List>
 				<ListItem
 					button
-					onClick={navToHome}
+					onClick={() => navToHome(user.user_id)}
 					sx={{
 						'&:hover': {
 							color: '#20df7f',
@@ -55,7 +56,7 @@ export const TopRightMenu = () => {
 				<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
 				<ListItem
 					button
-					onClick={navToCatalog}
+					onClick={() => navToCatalog(user.user_id)}
 					sx={{
 						'&:hover': {
 							color: '#20df7f',

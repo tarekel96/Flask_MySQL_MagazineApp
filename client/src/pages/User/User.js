@@ -8,8 +8,6 @@ import styles from './user.module.css';
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
-	const logout = useUserContext()['logout'];
-	const navToCatalog = useUserContext()['navToCatalog'];
 
 	const [ isOpen, toggle ] = useState(false);
 	const handleClick = () => toggle((prev) => !prev);
