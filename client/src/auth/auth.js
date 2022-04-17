@@ -16,12 +16,18 @@ export const RequireAdminAuth = ({ children }) => {
 	return isAuthenticated ? children : <Navigate to="/" state={{ from: location }} replace={true} />;
 };
 
-export const setupLocalStorage = (user_id, ttl = 5000) => {
+export const setupLocalStorage = (user, ttl = 5000) => {
+	const { user_id, user_first_name, user_last_name, user_username, user_start_date } = user;
+
 	const now = new Date();
 	localStorage.setItem(
 		'user',
 		JSON.stringify({
-			user_id: user_id,
+			user_id,
+			user_first_name,
+			user_last_name,
+			user_username,
+			user_start_date,
 			expiry: now.getTime() + ttl
 		})
 	);
@@ -60,5 +66,5 @@ export const getLocalStorage = (key = 'user') => {
 		localStorage.removeItem(key);
 		return null;
 	}
-	return item.value;
+	return item.user;
 };

@@ -59,6 +59,7 @@ const Catalog = () => {
 				<Loading />
 			) : (
 				<DataGrid
+					autoHeight={true}
 					getRowId={(r) => r.magID}
 					sx={{
 						color: 'rgb(255, 255, 255)',

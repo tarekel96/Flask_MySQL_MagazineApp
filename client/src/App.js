@@ -1,4 +1,3 @@
-import { Footer } from './components/Footer/Footer';
 // import routes
 import { routes } from './routes/routes';
 // import library components
@@ -8,7 +7,7 @@ import { AuthProvider } from './context/AdminContext';
 // import styles
 import './styles/App.css';
 
-function App() {
+const App = () => {
 	return (
 		<AuthProvider>
 			<UserProvider>
@@ -19,10 +18,9 @@ function App() {
 						))}
 					</Routes>
 				</div>
-				<Footer className="footer" />
 			</UserProvider>
 		</AuthProvider>
 	);
-}
+};
 
 export default App;

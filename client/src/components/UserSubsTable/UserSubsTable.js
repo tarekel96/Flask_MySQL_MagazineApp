@@ -27,7 +27,11 @@ export const UserSubsTable = ({
 					backgroundColor: 'rgb(18, 18, 18)'
 				}}
 			>
-				<TableRow>{column_names.map((col_name) => <TableCell>{col_name}</TableCell>)}</TableRow>
+				<TableRow>
+					{column_names.map((col_name, index) => (
+						<TableCell key={col_name + ' ' + String(index)}>{col_name}</TableCell>
+					))}
+				</TableRow>
 			</TableHead>
 		);
 	};
@@ -90,7 +94,12 @@ export const UserSubsTable = ({
 						<TableCell>{startDate}</TableCell>
 						<TableCell>{endDate}</TableCell>
 						<TableCell padding="checkbox">
-							<Checkbox type="checkbox" checked={subscribed} onChange={handleChange} value={subscribed} />
+							<Checkbox
+								type="checkbox"
+								checked={subscribed === true}
+								onChange={handleChange}
+								value={subscribed}
+							/>
 						</TableCell>
 					</TableRow>
 				)}
@@ -118,10 +127,10 @@ export const UserSubsTable = ({
 						borderTop: '2px solid rgb(81, 81, 81)',
 						borderBottom: '2px solid rgb(81, 81, 81)',
 						borderCollapse: 'collapse',
-						'& tr:nth-child(even)': {
+						'& tr:nth-of-type(even)': {
 							backgroundColor: 'rgb(26, 32, 39)'
 						},
-						'& tr:nth-child(odd)': {
+						'& tr:nth-of-type(odd)': {
 							backgroundColor: 'rgba(255, 255, 255, 0.08)'
 						}
 					}}

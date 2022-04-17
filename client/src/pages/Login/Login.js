@@ -1,7 +1,9 @@
-import { Fragment } from 'react';
+import { useState, useEffect, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../context/UserContext';
+import { localStorageValid, getLocalStorage, setupLocalStorage } from '../../auth/auth';
 import { AdminForm } from '../../components/Form/AdminForm';
 import { UserForm } from '../../components/Form/UserForm';
-import { useState } from 'react';
 import styles from './login.module.css';
 
 const Login = () => {
@@ -10,6 +12,27 @@ const Login = () => {
 	const handleSelection = (e) => {
 		setUserType((prevState) => !prevState);
 	};
+
+	let navigate = useNavigate();
+
+	const user = useUserContext()['user'];
+	const setUser = useUserContext()['updateUser'];
+
+	const fetchSubs = useUserContext()['fetchSubs'];
+
+	useEffect(() => {
+		console.log('here');
+		const valid = localStorageValid();
+		console.log(localStorage.getItem('user'));
+		console.log('Token is ' + String(valid));
+		if (valid) {
+			const user = getLocalStorage('user');
+			setUser(user);
+			setupLocalStorage(user);
+			fetchSubs(user.user_id);
+			navigate(`/dashboard/${user.user_id}`);
+		}
+	}, []);
 
 	return (
 		<section className={styles['login-sub-container']}>

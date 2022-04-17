@@ -50,7 +50,7 @@ export const UserForm = () => {
 						user_start_date: res.data['user_start_date']
 					};
 					setUser(chosenUser);
-					setupLocalStorage(chosenUser.user_id);
+					setupLocalStorage(chosenUser);
 					fetchSubs(userID);
 					navigate(`/dashboard/${userID}`);
 				}

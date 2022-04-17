@@ -95,7 +95,7 @@ export const TopRightMenu = () => {
 	);
 
 	return (
-		<artcile className={styles['top-right-menu-wrapper']}>
+		<article className={styles['top-right-menu-wrapper']}>
 			<Button className={styles['top-right-menu-btn']} onClick={(e) => toggleDrawer(e)}>
 				<MenuIcon className={styles['menu-icon']} />
 			</Button>
@@ -115,6 +115,6 @@ export const TopRightMenu = () => {
 					{DrawerList('right')}
 				</Drawer>
 			</div>
-		</artcile>
+		</article>
 	);
 };

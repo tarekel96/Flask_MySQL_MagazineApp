@@ -16,7 +16,7 @@ th {
 	margin-bottom: 5px;
 }
 
-.subscription-article:nth-child(even) {
+.subscription-article:nth-of-type(even) {
 	background-color: rgb(184, 211, 245);
 }
 
