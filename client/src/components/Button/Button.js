@@ -1,6 +1,6 @@
 import styles from './button.module.css';
 
-export const Button = ({ children }, className, type = 'submit') => {
+export const Button = ({ children }, className, disabled, type = 'submit') => {
 	if (type === 'submit') {
 		return (
 			<input
@@ -8,11 +8,16 @@ export const Button = ({ children }, className, type = 'submit') => {
 				value={children}
 				className={`${styles['button']} ${className !== undefined && className}`}
 				type={type}
+				disabled={disabled}
 			/>
 		);
 	}
 	return (
-		<button className={`${styles['button']} ${className !== undefined && className}`} type={type}>
+		<button
+			className={`${styles['button']} ${className !== undefined && className}`}
+			type={type}
+			disabled={disabled}
+		>
 			{children}
 		</button>
 	);

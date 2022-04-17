@@ -1,60 +1,67 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import Menu from '@mui/material/Menu';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import Popper from '@mui/material/Popper';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import styles from './toprightmenu.module.css';
+import { red } from '@mui/material/colors';
 
 export const TopRightMenu = ({ logout }) => {
-	const [ anchorEl, setAnchorEl ] = useState(null);
-	const open = Boolean(anchorEl);
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
+	const [ isOpen, setOpen ] = useState(false);
+	const toggleDrawer = (e) => {
+		if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
+			return;
+		}
+		setOpen((prev) => !prev);
 	};
+
+	const DrawerList = (anchor) => (
+		<Box
+			sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+			role="presentation"
+			onClick={(e) => toggleDrawer(e)}
+			onKeyDown={(e) => toggleDrawer(e)}
+		>
+			<List>
+				<ListItem button onClick={logout}>
+					<ListItemIcon>
+						<LogoutIcon sx={{ color: 'rgb(255, 255, 255)' }} />
+					</ListItemIcon>
+					<ListItemText primary={'Logout'} />
+				</ListItem>
+			</List>
+			<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
+		</Box>
+	);
 
 	return (
 		<artcile className={styles['top-right-menu-wrapper']}>
-			<Button
-				id="basic-button"
-				aria-controls={open ? 'basic-menu' : undefined}
-				aria-haspopup="true"
-				aria-expanded={open ? 'true' : undefined}
-				onClick={handleClick}
-				className={styles['top-right-menu-btn']}
-			>
+			<Button className={styles['top-right-menu-btn']} onClick={(e) => toggleDrawer(e)}>
 				<MenuIcon className={styles['menu-icon']} />
 			</Button>
-			<Popper open={open} role={undefined} placement="bottom-start" transition disablePortal>
-				<Menu
-					className={styles['top-right-menu']}
-					id="basic-menu"
-					anchorEl={anchorEl}
-					open={open}
-					onClose={handleClick}
-					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
+			<div>
+				<Drawer
+					sx={{
+						'& .MuiDrawer-paperAnchorRight': {
+							backgroundColor: 'rgb(18, 18, 18)',
+							color: 'rgb(255, 255, 255)'
+						}
 					}}
-					MenuListProps={{
-						'aria-labelledby': 'basic-button'
-					}}
+					className={styles['drawer']}
+					anchor={'right'}
+					open={isOpen}
+					onClose={(e) => toggleDrawer(e)}
 				>
-					<Stack direction="row" spacing={2}>
-						<Paper elevation="string">
-							<MenuList>
-								<MenuItem onClick={logout} className={styles['logout-btn']}>
-									Logout
-								</MenuItem>
-							</MenuList>
-						</Paper>
-					</Stack>
-				</Menu>
-			</Popper>
+					{DrawerList('right')}
+				</Drawer>
+			</div>
 		</artcile>
 	);
 };

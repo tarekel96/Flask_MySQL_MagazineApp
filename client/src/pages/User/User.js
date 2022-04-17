@@ -13,51 +13,6 @@ const User = () => {
 	const [ isOpen, toggle ] = useState(false);
 	const handleClick = () => toggle((prev) => !prev);
 
-	// const TopRightMenu = () => {
-	// 	return (
-	// 		<artcile className={styles['top-right-menu-wrapper']}>
-	// 			<Button
-	// 				id="basic-button"
-	// 				aria-controls={isOpen ? 'basic-menu' : undefined}
-	// 				aria-haspopup="true"
-	// 				aria-expanded={isOpen ? 'true' : undefined}
-	// 				onClick={handleClick}
-	// 				className={styles['top-right-menu-btn']}
-	// 			>
-	// 				<MenuIcon className={styles['menu-icon']} />
-	// 			</Button>
-	// 			<Menu
-	// 				className={styles['top-right-menu']}
-	// 				id="basic-menu"
-	// 				anchorEl={isOpen}
-	// 				open={isOpen}
-	// 				onClose={handleClick}
-	// 				anchorOrigin={{
-	// 					vertical: 'top',
-	// 					horizontal: 'right'
-	// 				}}
-	// 				transformOrigin={{
-	// 					vertical: 'top',
-	// 					horizontal: 'right'
-	// 				}}
-	// 				// MenuListProps={{
-	// 				// 	'aria-labelledby': 'basic-button'
-	// 				// }}
-	// 			>
-	// 				<Stack direction="row" spacing={2}>
-	// 					<Paper>
-	// 						<MenuList>
-	// 							<MenuItem onClick={logout} className={styles['logout-btn']}>
-	// 								Logout
-	// 							</MenuItem>
-	// 						</MenuList>
-	// 					</Paper>
-	// 				</Stack>
-	// 			</Menu>
-	// 		</artcile>
-	// 	);
-	// };
-
 	return (
 		<section className={styles['user-section']}>
 			<header className={styles['user-header']}>
@@ -73,7 +28,7 @@ const User = () => {
 					<h1>No Subscriptions</h1>
 				)}
 			</section>
-			<TopRightMenu logout={logout} isOpen={isOpen} handleClick={handleClick}/>
+			<TopRightMenu logout={logout} isOpen={isOpen} handleClick={handleClick} />
 		</section>
 	);
 };

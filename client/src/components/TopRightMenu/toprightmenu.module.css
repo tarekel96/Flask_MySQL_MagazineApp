@@ -9,9 +9,3 @@
 	top: 1%;
 	right: 1%;
 }
-
-.top-right-menu ul, .top-right-menu div div, .top-right-menu ul, .top-right-menu div div ul {
-	background-color: rgb(18, 18, 18) !important;
-        color: rgb(255, 255, 255);
-        border: none !important;
-}

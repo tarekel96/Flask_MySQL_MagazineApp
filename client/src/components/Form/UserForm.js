@@ -21,6 +21,9 @@ export const UserForm = () => {
 		setPassword(e.target.value);
 	};
 
+	let isValid = username !== '' && password !== '';
+	console.log(isValid);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		return axios
@@ -87,7 +90,11 @@ export const UserForm = () => {
 				<Link to="/signup" className={styles['signupLink']}>
 					Don't have an account? Register!
 				</Link>
-				<Button type="submit" className={styles['submit-button']}>
+				<Button
+					disabled={username !== '' && password !== '' ? true : false}
+					type="submit"
+					className={styles['submit-button']}
+				>
 					Login
 				</Button>
 				{/*<input type="submit" className={styles['submit-button']} />*/}
