@@ -90,7 +90,8 @@ const Catalog = () => {
 							backgroundColor: 'rgb(18, 18, 18)'
 						},
 						'& .MuiDataGrid-columnSeparator--sideRight': {
-							backgroundColor: 'rgb(18, 18, 18)'
+							backgroundColor: 'rgb(18, 18, 18)',
+							color: 'rgb(18,18,18)'
 						},
 						'& .MuiDataGrid-footerContainer': {
 							color: 'rgb(255, 255, 255)',
