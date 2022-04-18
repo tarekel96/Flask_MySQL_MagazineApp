@@ -9,8 +9,6 @@ class db_helper():
                 if len(lst) == 1:
                         curr_dict = {}
                         for i, attr in enumerate(lst):
-                                print(i, attr)
-                                print(f'{keys[i]} = {attr}')
                                 curr_dict[keys[i]] = attr
                         return (curr_dict, )
                 else:
@@ -36,7 +34,6 @@ class db_helper():
          # function to execute a single query with no payload
         def single_query_payload(connection, cursor, query, payload):
                 try:
-                        print('in here')
                         cursor.execute(query, payload)
                         connection.commit()
                 except Exception as err:
@@ -67,8 +64,6 @@ class db_helper():
         @staticmethod
         # function to fetch a single record
         def get_record(cursor, query, payload, key):
-                print('in get_record():')
-                print({key: payload[0]})
                 try:
                         cursor.execute(query, {key: payload[0]})
                         results = cursor.fetchone()
@@ -92,7 +87,6 @@ class db_helper():
                 try:
                         cursor.execute(query)
                         results = cursor.fetchall()
-                        print(f'Results {results}')
                         return results
                 except Exception as err:
                         print(f"Error: An error occurred in trying execute a single query.\n{err}")
