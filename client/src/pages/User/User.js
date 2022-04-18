@@ -1,16 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
 import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 import { Loading } from '../../components/Loading/Loading';
+import { getLocalStorage } from '../../auth/auth';
 import styles from './user.module.css';
 
 const User = () => {
 	const user = useUserContext()['user'];
 	const subs = useUserContext()['subs'];
 
+	const setUser = useUserContext()['updateUser'];
+	const fetchSubs = useUserContext()['fetchSubs'];
+
+	let navigate = useNavigate();
+
 	const [ isOpen, toggle ] = useState(false);
 	const handleClick = () => toggle((prev) => !prev);
+
+	useEffect(() => {
+		const user = JSON.parse(window.localStorage.getItem('user'));
+		console.log(user);
+		if (user !== null && user !== undefined) {
+			setUser(user);
+			fetchSubs(user.user_id);
+			navigate(`/dashboard/${user.user_id}`);
+		}
+	}, []);
 
 	return (
 		<section className={styles['user-section']}>

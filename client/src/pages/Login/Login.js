@@ -20,15 +20,15 @@ const Login = () => {
 
 	const fetchSubs = useUserContext()['fetchSubs'];
 
-	useEffect(() => {
-		const userIsStored = localStorageValid('user');
-		console.log(userIsStored);
-		if (userIsStored) {
-			const user = getLocalStorage('user');
-			setUser(user);
-			navigate(`/dashboard/${user.user_id}`);
-		}
-	}, []);
+	// useEffect(() => {
+	// 	const userIsStored = localStorageValid('user');
+	// 	console.log(userIsStored);
+	// 	if (userIsStored) {
+	// 		const user = getLocalStorage('user');
+	// 		setUser(user);
+	// 		navigate(`/dashboard/${user.user_id}`);
+	// 	}
+	// }, []);
 
 	return (
 		<section className={styles['login-sub-container']}>

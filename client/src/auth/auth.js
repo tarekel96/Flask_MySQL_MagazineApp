@@ -41,6 +41,8 @@ export const localStorageValid = (key = 'user') => {
 		return false;
 	}
 	const itemStr = window.localStorage.getItem(key);
+	console.log(`Local storage ${itemStr}`);
+
 	// if the item doesn't exist, return null
 	if (!itemStr || itemStr === undefined || itemStr === null) {
 		return false;
@@ -50,8 +52,10 @@ export const localStorageValid = (key = 'user') => {
 		return false;
 	}
 	const now = new Date();
+	console.log('Item expiry: ' + String(item.expiry));
+	console.log(now.getTime());
 	// compare the expiry time of the item with the current time
-	if (now.getTime() > item.expiry) {
+	if (now.getTime() < item.expiry) {
 		// If the item is expired, delete the item from storage
 		// and return null
 		window.localStorage.removeItem(key);
@@ -62,6 +66,7 @@ export const localStorageValid = (key = 'user') => {
 
 export const getLocalStorage = (key = 'user') => {
 	const itemStr = window.localStorage.getItem(key);
+	console.log(itemStr);
 	// if the item doesn't exist, return null
 	if (!itemStr) {
 		return null;

@@ -17,9 +17,12 @@ export const UserProvider = ({ children }) => {
 	const [ user, setUser ] = useLocalStorage('user', null);
 	const [ subs, setSubs ] = useState(null);
 
-	const updateUser = useCallback((newUser) => {
-		setUser(newUser);
-	}, []);
+	const updateUser = useCallback(
+		(newUser) => {
+			setUser(newUser);
+		},
+		[ setUser ]
+	);
 
 	const logout = useCallback(
 		() => {

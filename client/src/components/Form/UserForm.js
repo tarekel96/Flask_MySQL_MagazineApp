@@ -23,18 +23,15 @@ export const UserForm = () => {
 
 	//let isValid = username !== '' && password !== '';
 
-	useEffect(
-		() => {
-			const userIsStored = localStorageValid('user');
-			console.log(userIsStored);
-			if (userIsStored) {
-				const user = getLocalStorage('user');
-				setUser(user);
-				navigate(`/dashboard/${user.user_id}`);
-			}
-		},
-		[ navigate, setUser ]
-	);
+	// useEffect(() => {
+	// 	const user = getLocalStorage('user');
+	// 	console.log(user);
+	// 	if (user !== null && user !== undefined) {
+	// 		setUser(user);
+	// 		fetchSubs(user.user_id);
+	// 		navigate(`/dashboard/${user.user_id}`);
+	// 	}
+	// }, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
