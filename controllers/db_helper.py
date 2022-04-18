@@ -6,11 +6,19 @@ class db_helper():
         @staticmethod
         def to_py_dict(lst, keys):
                 ret = [ ]
-                for item in lst:
-                        curr_dict = { }
-                        for i, attr in enumerate(item):
-                                curr_dict[keys[i]] = attr 
-                        ret.append(curr_dict)
+                if len(lst) == 1:
+                        curr_dict = {}
+                        for i, attr in enumerate(lst):
+                                print(i, attr)
+                                print(f'{keys[i]} = {attr}')
+                                curr_dict[keys[i]] = attr
+                        return (curr_dict, )
+                else:
+                        for item in lst:
+                                curr_dict = { }
+                                for i, attr in enumerate(item):
+                                        curr_dict[keys[i]] = attr 
+                                ret.append(curr_dict)
                 return ret
 
         @staticmethod
@@ -84,6 +92,7 @@ class db_helper():
                 try:
                         cursor.execute(query)
                         results = cursor.fetchall()
+                        print(f'Results {results}')
                         return results
                 except Exception as err:
                         print(f"Error: An error occurred in trying execute a single query.\n{err}")

@@ -20,7 +20,7 @@ class user_helper():
                 try:
                         data = db_helper.get_records_no_payload(cursor, query)
                         data = helper.datetime_to_str(data, [4, 5])
-                        data_lst = db_helper.to_py_dict((data,), ["id", "name", "category", "price", "startDate", "endDate", "subscribed"])
+                        data_lst = db_helper.to_py_dict(data, ["id", "name", "category", "price", "startDate", "endDate", "subscribed"])
                         json_data = json.dumps(data_lst)
                         response = Response(json_data, status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
