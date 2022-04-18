@@ -20,7 +20,7 @@ export const setupLocalStorage = (user, ttl = 5000) => {
 	const { user_id, user_first_name, user_last_name, user_username, user_start_date } = user;
 
 	const now = new Date();
-	localStorage.setItem(
+	window.localStorage.setItem(
 		'user',
 		JSON.stringify({
 			user_id,
@@ -34,25 +34,34 @@ export const setupLocalStorage = (user, ttl = 5000) => {
 };
 
 export const localStorageValid = (key = 'user') => {
-	const itemStr = localStorage.getItem(key);
+	try {
+		window.localStorage.getItem(key);
+	} catch (e) {
+		console.log('Key does not exist.');
+		return false;
+	}
+	const itemStr = window.localStorage.getItem(key);
 	// if the item doesn't exist, return null
-	if (!itemStr) {
+	if (!itemStr || itemStr === undefined || itemStr === null) {
 		return false;
 	}
 	const item = JSON.parse(itemStr);
+	if (item === null) {
+		return false;
+	}
 	const now = new Date();
 	// compare the expiry time of the item with the current time
 	if (now.getTime() > item.expiry) {
 		// If the item is expired, delete the item from storage
 		// and return null
-		localStorage.removeItem(key);
+		window.localStorage.removeItem(key);
 		return false;
 	}
 	return true;
 };
 
 export const getLocalStorage = (key = 'user') => {
-	const itemStr = localStorage.getItem(key);
+	const itemStr = window.localStorage.getItem(key);
 	// if the item doesn't exist, return null
 	if (!itemStr) {
 		return null;
@@ -63,7 +72,7 @@ export const getLocalStorage = (key = 'user') => {
 	if (now.getTime() > item.expiry) {
 		// If the item is expired, delete the item from storage
 		// and return null
-		localStorage.removeItem(key);
+		window.localStorage.removeItem(key);
 		return null;
 	}
 	return item.user;

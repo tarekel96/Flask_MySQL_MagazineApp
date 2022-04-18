@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
 	const authenticateAdmin = useCallback(() => {
 		console.log('here');
-		localStorage.clear();
+		window.localStorage.clear();
 		setIsAdmin(true);
 		setupLocalStorage('auth');
 	}, []);
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 	const logoutAuth = useCallback(
 		() => {
 			setIsAdmin(false);
-			localStorage.clear();
+			window.localStorage.clear();
 			return navigate('/');
 		},
 		[ navigate ]

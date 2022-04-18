@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 // import {}
 // context objects
 const UserContext = createContext(null);
@@ -12,7 +13,8 @@ export const useUserContext = () => {
 export const UserProvider = ({ children }) => {
 	let navigate = useNavigate('/');
 	// default state of user obj
-	const [ user, setUser ] = useState(null);
+	//const [ user, setUser ] = useState(null);
+	const [ user, setUser ] = useLocalStorage('user', null);
 	const [ subs, setSubs ] = useState(null);
 
 	const updateUser = useCallback((newUser) => {
@@ -22,11 +24,11 @@ export const UserProvider = ({ children }) => {
 	const logout = useCallback(
 		() => {
 			setUser(null);
-			localStorage.clear();
+			//window.localStorage.clear();
 			alert('You are now logged out.');
 			navigate('/');
 		},
-		[ navigate ]
+		[ navigate, setUser ]
 	);
 
 	const navToHome = useCallback((id) => navigate(`/dashboard/${id}`), [ navigate ]);

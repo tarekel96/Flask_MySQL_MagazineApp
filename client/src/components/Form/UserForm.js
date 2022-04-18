@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { Button } from '../Button/Button';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '../../context/UserContext';
-import { setupLocalStorage } from '../../auth/auth';
+import { localStorageValid, getLocalStorage } from '../../auth/auth';
 import styles from './userform.module.css';
 export const UserForm = () => {
 	//const user = useUserContext()['user'];
@@ -21,8 +21,20 @@ export const UserForm = () => {
 		setPassword(e.target.value);
 	};
 
-	let isValid = username !== '' && password !== '';
-	console.log(isValid);
+	//let isValid = username !== '' && password !== '';
+
+	useEffect(
+		() => {
+			const userIsStored = localStorageValid('user');
+			console.log(userIsStored);
+			if (userIsStored) {
+				const user = getLocalStorage('user');
+				setUser(user);
+				navigate(`/dashboard/${user.user_id}`);
+			}
+		},
+		[ navigate, setUser ]
+	);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -50,7 +62,8 @@ export const UserForm = () => {
 						user_start_date: res.data['user_start_date']
 					};
 					setUser(chosenUser);
-					setupLocalStorage(chosenUser);
+
+					//setupLocalStorage(chosenUser);
 					fetchSubs(userID);
 					navigate(`/dashboard/${userID}`);
 				}

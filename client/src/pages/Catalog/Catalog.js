@@ -63,10 +63,10 @@ const Catalog = () => {
 					getRowId={(r) => r.magID}
 					sx={{
 						color: 'rgb(255, 255, 255)',
-						'& .MuiDataGrid-row:nth-child(even)': {
+						'& .MuiDataGrid-row:nth-of-type(even)': {
 							backgroundColor: 'rgb(26, 32, 39)'
 						},
-						'& .MuiDataGrid-row:nth-child(odd)': {
+						'& .MuiDataGrid-row:nth-of-type(odd)': {
 							backgroundColor: 'rgb(10, 25, 41)'
 						},
 						'& .MuiDataGrid-columnHeader': {

@@ -21,15 +21,11 @@ const Login = () => {
 	const fetchSubs = useUserContext()['fetchSubs'];
 
 	useEffect(() => {
-		console.log('here');
-		const valid = localStorageValid();
-		console.log(localStorage.getItem('user'));
-		console.log('Token is ' + String(valid));
-		if (valid) {
+		const userIsStored = localStorageValid('user');
+		console.log(userIsStored);
+		if (userIsStored) {
 			const user = getLocalStorage('user');
 			setUser(user);
-			setupLocalStorage(user);
-			fetchSubs(user.user_id);
 			navigate(`/dashboard/${user.user_id}`);
 		}
 	}, []);
