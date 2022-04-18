@@ -35,6 +35,9 @@ export const UserProvider = ({ children }) => {
 	const [ subs, setSubs ] = useState(null);
 
 	const [ cart, setCart ] = useState([]);
+	const [ cartOpen, setCartOpen ] = useState(false);
+
+	const toggleCart = useCallback(() => setCartOpen((prev) => !prev), []);
 
 	const navToHome = useCallback((id) => navigate(`/dashboard/${id}`), [ navigate ]);
 
@@ -102,10 +105,27 @@ export const UserProvider = ({ children }) => {
 			subs,
 			cart,
 			setCart,
+			cartOpen,
+			setCartOpen,
+			toggleCart,
 			fetchSubs,
 			fetchSubStatus
 		}),
-		[ user, updateUser, logout, navToHome, navToCatalog, subs, cart, setCart, fetchSubs, fetchSubStatus ]
+		[
+			user,
+			updateUser,
+			logout,
+			navToHome,
+			navToCatalog,
+			subs,
+			cart,
+			setCart,
+			cartOpen,
+			setCartOpen,
+			toggleCart,
+			fetchSubs,
+			fetchSubStatus
+		]
 	);
 
 	return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

@@ -27,7 +27,6 @@ const Catalog = () => {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(true);
 
-	const cart = useUserContext()['cart'];
 	const setCart = useUserContext()['setCart'];
 
 	const fetchCatalog = () => {
@@ -60,7 +59,7 @@ const Catalog = () => {
 
 	return (
 		<section className={styles['catalog-page']}>
-			{!loading && <CatalogBanner count={cart.length} />}
+			{!loading && <CatalogBanner />}
 			{data.length === 0 || loading ? (
 				<Loading />
 			) : (
