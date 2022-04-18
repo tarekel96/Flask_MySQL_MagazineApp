@@ -21,18 +21,6 @@ export const UserForm = () => {
 		setPassword(e.target.value);
 	};
 
-	//let isValid = username !== '' && password !== '';
-
-	// useEffect(() => {
-	// 	const user = getLocalStorage('user');
-	// 	console.log(user);
-	// 	if (user !== null && user !== undefined) {
-	// 		setUser(user);
-	// 		fetchSubs(user.user_id);
-	// 		navigate(`/dashboard/${user.user_id}`);
-	// 	}
-	// }, []);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		return axios

@@ -1,7 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { localStorageValid, getLocalStorage, setupLocalStorage } from '../../auth/auth';
 import { AdminForm } from '../../components/Form/AdminForm';
 import { UserForm } from '../../components/Form/UserForm';
 import styles from './login.module.css';
@@ -15,20 +14,18 @@ const Login = () => {
 
 	let navigate = useNavigate();
 
-	const user = useUserContext()['user'];
 	const setUser = useUserContext()['updateUser'];
 
 	const fetchSubs = useUserContext()['fetchSubs'];
 
-	// useEffect(() => {
-	// 	const userIsStored = localStorageValid('user');
-	// 	console.log(userIsStored);
-	// 	if (userIsStored) {
-	// 		const user = getLocalStorage('user');
-	// 		setUser(user);
-	// 		navigate(`/dashboard/${user.user_id}`);
-	// 	}
-	// }, []);
+	useEffect(() => {
+		const savedUser = JSON.parse(window.localStorage.getItem('user'));
+		if (savedUser !== null && savedUser !== undefined) {
+			setUser(savedUser);
+			fetchSubs(savedUser.user_id);
+			navigate(`/dashboard/${savedUser.user_id}`);
+		}
+	}, []);
 
 	return (
 		<section className={styles['login-sub-container']}>

@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
 	const logout = useCallback(
 		() => {
 			setUser(null);
-			//window.localStorage.clear();
+			window.localStorage.clear();
 			alert('You are now logged out.');
 			navigate('/');
 		},
