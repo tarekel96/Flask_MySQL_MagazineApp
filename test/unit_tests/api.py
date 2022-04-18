@@ -45,12 +45,30 @@ def auth_get_customers():
         response = requests.get(f"{BASE_URL}/auth/customers", headers=headers)
         assert response.status_code == 201
 
+# /user/<user_id>
+def user_get_subs_by_id(user_id=3):
+        headers = {'Content-type': 'application/json'}
+        response = requests.get(f"{BASE_URL}/user/subs/{user_id}", headers=headers)
+        assert response.status_code == 201
+
 # main
-def main():
+def auth_tests():
         tests = [auth_index, auth_admin_login, auth_admin_login_fail, auth_user_login, auth_user_login_fail, auth_get_catalog, auth_get_customers]
         for test in tests:
                 test()
-        print("Tests have been run.")
+        print("Auth test have been run.")
+
+def user_tests():
+        tests = [user_get_subs_by_id]
+        for test in tests:
+                test()
+                test(1)
+        print("User test have been run.")
+
+def main():
+        tests = [auth_tests, user_tests]
+        for test in tests:
+                test()
 
 if __name__ == "__main__":
         main()
