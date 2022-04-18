@@ -1,0 +1,14 @@
+.shopping-cart-container {
+        position: absolute;
+        left: 2%;
+        top: 2%;
+}
+
+.shopping-cart-counter {
+        position: absolute;
+        left: 1%;
+        right: 1%;
+        z-index: 100;
+        color: #20df7f;
+        font-weight: 600;
+}

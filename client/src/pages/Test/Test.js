@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { CatalogBanner } from '../../components/CatalogBanner/CatalogBanner';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
 //import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
 
@@ -6,8 +7,9 @@ const Test = () => {
 	return (
 		<Fragment>
 			{/*<TopRightMenu isOpen={isOpen} handleClick={handleClick} logout={logout} /> */}
-
-			<UserSubsTable
+			<CatalogBanner />
+			{/*
+				<UserSubsTable
 				subs={[
 					{
 						id: 1,
@@ -35,6 +37,7 @@ const Test = () => {
 					}
 				]}
 			/>
+			*/}
 		</Fragment>
 	);
 };

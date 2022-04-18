@@ -12,10 +12,9 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }) => {
 	let navigate = useNavigate('/');
+
 	// default state of user obj
-	//const [ user, setUser ] = useState(null);
 	const [ user, setUser ] = useLocalStorage('user', null);
-	const [ subs, setSubs ] = useState(null);
 
 	const updateUser = useCallback(
 		(newUser) => {
@@ -33,6 +32,9 @@ export const UserProvider = ({ children }) => {
 		},
 		[ navigate, setUser ]
 	);
+	const [ subs, setSubs ] = useState(null);
+
+	const [ cart, setCart ] = useState([]);
 
 	const navToHome = useCallback((id) => navigate(`/dashboard/${id}`), [ navigate ]);
 
@@ -98,10 +100,12 @@ export const UserProvider = ({ children }) => {
 			navToHome,
 			navToCatalog,
 			subs,
+			cart,
+			setCart,
 			fetchSubs,
 			fetchSubStatus
 		}),
-		[ user, updateUser, logout, navToHome, navToCatalog, subs, fetchSubs, fetchSubStatus ]
+		[ user, updateUser, logout, navToHome, navToCatalog, subs, cart, setCart, fetchSubs, fetchSubStatus ]
 	);
 
 	return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

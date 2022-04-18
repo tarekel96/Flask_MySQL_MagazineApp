@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { useUserContext } from '../../context/UserContext';
 import { Loading } from '../../components/Loading/Loading';
+import { CatalogBanner } from '../../components/CatalogBanner/CatalogBanner';
 import axios from 'axios';
 import styles from './catalog.module.css';
 
@@ -24,6 +26,9 @@ const columns = [
 const Catalog = () => {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(true);
+
+	const cart = useUserContext()['cart'];
+	const setCart = useUserContext()['setCart'];
 
 	const fetchCatalog = () => {
 		try {
@@ -55,6 +60,7 @@ const Catalog = () => {
 
 	return (
 		<section className={styles['catalog-page']}>
+			{!loading && <CatalogBanner count={cart.length} />}
 			{data.length === 0 || loading ? (
 				<Loading />
 			) : (
@@ -100,6 +106,7 @@ const Catalog = () => {
 					pageSize={20}
 					rowsPerPageOptions={[ 20 ]}
 					checkboxSelection
+					onSelectionModelChange={(selectedData) => setCart(selectedData)}
 				/>
 			)}
 		</section>
