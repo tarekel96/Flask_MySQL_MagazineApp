@@ -12,9 +12,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import { useUserContext } from '../../context/UserContext';
-import styles from './toprightmenu.module.css';
+import styles from './topleftmenu.module.css';
 
-export const TopRightMenu = () => {
+export const TopLeftMenu = () => {
 	const user = useUserContext()['user'];
 	const logout = useUserContext()['logout'];
 	const navToHome = useUserContext()['navToHome'];
@@ -95,24 +95,24 @@ export const TopRightMenu = () => {
 	);
 
 	return (
-		<article className={styles['top-right-menu-wrapper']}>
-			<Button className={styles['top-right-menu-btn']} onClick={(e) => toggleDrawer(e)}>
+		<article className={styles['top-left-menu-wrapper']}>
+			<Button className={styles['top-left-menu-btn']} onClick={(e) => toggleDrawer(e)}>
 				<MenuIcon className={styles['menu-icon']} />
 			</Button>
 			<div>
 				<Drawer
 					sx={{
-						'& .MuiDrawer-paperAnchorRight': {
+						'& .MuiDrawer-paperAnchorLeft': {
 							backgroundColor: 'rgb(18, 18, 18)',
 							color: 'rgb(255, 255, 255)'
 						}
 					}}
 					className={styles['drawer']}
-					anchor={'right'}
+					anchor={'left'}
 					open={isOpen}
 					onClose={(e) => toggleDrawer(e)}
 				>
-					{DrawerList('right')}
+					{DrawerList('left')}
 				</Drawer>
 			</div>
 		</article>

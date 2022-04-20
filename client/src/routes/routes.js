@@ -8,10 +8,10 @@ import Test from '../pages/Test/Test';
 import Signup from '../pages/Signup/Signup';
 import Catalog from '../pages/Catalog/Catalog';
 import { Footer } from '../components/Footer/Footer';
-import { TopRightMenu } from '../components/TopRightMenu/TopRightMenu';
 import { Container } from '../components/Container/Container';
 import loginStyles from '../pages/Login/login.module.css';
 import adminStyles from '../pages/Admin/admin.module.css';
+import { TopLeftMenu } from '../components/TopLeftMenu/TopLeftMenu';
 
 const LoginPage = () => {
 	return (
@@ -35,7 +35,7 @@ const UserPage = () => {
 	return (
 		<Container>
 			<User />
-			<TopRightMenu />
+			<TopLeftMenu />
 			<Footer className="footer" />
 		</Container>
 	);
@@ -54,7 +54,7 @@ const CatalogPage = () => {
 	return (
 		<Fragment>
 			<Catalog />
-			<TopRightMenu />
+			<TopLeftMenu />
 		</Fragment>
 	);
 };

@@ -14,83 +14,87 @@ import { useState } from 'react';
 export const CatalogBanner = () => {
 	const count = useUserContext()['cart'].length;
 
-	const cartOpen = useUserContext()['cartOpen'];
-	const setCartOpen = useUserContext()['setCartOpen'];
+	const [ cartOpen, setCartOpen ] = useState(false);
 
 	const toggle = (e) => {
-		console.log(e);
-		console.log('here');
 		if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
-			console.log('hit');
 			return;
 		}
 		setCartOpen((prev) => !prev);
 	};
 
+	const handleClickAway = () => {
+		setCartOpen(false);
+	};
+
 	const ShoppingCartList = () => {
-		const DrawerList = (anchor) => (
-			<Box
-				sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-				role="presentation"
-				onClick={(e) => toggle(e)}
-				onKeyDown={(e) => toggle(e)}
-			>
-				<List>
-					<ListItem
-						button
-						sx={{
-							display: 'flex',
-							justifyContent: 'center',
-							'&:hover': {
-								color: '#20df7f',
-								'& svg': {
-									color: '#20df7f'
+		const DrawerList = (anchor) => {
+			return (
+				<Box
+					sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+					role="presentation"
+					onClick={(e) => toggle(e)}
+					onKeyDown={(e) => toggle(e)}
+				>
+					<List>
+						<ListItem
+							button
+							sx={{
+								display: 'flex',
+								justifyContent: 'flex-start',
+								'&:hover': {
+									color: '#20df7f',
+									'& svg': {
+										color: '#20df7f'
+									}
 								}
-							}
-						}}
-						onClick={(e) => toggle(e)}
-					>
-						<ListItemIcon>
-							<DoubleArrowIcon
-								sx={{
-									height: '36px',
-									width: '36px'
-								}}
-							/>
-						</ListItemIcon>
-					</ListItem>
-					<ListItem
-						button
-						sx={{
-							'&:hover': {
-								color: '#20df7f',
-								'& svg': {
-									color: '#20df7f'
+							}}
+							onClick={(e) => toggle(e)}
+						>
+							<ListItemIcon>
+								<DoubleArrowIcon
+									sx={{
+										height: '36px',
+										width: '36px',
+										transform: 'scale(-1)',
+										color: '#20df7f'
+									}}
+								/>
+							</ListItemIcon>
+						</ListItem>
+						<ListItem
+							button
+							sx={{
+								'&:hover': {
+									color: '#20df7f',
+									'& svg': {
+										color: '#20df7f'
+									}
 								}
-							}
-						}}
-					>
-						<ListItemText primary={'Item'} />
-						<ListItemIcon>&times;</ListItemIcon>
-					</ListItem>
-				</List>
-				<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
-			</Box>
-		);
+							}}
+						>
+							<ListItemText primary={'Item'} />
+							<ListItemIcon>&times;</ListItemIcon>
+						</ListItem>
+					</List>
+					<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
+				</Box>
+			);
+		};
 
 		return (
 			<Drawer
 				sx={{
-					'& .MuiDrawer-paperAnchorLeft': {
+					'& .MuiDrawer-paperAnchorRight': {
 						backgroundColor: 'rgb(18, 18, 18)',
 						color: 'rgb(255, 255, 255)'
 					}
 				}}
-				anchor={'left'}
+				anchor={'right'}
 				open={cartOpen}
-				onClose={(e) => toggle(e)}
+				onClose={(_, reason) => (reason === 'backdropClick' ? reason === 'escapeKeyDown' : handleClickAway)}
 			>
-				{DrawerList('left')}
+				{DrawerList('right')}
 			</Drawer>
 		);
 	};

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useUserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
-import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
+import { TopLeftMenu } from '../../components/TopLeftMenu/TopLeftMenu';
 import { Loading } from '../../components/Loading/Loading';
 import { getLocalStorage } from '../../auth/auth';
 import styles from './user.module.css';
@@ -44,7 +44,7 @@ const User = () => {
 					<h1>No Subscriptions</h1>
 				)}
 			</section>
-			<TopRightMenu isOpen={isOpen} handleClick={handleClick} />
+			<TopLeftMenu isOpen={isOpen} handleClick={handleClick} />
 		</section>
 	);
 };

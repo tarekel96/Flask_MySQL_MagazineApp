@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import { CatalogBanner } from '../../components/CatalogBanner/CatalogBanner';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
-//import { TopRightMenu } from '../../components/TopRightMenu/TopRightMenu';
+//import { TopLeftMenu } from '../../components/TopLeftMenu/TopLeftMenu';
 
 const Test = () => {
 	return (
 		<Fragment>
-			{/*<TopRightMenu isOpen={isOpen} handleClick={handleClick} logout={logout} /> */}
+			{/*<TopLeftMenu isOpen={isOpen} handleClick={handleClick} logout={logout} /> */}
 			<CatalogBanner />
 			{/*
 				<UserSubsTable

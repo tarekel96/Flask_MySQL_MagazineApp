@@ -1,11 +1,11 @@
-.top-right-menu-btn > svg {
+.top-left-menu-btn > svg {
         fill: rgb(18, 18, 18);
         height: 36px;
         width: 36px;
 }
 
-.top-right-menu-wrapper {
+.top-left-menu-wrapper {
 	position: absolute;
 	top: 1%;
-	right: 1%;
+	left: 1%;
 }
