@@ -1,8 +1,18 @@
 import Button from '@mui/material/Button';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import { useUserContext } from '../../context/UserContext';
 import styles from './cart.module.css';
 
 export const CartItem = ({ item }) => {
+	const cart = useUserContext()['cart'];
+	const setCart = useUserContext()['setCart'];
+
+	const handleClick = (id) => {
+		let newCart = [ ...cart ];
+		newCart = newCart.filter((item) => item.magID !== id);
+		setCart(() => newCart);
+	};
+
 	return (
 		<article className={styles['cart-item']}>
 			<ul>
@@ -27,6 +37,7 @@ export const CartItem = ({ item }) => {
 						fontWeight: 500,
 						fontSize: 20
 					}}
+					onClick={() => handleClick(item.magID)}
 				>
 					&times;
 				</Button>
@@ -52,7 +63,7 @@ export const Cart = ({ cartItems, closeCart }) => {
 			</div>
 			{cartItems.length === 0 && <p>No items in cart.</p>}
 			{cartItems.map((item) => (
-				<CartItem key={String(item.id) + ' ' + item.title + ' ' + String(item.cost)} item={item} />
+				<CartItem key={String(item.magID) + ' ' + item.magazineName + ' ' + String(item.cost)} item={item} />
 			))}
 		</aside>
 	);

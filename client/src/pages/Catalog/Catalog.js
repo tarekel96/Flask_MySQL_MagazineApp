@@ -27,6 +27,7 @@ const Catalog = () => {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(true);
 
+	const cart = useUserContext()['cart'];
 	const setCart = useUserContext()['setCart'];
 
 	const fetchCatalog = () => {
@@ -56,6 +57,19 @@ const Catalog = () => {
 	useEffect(() => {
 		fetchCatalog();
 	}, []);
+
+	const handleCellClick = (selectedCell) => {
+		if (!selectedCell.value) {
+			const newItem = selectedCell.row;
+			setCart((items) => [ newItem, ...items ]);
+		}
+		else {
+			const id = selectedCell.id;
+			let newCart = [ ...cart ];
+			newCart = newCart.filter((item) => item.magID !== id);
+			setCart(() => newCart);
+		}
+	};
 
 	return (
 		<section className={styles['catalog-page']}>
@@ -106,7 +120,8 @@ const Catalog = () => {
 					pageSize={20}
 					rowsPerPageOptions={[ 20 ]}
 					checkboxSelection
-					onSelectionModelChange={(selectedData) => setCart(selectedData)}
+					{...data}
+					onCellClick={(selectedCell) => handleCellClick(selectedCell)}
 				/>
 			)}
 		</section>

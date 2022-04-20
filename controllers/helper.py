@@ -1,7 +1,6 @@
 class helper():
         @staticmethod
         def datetime_to_str(lst, indices):
-                print(lst, indices)
                 ret = []
                 for tup in lst:
                         curr_lst = []

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
 import { TopLeftMenu } from '../../components/TopLeftMenu/TopLeftMenu';
 import { Loading } from '../../components/Loading/Loading';
-import { getLocalStorage } from '../../auth/auth';
+import { ProfileIcon } from '../../components/ProfileIcon/ProfileIcon';
 import styles from './user.module.css';
 
 const User = () => {
@@ -45,6 +45,7 @@ const User = () => {
 				)}
 			</section>
 			<TopLeftMenu isOpen={isOpen} handleClick={handleClick} />
+			<ProfileIcon />
 		</section>
 	);
 };

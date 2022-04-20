@@ -19,6 +19,7 @@
 
 .cart-item ul {
         list-style: none;
+        width: 50%;
 }
 
 .cart-item-btn-container {
