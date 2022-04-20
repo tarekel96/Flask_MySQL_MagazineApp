@@ -8,9 +8,42 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-
+import { Cart } from '../Cart/Cart';
 import styles from './catalogbanner.module.css';
 import { useState } from 'react';
+
+const defaultItems = [
+	{
+		id: 0,
+		title: 'Cat in the Hat',
+		category: 'children',
+		cost: 14.99
+	},
+	{
+		id: 1,
+		title: 'Big Cats',
+		category: 'animals',
+		cost: 7.99
+	},
+	{
+		id: 2,
+		title: 'People',
+		category: 'celebrity',
+		cost: 9.99
+	},
+	{
+		id: 3,
+		title: 'Art of War',
+		category: 'history',
+		cost: 29.99
+	},
+	{
+		id: 4,
+		title: 'Diary of a Wimpy Kid',
+		category: 'children',
+		cost: 11.99
+	}
+];
 export const CatalogBanner = () => {
 	const count = useUserContext()['cart'].length;
 
@@ -28,60 +61,6 @@ export const CatalogBanner = () => {
 	};
 
 	const ShoppingCartList = () => {
-		const DrawerList = (anchor) => {
-			return (
-				<Box
-					sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-					role="presentation"
-					onClick={(e) => toggle(e)}
-					onKeyDown={(e) => toggle(e)}
-				>
-					<List>
-						<ListItem
-							button
-							sx={{
-								display: 'flex',
-								justifyContent: 'flex-start',
-								'&:hover': {
-									color: '#20df7f',
-									'& svg': {
-										color: '#20df7f'
-									}
-								}
-							}}
-							onClick={(e) => toggle(e)}
-						>
-							<ListItemIcon>
-								<DoubleArrowIcon
-									sx={{
-										height: '36px',
-										width: '36px',
-										transform: 'scale(-1)',
-										color: '#20df7f'
-									}}
-								/>
-							</ListItemIcon>
-						</ListItem>
-						<ListItem
-							button
-							sx={{
-								'&:hover': {
-									color: '#20df7f',
-									'& svg': {
-										color: '#20df7f'
-									}
-								}
-							}}
-						>
-							<ListItemText primary={'Item'} />
-							<ListItemIcon>&times;</ListItemIcon>
-						</ListItem>
-					</List>
-					<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
-				</Box>
-			);
-		};
-
 		return (
 			<Drawer
 				sx={{
@@ -94,10 +73,19 @@ export const CatalogBanner = () => {
 				open={cartOpen}
 				onClose={(_, reason) => (reason === 'backdropClick' ? reason === 'escapeKeyDown' : handleClickAway)}
 			>
-				{DrawerList('right')}
+				<Box
+					sx={{ width: '500px' }}
+					role="presentation"
+					onClick={(e) => toggle(e)}
+					onKeyDown={(e) => toggle(e)}
+				>
+					<Cart cartItems={defaultItems} closeCart={handleClickAway} />
+				</Box>
 			</Drawer>
 		);
 	};
+
+	//{DrawerList('right')}
 	return (
 		<article className={styles['shopping-cart-container']} onClick={(e) => toggle(e)}>
 			<ShoppingCartIcon

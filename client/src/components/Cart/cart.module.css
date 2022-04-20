@@ -3,14 +3,27 @@
         padding: 20px;
 }
 
-.cart-item {
 
+.cart div h2 {
+        color: rgb(255, 255, 255);
+        border-bottom: 1px solid #20df7f;
+        padding-bottom: 20px;
 }
 
-.cart-item-information {
+.cart-item {
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #20df7f;
+        padding-bottom: 20px;
+}
 
+.cart-item ul {
+        list-style: none;
 }
 
 .cart-item-btn-container {
-        
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 }
