@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useUserContext } from '../../context/UserContext';
+import { useCartContext } from '../../context/CartContext';
 import { Loading } from '../../components/Loading/Loading';
 import { CatalogBanner } from '../../components/CatalogBanner/CatalogBanner';
 import axios from 'axios';
@@ -27,8 +28,11 @@ const Catalog = () => {
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(true);
 
-	const cart = useUserContext()['cart'];
-	const setCart = useUserContext()['setCart'];
+	const cart = useCartContext()['cart'];
+	const setCart = useCartContext()['setCart'];
+
+	const selectionModel = useCartContext()['selectionModel'];
+	const setSelectionModel = useCartContext()['setSelectionModel'];
 
 	const fetchCatalog = () => {
 		try {
@@ -59,6 +63,7 @@ const Catalog = () => {
 	}, []);
 
 	const handleCellClick = (selectedCell) => {
+		console.log(selectedCell);
 		if (!selectedCell.value) {
 			const newItem = selectedCell.row;
 			setCart((items) => [ newItem, ...items ]);
@@ -121,7 +126,15 @@ const Catalog = () => {
 					rowsPerPageOptions={[ 20 ]}
 					checkboxSelection
 					{...data}
-					onCellClick={(selectedCell) => handleCellClick(selectedCell)}
+					selectionModel={selectionModel}
+					onSelectionModelChange={(newSelectionMode) => {
+						let newCart = [ ...data ];
+						newCart = newCart.filter((item) => newSelectionMode.includes(item.magID));
+						setSelectionModel(newSelectionMode);
+						console.log(newCart);
+						setCart(newCart);
+					}}
+					isCellEditable={() => false}
 				/>
 			)}
 		</section>

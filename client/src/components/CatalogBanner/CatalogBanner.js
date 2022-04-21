@@ -1,4 +1,5 @@
 import { useUserContext } from '../../context/UserContext';
+import { useCartContext } from '../../context/CartContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
@@ -7,20 +8,19 @@ import { Cart } from '../Cart/Cart';
 import styles from './catalogbanner.module.css';
 import { useState } from 'react';
 export const CatalogBanner = () => {
-	const cart = useUserContext()['cart'];
+	const cart = useCartContext()['cart'];
 	const count = cart.length;
 
-	const [ cartOpen, setCartOpen ] = useState(false);
+	const cartOpen = useCartContext()['cartOpen'];
+	const setCartOpen = useCartContext()['setCartOpen'];
+
+	const toggleCart = useCartContext()['toggleCart'];
 
 	const toggle = (e) => {
 		if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
 			return;
 		}
-		setCartOpen((prev) => !prev);
-	};
-
-	const handleClickAway = () => {
-		setCartOpen(false);
+		toggleCart();
 	};
 
 	const ShoppingCartList = () => {
@@ -34,7 +34,6 @@ export const CatalogBanner = () => {
 				}}
 				anchor={'right'}
 				open={cartOpen}
-				onClose={(_, reason) => (reason === 'backdropClick' ? reason === 'escapeKeyDown' : handleClickAway)}
 			>
 				<Box
 					sx={{ width: '500px' }}
@@ -42,7 +41,7 @@ export const CatalogBanner = () => {
 					onClick={(e) => toggle(e)}
 					onKeyDown={(e) => toggle(e)}
 				>
-					<Cart cartItems={cart} closeCart={handleClickAway} />
+					<Cart cartItems={cart} closeCart={() => setCartOpen(false)} />
 				</Box>
 			</Drawer>
 		);
