@@ -19,7 +19,7 @@ export const CartItem = ({ item }) => {
 				return item;
 			}
 		});
-		console.log(newCart, newSelectionMode);
+
 		setSelectionModel(() => {
 			setCart(() => newCart);
 			return newSelectionMode;
@@ -30,7 +30,7 @@ export const CartItem = ({ item }) => {
 		<article className={styles['cart-item']}>
 			<ul>
 				<li>
-					<h3>{item.title}</h3>
+					<h3>{item.magazineName}</h3>
 				</li>
 				<li>
 					<p>Price: ${item.cost}</p>
@@ -60,6 +60,8 @@ export const CartItem = ({ item }) => {
 };
 
 export const Cart = ({ cartItems, closeCart }) => {
+	const calcTotal = () => cartItems.reduce((amount, curr) => amount + curr.cost, 0);
+
 	return (
 		<aside className={styles['cart']}>
 			<div className={styles['cart-header-container']}>
@@ -78,6 +80,7 @@ export const Cart = ({ cartItems, closeCart }) => {
 			{cartItems.map((item) => (
 				<CartItem key={String(item.magID) + ' ' + item.magazineName + ' ' + String(item.cost)} item={item} />
 			))}
+			{cartItems.length > 0 && <h2>Total: ${calcTotal()}</h2>}
 		</aside>
 	);
 };
