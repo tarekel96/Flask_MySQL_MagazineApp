@@ -13,6 +13,11 @@ export const CartProvider = ({ children }) => {
 
 	const toggleCart = useCallback(() => setCartOpen((prev) => !prev), []);
 
+	const emptyCart = useCallback(() => {
+		setCart([]);
+		setSelectionModel([]);
+	}, []);
+
 	// memoize the full context value
 	const contextValue = useMemo(
 		() => ({
@@ -21,10 +26,11 @@ export const CartProvider = ({ children }) => {
 			cartOpen,
 			setCartOpen,
 			toggleCart,
+			emptyCart,
 			selectionModel,
 			setSelectionModel
 		}),
-		[ cart, setCart, cartOpen, setCartOpen, toggleCart, selectionModel, setSelectionModel ]
+		[ cart, setCart, cartOpen, setCartOpen, toggleCart, emptyCart, selectionModel, setSelectionModel ]
 	);
 
 	return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;

@@ -1,5 +1,7 @@
 import Button from '@mui/material/Button';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useCartContext } from '../../context/CartContext';
 import styles from './cart.module.css';
 
@@ -61,6 +63,7 @@ export const CartItem = ({ item }) => {
 
 export const Cart = ({ cartItems, closeCart }) => {
 	const calcTotal = () => cartItems.reduce((amount, curr) => amount + curr.cost, 0);
+	const emptyCart = useCartContext()['emptyCart'];
 
 	return (
 		<aside className={styles['cart']}>
@@ -70,7 +73,10 @@ export const Cart = ({ cartItems, closeCart }) => {
 						height: '60px',
 						width: '60px',
 						transform: 'scale(-1)',
-						color: '#20df7f'
+						color: '#20df7f',
+						'&:hover': {
+							cursor: 'pointer'
+						}
 					}}
 					onClick={closeCart}
 				/>
@@ -81,6 +87,39 @@ export const Cart = ({ cartItems, closeCart }) => {
 				<CartItem key={String(item.magID) + ' ' + item.magazineName + ' ' + String(item.cost)} item={item} />
 			))}
 			{cartItems.length > 0 && <h2>Total: ${calcTotal()}</h2>}
+			{cartItems.length > 0 && (
+				<div className={styles['cart-btn-container']}>
+					{' '}
+					<Button
+						sx={{
+							color: '#20df7f',
+							borderColor: '#20df7f',
+							'&:hover': {
+								color: '#20df7f',
+								borderColor: '#20df7f',
+								cursor: 'pointer'
+							}
+						}}
+						variant="outlined"
+						endIcon={<ShoppingCartCheckoutIcon />}
+					>
+						Checkout
+					</Button>
+					<Button
+						onClick={emptyCart}
+						variant="outlined"
+						color="error"
+						sx={{
+							'&:hover': {
+								cursor: 'pointer'
+							}
+						}}
+						endIcon={<DeleteForeverIcon />}
+					>
+						Clear Cart
+					</Button>
+				</div>
+			)}
 		</aside>
 	);
 };
