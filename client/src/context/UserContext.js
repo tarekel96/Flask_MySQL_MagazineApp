@@ -45,14 +45,11 @@ export const UserProvider = ({ children }) => {
 			return axios
 				.get(`http://127.0.0.1:5000/user/subs/${id}`)
 				.then((res) => {
-					console.log(res);
 					if (res.status === 201) {
 						return res;
 					}
-					console.log(res);
 				})
 				.then((json) => {
-					console.log(json.data);
 					let subIds = [];
 					json.data.forEach((item) => subIds.push(item.id));
 
@@ -76,7 +73,6 @@ export const UserProvider = ({ children }) => {
 					if (res.status === 201) {
 						return res;
 					}
-					console.log(res);
 				})
 				.then((json) => {
 					let subs = json.data;

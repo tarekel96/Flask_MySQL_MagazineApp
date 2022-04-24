@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useUserContext } from '../../context/UserContext';
 import { useCartContext } from '../../context/CartContext';
 import styles from './cart.module.css';
 
@@ -62,8 +63,12 @@ export const CartItem = ({ item }) => {
 };
 
 export const Cart = ({ cartItems, closeCart }) => {
-	const calcTotal = () => cartItems.reduce((amount, curr) => amount + curr.cost, 0);
+	const calcTotal = () => cartItems.reduce((amount, curr) => amount + curr.cost, 0).toFixed(2);
+
+	const user = useUserContext()['user'];
+
 	const emptyCart = useCartContext()['emptyCart'];
+	const handleCheckout = useCartContext()['handleCheckout'];
 
 	return (
 		<aside className={styles['cart']}>
@@ -89,22 +94,24 @@ export const Cart = ({ cartItems, closeCart }) => {
 			{cartItems.length > 0 && <h2>Total: ${calcTotal()}</h2>}
 			{cartItems.length > 0 && (
 				<div className={styles['cart-btn-container']}>
-					{' '}
-					<Button
-						sx={{
-							color: '#20df7f',
-							borderColor: '#20df7f',
-							'&:hover': {
+					<form onClick={(e) => handleCheckout(e, user.user_id)}>
+						<Button
+							type="submit"
+							sx={{
 								color: '#20df7f',
 								borderColor: '#20df7f',
-								cursor: 'pointer'
-							}
-						}}
-						variant="outlined"
-						endIcon={<ShoppingCartCheckoutIcon />}
-					>
-						Checkout
-					</Button>
+								'&:hover': {
+									color: '#20df7f',
+									borderColor: '#20df7f',
+									cursor: 'pointer'
+								}
+							}}
+							variant="outlined"
+							endIcon={<ShoppingCartCheckoutIcon />}
+						>
+							Checkout
+						</Button>
+					</form>
 					<Button
 						onClick={emptyCart}
 						variant="outlined"

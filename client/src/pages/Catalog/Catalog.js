@@ -48,7 +48,6 @@ const Catalog = () => {
 						if (res.status === 201) {
 							return res;
 						}
-						console.log(res);
 					})
 					.then((json) => {
 						const data = json.data.filter((item) => subIDs.includes(item.magID) === false);
@@ -134,7 +133,6 @@ const Catalog = () => {
 						let newCart = [ ...data ];
 						newCart = newCart.filter((item) => newSelectionMode.includes(item.magID));
 						setSelectionModel(newSelectionMode);
-						console.log(newCart);
 						setCart(newCart);
 					}}
 					isCellEditable={() => false}

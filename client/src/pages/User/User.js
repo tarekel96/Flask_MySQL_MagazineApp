@@ -21,7 +21,6 @@ const User = () => {
 
 	useEffect(() => {
 		const user = JSON.parse(window.localStorage.getItem('user'));
-		console.log(user);
 		if (user !== null && user !== undefined) {
 			setUser(user);
 			fetchSubs(user.user_id);

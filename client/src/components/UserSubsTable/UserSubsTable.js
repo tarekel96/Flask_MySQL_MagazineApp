@@ -51,9 +51,7 @@ export const UserSubsTable = ({
 		const [ loading, setLoading ] = useState(true);
 
 		useEffect(() => {
-			console.log('in here');
 			if (user !== null) {
-				console.log(`SubID ${subID}`);
 				setSubscribed(fetchSubStatus(user.user_id, subID));
 				setLoading(false);
 			}
