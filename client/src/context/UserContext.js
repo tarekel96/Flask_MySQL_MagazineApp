@@ -34,6 +34,8 @@ export const UserProvider = ({ children }) => {
 	);
 	const [ subs, setSubs ] = useState(null);
 
+	const [ subIDs, setSubIDs ] = useState([]);
+
 	const [ cart, setCart ] = useState([]);
 	const [ cartOpen, setCartOpen ] = useState(false);
 
@@ -56,6 +58,10 @@ export const UserProvider = ({ children }) => {
 				})
 				.then((json) => {
 					console.log(json.data);
+					let subIds = [];
+					json.data.forEach((item) => subIds.push(item.id));
+
+					setSubIDs(subIds);
 					setSubs(json.data);
 				})
 				.catch((e) => {
@@ -103,6 +109,7 @@ export const UserProvider = ({ children }) => {
 			navToHome,
 			navToCatalog,
 			subs,
+			subIDs,
 			cart,
 			setCart,
 			cartOpen,
@@ -118,6 +125,7 @@ export const UserProvider = ({ children }) => {
 			navToHome,
 			navToCatalog,
 			subs,
+			subIDs,
 			cart,
 			setCart,
 			cartOpen,

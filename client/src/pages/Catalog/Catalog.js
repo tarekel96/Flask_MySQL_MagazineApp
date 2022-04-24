@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { useUserContext } from '../../context/UserContext';
 import { useCartContext } from '../../context/CartContext';
@@ -25,56 +26,58 @@ const columns = [
 ];
 
 const Catalog = () => {
+	let navigate = useNavigate();
+
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(true);
 
-	const cart = useCartContext()['cart'];
 	const setCart = useCartContext()['setCart'];
 
 	const selectionModel = useCartContext()['selectionModel'];
 	const setSelectionModel = useCartContext()['setSelectionModel'];
 
-	const fetchCatalog = () => {
-		try {
-			axios
-				.get('http://127.0.0.1:5000/auth/magazine_catalog')
-				.then((res) => {
-					if (res.status === 201) {
-						return res;
-					}
-					console.log(res);
-				})
-				.then((json) => {
-					setData(json.data);
-					setLoading(false);
-				})
-				.catch((e) => {
-					console.log(e);
-					alert(e);
-				});
-		} catch (e) {
-			console.log('An error occurred in fetching the data; see below:');
-			console.log(e);
-		}
-	};
+	const subIDs = useUserContext()['subIDs'];
+	const user = useUserContext()['user'];
 
-	useEffect(() => {
-		fetchCatalog();
-	}, []);
+	const fetchCatalog = useCallback(
+		() => {
+			try {
+				axios
+					.get('http://127.0.0.1:5000/auth/magazine_catalog')
+					.then((res) => {
+						if (res.status === 201) {
+							return res;
+						}
+						console.log(res);
+					})
+					.then((json) => {
+						const data = json.data.filter((item) => subIDs.includes(item.magID) === false);
+						setData(data);
+						setLoading(false);
+					})
+					.catch((e) => {
+						console.log(e);
+						alert(e);
+					});
+			} catch (e) {
+				console.log('An error occurred in fetching the data; see below:');
+				console.log(e);
+			}
+		},
+		[ subIDs ]
+	);
 
-	const handleCellClick = (selectedCell) => {
-		console.log(selectedCell);
-		if (!selectedCell.value) {
-			const newItem = selectedCell.row;
-			setCart((items) => [ newItem, ...items ]);
-		}
-		else {
-			const id = selectedCell.id;
-			let newCart = [ ...cart ];
-			newCart = newCart.filter((item) => item.magID !== id);
-			setCart(() => newCart);
-		}
-	};
+	useEffect(
+		() => {
+			if (subIDs.length === 0) {
+				return navigate(`/dashboard/${user.user_id}`);
+			}
+			else {
+				fetchCatalog();
+			}
+		},
+		[ subIDs.length, navigate, fetchCatalog, user.user_id ]
+	);
 
 	return (
 		<section className={styles['catalog-page']}>
