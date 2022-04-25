@@ -50,10 +50,8 @@ def get_catalog(id):
 
 
 @user_bp.route('/add-subs/<id>', methods=['POST'])
-@cross_origin(headers=['Content- Type'])
 def add_subs(id):
         app = Flask(__name__)
-        CORS(app)
         app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("hostname")}/{os.getenv("database")}'
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         with app.app_context():

@@ -41,14 +41,10 @@ export const CartProvider = ({ children }) => {
 				.post(`http://127.0.0.1:5000/user/add-subs/${user_id}`, JSON.stringify(payload), {
 					headers: {
 						'Content-Type': 'application/json'
-
-						// 'Access-Control-Allow-Origin': '*'
 					}
 				})
 				.then((res) => {
-					console.log(res);
 					if (res.status === 201) {
-						console.log(res);
 						const successMessage = `Success: Checkout complete.`;
 						alert(successMessage);
 						navigate(`/dashboard/${user_id}`);
