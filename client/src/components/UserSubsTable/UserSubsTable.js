@@ -50,12 +50,16 @@ export const UserSubsTable = ({
 		//const [ loading, setLoading ] = useState(false);
 		const [ loading, setLoading ] = useState(true);
 
-		useEffect(() => {
-			if (user !== null) {
-				setSubscribed(fetchSubStatus(user.user_id, subID));
-				setLoading(false);
-			}
-		}, []);
+		useEffect(
+			() => {
+				if (user !== null) {
+					const subStatus = fetchSubStatus(user.user_id, subID);
+					setSubscribed(Boolean(subStatus));
+					setLoading(false);
+				}
+			},
+			[ fetchSubStatus, subID, user ]
+		);
 		const handleChange = () => setSubscribed((prevState) => !prevState);
 		return (
 			<Fragment>

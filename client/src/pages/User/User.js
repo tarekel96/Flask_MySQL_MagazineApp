@@ -20,11 +20,15 @@ const User = () => {
 	const handleClick = () => toggle((prev) => !prev);
 
 	useEffect(() => {
-		const user = JSON.parse(window.localStorage.getItem('user'));
-		if (user !== null && user !== undefined) {
+		const savedUser = JSON.parse(window.localStorage.getItem('user'));
+		if (user === null && savedUser !== null && savedUser !== undefined) {
+			setUser(savedUser);
+			fetchSubs(savedUser.user_id);
+		}
+		else if (user !== null && user !== undefined) {
 			setUser(user);
 			fetchSubs(user.user_id);
-			navigate(`/dashboard/${user.user_id}`);
+			//navigate(`/dashboard/${user.user_id}`);
 		}
 	}, []);
 

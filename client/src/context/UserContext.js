@@ -80,6 +80,7 @@ export const UserProvider = ({ children }) => {
 						return null;
 					}
 					let selectedSub = subs.find((sub) => sub.id === subID);
+					if (selectedSub === undefined) return true;
 					return selectedSub.subscribed;
 				})
 				.catch((e) => {

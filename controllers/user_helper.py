@@ -41,8 +41,6 @@ class user_helper():
                         return response
         @staticmethod
         def add_subs(request, id):
-                response = Response()
-                response.headers.add("Access-Control-Allow-Origin", "*")
                 req_dict = json.loads(request.data)
                 print(req_dict)
                 date = req_dict['date']
@@ -59,10 +57,12 @@ class user_helper():
                 '''
                 try:
                         with engine.connect() as con:
-                                print(records)
                                 con.execute(query, records)
+                                print('after sql')
+                        print('before response')
                         response = Response("{\n'message': success\n}", status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
+                        print(f'before return {response}')
                         return response
                 except mysql.connector.Error as err:
                         response = Response("{\n'message': {err}\n}", status=500, mimetype='application/json')

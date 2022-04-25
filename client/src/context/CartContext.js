@@ -40,9 +40,9 @@ export const CartProvider = ({ children }) => {
 			return axios
 				.post(`http://127.0.0.1:5000/user/add-subs/${user_id}`, JSON.stringify(payload), {
 					headers: {
-						'Content-Type': 'application/json',
+						'Content-Type': 'application/json'
 
-						'Access-Control-Allow-Origin': '*'
+						// 'Access-Control-Allow-Origin': '*'
 					}
 				})
 				.then((res) => {
