@@ -1,8 +1,8 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { AdminForm } from '../../components/Form/AdminForm';
-import { UserForm } from '../../components/Form/UserForm';
+import { AdminForm } from '../../components/Form/Admin/AdminForm';
+import { LoginForm } from '../../components/Form/User/Login/LoginForm';
 import styles from './login.module.css';
 
 const Login = () => {
@@ -37,7 +37,7 @@ const Login = () => {
 			) : (
 				<Fragment>
 					<h2 className={styles['formHeader']}>Sign In</h2>
-					<UserForm />
+					<LoginForm />
 				</Fragment>
 			)}
 			<div className={styles['login-radio-section']}>

@@ -36,6 +36,7 @@ const Catalog = () => {
 	const selectionModel = useCartContext()['selectionModel'];
 	const setSelectionModel = useCartContext()['setSelectionModel'];
 
+	const subs = useUserContext()['subs'];
 	const subIDs = useUserContext()['subIDs'];
 	const user = useUserContext()['user'];
 
@@ -68,14 +69,14 @@ const Catalog = () => {
 
 	useEffect(
 		() => {
-			if (subIDs.length === 0) {
+			if (subs === null) {
 				return navigate(`/dashboard/${user.user_id}`);
 			}
 			else {
 				fetchCatalog();
 			}
 		},
-		[ subIDs.length, navigate, fetchCatalog, user.user_id ]
+		[ subs, navigate, fetchCatalog, user.user_id ]
 	);
 
 	return (

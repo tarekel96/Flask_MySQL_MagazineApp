@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from '../Button/Button';
+import { Button } from '../../../Button/Button';
 import { useState } from 'react';
 import styles from './signupform.module.css';
 

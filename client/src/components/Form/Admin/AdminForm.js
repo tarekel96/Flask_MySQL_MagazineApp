@@ -1,5 +1,5 @@
-import { Button } from '../Button/Button';
-import { useAuthContext } from '../../context/AdminContext';
+import { Button } from '../../Button/Button';
+import { useAuthContext } from '../../../context/AdminContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -15,7 +15,6 @@ export const AdminForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('/');
 		return axios
 			.post('http://127.0.0.1:5000/auth/admin', JSON.stringify({ password }), {
 				headers: {
@@ -23,9 +22,7 @@ export const AdminForm = () => {
 				}
 			})
 			.then((res) => {
-				console.log(res);
 				if (res.status === 201) {
-					console.log(res);
 					authenticateAdmin();
 					alert(res.data);
 					navigate('/admin');
@@ -39,7 +36,6 @@ export const AdminForm = () => {
 	return (
 		<form className={styles['admin-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['admin-form-body']}>
-				{/*<label htmlFor="password">Enter Password:</label>*/}
 				<div>
 					<input
 						onChange={(e) => handleChange(e)}

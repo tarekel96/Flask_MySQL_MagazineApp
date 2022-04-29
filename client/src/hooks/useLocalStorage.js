@@ -23,6 +23,9 @@ export const useLocalStorage = (key = 'user', initialValue = null) => {
 	// ... persists the new value to localStorage.
 	const setValue = (value) => {
 		try {
+			if (value === null) {
+				return;
+			}
 			// Allow value to be a function so we have same API as useState
 			const valueToStore = value instanceof Function ? value(storedValue) : value;
 			const now = new Date();

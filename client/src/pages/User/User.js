@@ -25,10 +25,10 @@ const User = () => {
 			setUser(savedUser);
 			fetchSubs(savedUser.user_id);
 		}
-		else if (user !== null && user !== undefined) {
-			setUser(user);
-			fetchSubs(user.user_id);
-			//navigate(`/dashboard/${user.user_id}`);
+		else if (subs === null && user !== null && user !== undefined) {
+			if (user.user_id !== null && user.user_id !== undefined) {
+				fetchSubs(user.user_id);
+			}
 		}
 	}, []);
 
@@ -39,12 +39,13 @@ const User = () => {
 			</header>
 			<h3 className={styles['user-subs-header']}>Subscriptions</h3>
 			<section className={styles['user-subs']}>
-				{subs === null || subs.length === 0 ? (
+				{subs === null ? (
 					<Loading />
-				) : subs !== null && Object.keys(subs[0]).length !== 0 ? (
-					<UserSubsTable subs={subs} />
-				) : (
+				) : // Object.keys(subs[0]).length !== 0
+				subs !== null && subs.length === 0 ? (
 					<h1>No Subscriptions</h1>
+				) : (
+					<UserSubsTable subs={subs} />
 				)}
 			</section>
 			<TopLeftMenu isOpen={isOpen} handleClick={handleClick} />

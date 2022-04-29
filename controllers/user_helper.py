@@ -27,6 +27,12 @@ class user_helper():
                         data = db_helper.get_records_no_payload(cursor, query)
                         data = helper.datetime_to_str(data, [4, 5])
                         data_lst = db_helper.to_py_dict(data, ["id", "name", "category", "price", "startDate", "endDate", "subscribed"])
+                        if len(data_lst) == 0:
+                                lst = []
+                                json_data = json.dumps(lst)
+                                response = Response(json_data, status=204, mimetype='application/json')
+                                response.headers.add('Access-Control-Allow-Origin', '*')
+                                return response
                         json_data = json.dumps(data_lst)
                         response = Response(json_data, status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
@@ -42,7 +48,6 @@ class user_helper():
         @staticmethod
         def add_subs(request, id):
                 req_dict = json.loads(request.data)
-                print(req_dict)
                 date = req_dict['date']
                 new_mag_ids = req_dict['new_mag_ids']
                 records = []
@@ -50,7 +55,6 @@ class user_helper():
                         curr_record  = (mag_id, int(id), 10, 1, date, "2099-01-01") 
                         records.append(curr_record)
                 records = tuple(records)
-                print(records)
                 query = '''INSERT INTO subscription
                 (magID, custID, numMagsMailed, paymentCompleted, startDate, endDate)
                 VALUES (%s, %s, %s, %s, %s, %s)
@@ -58,11 +62,8 @@ class user_helper():
                 try:
                         with engine.connect() as con:
                                 con.execute(query, records)
-                                print('after sql')
-                        print('before response')
                         response = Response("{\n'message': success\n}", status=201, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
-                        print(f'before return {response}')
                         return response
                 except mysql.connector.Error as err:
                         response = Response("{\n'message': {err}\n}", status=500, mimetype='application/json')

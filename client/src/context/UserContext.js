@@ -45,11 +45,27 @@ export const UserProvider = ({ children }) => {
 			return axios
 				.get(`http://127.0.0.1:5000/user/subs/${id}`)
 				.then((res) => {
+					if (res.status === 204) {
+						return;
+					}
 					if (res.status === 201) {
 						return res;
 					}
 				})
 				.then((json) => {
+					if (json === undefined || json === null) {
+						setSubIDs([]);
+						setSubs([]);
+						console.log('No subscriptions were found.');
+						return;
+					}
+					if (json.data === [] || json.data === null || json.data === undefined) {
+						setSubIDs([]);
+						setSubs([]);
+						console.log('No subscriptions were found.');
+						return;
+					}
+
 					let subIds = [];
 					json.data.forEach((item) => subIds.push(item.id));
 
@@ -66,18 +82,29 @@ export const UserProvider = ({ children }) => {
 	}, []);
 
 	const fetchSubStatus = useCallback(async (id, subID) => {
+		if(subs === null || subs?.length === 0) {
+			return true;
+		}
 		try {
 			return axios
 				.get(`http://127.0.0.1:5000/user/subs/${id}`)
 				.then((res) => {
+					if (res.status === 204) {
+						setSubIDs([]);
+						setSubs([]);
+						console.log('No subscriptions were found.');
+						return;
+					}
 					if (res.status === 201) {
 						return res;
 					}
 				})
 				.then((json) => {
+					if(json.data === undefined) return true;
 					let subs = json.data;
+					if (subs === undefined || subs === null) return true;
 					if (Object.keys(subs[0]).length === 0) {
-						return null;
+						return true;
 					}
 					let selectedSub = subs.find((sub) => sub.id === subID);
 					if (selectedSub === undefined) return true;
@@ -90,7 +117,7 @@ export const UserProvider = ({ children }) => {
 		} catch (e) {
 			console.log(`Error: An error occurred in trying to fetch subscriptions.\n${e}`);
 		}
-	}, []);
+	}, [subs]);
 
 	// memoize the full context value
 	const contextValue = useMemo(

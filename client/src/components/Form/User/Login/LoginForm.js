@@ -1,11 +1,10 @@
 import axios from 'axios';
-import { Button } from '../Button/Button';
+import { Button } from '../../../Button/Button';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useUserContext } from '../../context/UserContext';
-import { localStorageValid, getLocalStorage } from '../../auth/auth';
-import styles from './userform.module.css';
-export const UserForm = () => {
+import { useState } from 'react';
+import { useUserContext } from '../../../../context/UserContext';
+import styles from './loginform.module.css';
+export const LoginForm = () => {
 	//const user = useUserContext()['user'];
 	const setUser = useUserContext()['updateUser'];
 	const fetchSubs = useUserContext()['fetchSubs'];
@@ -30,9 +29,7 @@ export const UserForm = () => {
 				}
 			})
 			.then((res) => {
-				console.log(res);
 				if (res.status === 201) {
-					console.log(res);
 					const successMessage = `Success: Logged in as ${res.data['user_username']}.\nWelcome ${res.data[
 						'user_first_name'
 					]} ${res.data['user_last_name']}!`;
@@ -47,8 +44,6 @@ export const UserForm = () => {
 						user_start_date: res.data['user_start_date']
 					};
 					setUser(chosenUser);
-
-					//setupLocalStorage(chosenUser);
 					fetchSubs(userID);
 					navigate(`/dashboard/${userID}`);
 				}

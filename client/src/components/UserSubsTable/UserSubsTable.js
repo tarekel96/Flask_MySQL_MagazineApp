@@ -45,6 +45,7 @@ export const UserSubsTable = ({
 		endDate = '03/01/2022'
 	}) => {
 		const user = useUserContext()['user'];
+		const subs = useUserContext()['subs'];
 		const fetchSubStatus = useUserContext()['fetchSubStatus'];
 		const [ subscribed, setSubscribed ] = useState(false);
 		//const [ loading, setLoading ] = useState(false);
@@ -52,13 +53,15 @@ export const UserSubsTable = ({
 
 		useEffect(
 			() => {
-				if (user !== null) {
-					const subStatus = fetchSubStatus(user.user_id, subID);
-					setSubscribed(Boolean(subStatus));
-					setLoading(false);
+				if (user !== null && subs !== null && subs !== undefined) {
+					if (subs.length > 0) {
+						const subStatus = fetchSubStatus(user.user_id, subID);
+						setSubscribed(Boolean(subStatus));
+						setLoading(false);
+					}
 				}
 			},
-			[ fetchSubStatus, subID, user ]
+			[ fetchSubStatus, subID, user, subs ]
 		);
 		const handleChange = () => setSubscribed((prevState) => !prevState);
 		return (
