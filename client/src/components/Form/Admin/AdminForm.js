@@ -41,7 +41,7 @@ export const AdminForm = () => {
 					<input
 						onChange={(e) => handleChange(e)}
 						value={password}
-						type="text"
+						type="password"
 						name="password"
 						placeholder="Password.."
 						className={styles['password-input']}

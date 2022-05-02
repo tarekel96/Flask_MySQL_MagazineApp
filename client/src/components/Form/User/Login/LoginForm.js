@@ -74,7 +74,7 @@ export const LoginForm = () => {
 				<input
 					onChange={(e) => handleChangePassword(e)}
 					value={password}
-					type="text"
+					type="password"
 					name="password"
 					placeholder="Password.."
 					className={styles['password-input']}

@@ -103,12 +103,17 @@ export const SignupForm = () => {
 				<input
 					onChange={(e) => handleChangePassword(e)}
 					value={password}
-					type="text"
+					type="password"
 					name="password"
 					placeholder="Password.."
 					className={styles['password-input']}
 				/>
-				<Button sx={ButtonSx} type="submit" className={styles['submit-button']}>
+				<Button
+					sx={ButtonSx}
+					type="submit"
+					className={styles['submit-button']}
+					disabled={firstname === '' || lastname === '' || username === '' || password === ''}
+				>
 					Signup
 				</Button>
 			</div>
