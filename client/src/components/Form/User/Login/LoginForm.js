@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Button } from '../../../Button/Button';
+import Button from '@mui/material/Button';
+import { ButtonSx } from '../../../../styles/MUI_styles';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from '../../../../context/UserContext';
 import styles from './loginform.module.css';
 export const LoginForm = () => {
-	//const user = useUserContext()['user'];
 	const setUser = useUserContext()['updateUser'];
 	const fetchSubs = useUserContext()['fetchSubs'];
 
@@ -62,7 +62,6 @@ export const LoginForm = () => {
 	return (
 		<form className={styles['user-form']} onSubmit={(e) => handleSubmit(e)}>
 			<div className={styles['user-form-body']}>
-				{/*		<label htmlFor="username">Enter Username:</label>*/}
 				<input
 					onChange={(e) => handleChangeUsername(e)}
 					value={username}
@@ -71,7 +70,7 @@ export const LoginForm = () => {
 					placeholder="Username.."
 					className={styles['username-input']}
 				/>
-				{/*<label htmlFor="password">Enter Password:</label>*/}
+
 				<input
 					onChange={(e) => handleChangePassword(e)}
 					value={password}
@@ -83,14 +82,9 @@ export const LoginForm = () => {
 				<Link to="/signup" className={styles['signupLink']}>
 					Don't have an account? Register!
 				</Link>
-				<Button
-					disabled={username !== '' && password !== '' ? true : false}
-					type="submit"
-					className={styles['submit-button']}
-				>
+				<Button sx={ButtonSx} disabled={username === '' || password === ''} type="submit">
 					Login
 				</Button>
-				{/*<input type="submit" className={styles['submit-button']} />*/}
 			</div>
 		</form>
 	);

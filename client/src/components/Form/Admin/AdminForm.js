@@ -1,4 +1,5 @@
-import { Button } from '../../Button/Button';
+import Button from '@mui/material/Button';
+import { ButtonSx } from '../../../styles/MUI_styles';
 import { useAuthContext } from '../../../context/AdminContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -46,7 +47,7 @@ export const AdminForm = () => {
 						className={styles['password-input']}
 					/>
 				</div>
-				<Button type="submit" className={styles['submit-button']}>
+				<Button type="submit" sx={ButtonSx} disabled={password === ''}>
 					Authenticate
 				</Button>
 			</div>

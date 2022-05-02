@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from '../../../Button/Button';
+import Button from '@mui/material/Button';
+import { ButtonSx } from '../../../../styles/MUI_styles';
 import { useState } from 'react';
 import styles from './signupform.module.css';
 
@@ -107,7 +108,7 @@ export const SignupForm = () => {
 					placeholder="Password.."
 					className={styles['password-input']}
 				/>
-				<Button type="submit" className={styles['submit-button']}>
+				<Button sx={ButtonSx} type="submit" className={styles['submit-button']}>
 					Signup
 				</Button>
 			</div>

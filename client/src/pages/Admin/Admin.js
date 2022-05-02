@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuthContext } from '../../context/AdminContext';
-import { Button } from '../../components/Button/Button';
+import Button from '@mui/material/Button';
+import { ButtonSx } from '../../styles/MUI_styles';
 import { MagItem } from '../../components/MagItem/MagItem';
 import { CustItem } from '../../components/CustItem/CustItem';
 import axios from 'axios';
@@ -152,7 +153,9 @@ const Admin = () => {
 		<div>
 			<h1 className={styles['admin-header']}>Admin Page</h1>
 			<form onSubmit={logoutAuth} className={styles['logout-btn-container']}>
-				<Button type="submit">Logout</Button>
+				<Button type="submit" sx={ButtonSx}>
+					Logout
+				</Button>
 			</form>
 			{!showForm ? (
 				<div className={styles['show-btn-wrapper']}>
@@ -175,7 +178,6 @@ const Admin = () => {
 							<input
 								type="radio"
 								name="view_all_mags"
-								value={viewAllMags}
 								checked={viewAllMags}
 								onChange={(e) => handleUserInput(e.target.name)}
 							/>
@@ -185,7 +187,6 @@ const Admin = () => {
 							<input
 								type="radio"
 								name="view_all_cust"
-								value={viewAllCust}
 								checked={viewAllCust}
 								onChange={(e) => handleUserInput(e.target.name)}
 							/>

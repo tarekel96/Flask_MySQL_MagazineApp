@@ -14,24 +14,6 @@
 	cursor: pointer;
 }
 
-/* .top-right-menu-wrapper {
-	position: absolute;
-	top: 1%;
-	right: 1%;
-}
-
-.top-right-menu {
-	background-color: transparent !important;
-}
-
-.top-right-menu ul, .top-right-menu ul li {
-	background-color: transparent !important;
-} */
-
-.logout-btn {
-	/* background-color: red !important; */
-}
-
 .user-header {
 	text-align: center;
 	margin-top: 10%;
