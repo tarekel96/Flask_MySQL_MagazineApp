@@ -28,6 +28,7 @@
 	width: 300px;
 	height: 45px;
 	margin-bottom: 40px;
+	padding: 0.5rem 1rem;
 }
 .password-input::placeholder {
 	font-weight: 400;

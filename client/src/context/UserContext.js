@@ -11,7 +11,7 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }) => {
-	let navigate = useNavigate('/');
+	let navigate = useNavigate();
 
 	// default state of user obj
 	const [ user, setUser ] = useLocalStorage('user', null);
@@ -32,6 +32,16 @@ export const UserProvider = ({ children }) => {
 		},
 		[ navigate, setUser ]
 	);
+
+	const logoutModal = useCallback(
+		(setModal) => {
+			setUser(null);
+			window.localStorage.clear();
+			navigate('/');
+		},
+		[ navigate, setUser ]
+	);
+
 	const [ subs, setSubs ] = useState(null);
 
 	const [ subIDs, setSubIDs ] = useState([]);

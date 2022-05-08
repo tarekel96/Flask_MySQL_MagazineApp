@@ -5,6 +5,7 @@ import { ButtonSx } from '../../styles/MUI_styles';
 import { MagItem } from '../../components/MagItem/MagItem';
 import { CustItem } from '../../components/CustItem/CustItem';
 import axios from 'axios';
+// @ts-ignore
 import styles from './admin.module.css';
 
 const Admin = () => {

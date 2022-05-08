@@ -1,12 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import { MaterialModal } from '../../../Modal/Modal';
 import { ButtonSx } from '../../../../styles/MUI_styles';
 import { useState } from 'react';
+// @ts-ignore
 import styles from './signupform.module.css';
 
 export const SignupForm = () => {
+	let statusCode = -1;
 	let navigate = useNavigate();
+	const [ modal, setModal ] = useState(false);
+	const toggleModal = () => setModal((prev) => !prev);
+	const handleClose = () => {
+		toggleModal();
+		if (statusCode === 201) {
+			navigate('/', { replace: true });
+		}
+	};
+
+	const [ modalTitle, setModalTitle ] = useState('');
+	const [ modalMsg, setModalMsg ] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -26,25 +40,28 @@ export const SignupForm = () => {
 				{ headers: { 'Content-Type': 'application/json' } }
 			)
 			.then((res) => {
-				const statusCode = res.status;
+				statusCode = res.status;
 				if (statusCode === 201) {
-					const successMessage = `Success: You have created an account!`;
-					alert(successMessage);
-					navigate('/', { replace: true });
+					const successMessage = `You have created an account!`;
+					setModalTitle('Success:');
+					setModalMsg(successMessage);
 				}
 				else if (statusCode === 500) {
 					const errorMessage = `Error: An error occurred in the database.`;
-					alert(errorMessage);
+					setModalTitle('Error:');
+					setModalMsg(errorMessage);
 					return;
 				}
 				else if (statusCode === 400) {
 					const errorMessage = `Error: An account with the username, ${username}, already exists!`;
-					alert(errorMessage);
+					setModalTitle('Error:');
+					setModalMsg(errorMessage);
 					return;
 				}
 				else if (statusCode === 502) {
 					const errorMessage = `Error: An error occurred in creating your account.`;
-					alert(errorMessage);
+					setModalTitle('Error:');
+					setModalMsg(errorMessage);
 					return;
 				}
 			})
@@ -117,6 +134,7 @@ export const SignupForm = () => {
 					Signup
 				</Button>
 			</div>
+			<MaterialModal open={modal} handleClose={handleClose} message={modalMsg} title={modalTitle} />
 		</form>
 	);
 };

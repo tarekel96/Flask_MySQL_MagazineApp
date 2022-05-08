@@ -11,14 +11,20 @@ import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import { MaterialModal } from '../Modal/Modal';
 import { useUserContext } from '../../context/UserContext';
+// @ts-ignore
 import styles from './topleftmenu.module.css';
 
 export const TopLeftMenu = () => {
 	const user = useUserContext()['user'];
 	const logout = useUserContext()['logout'];
+	const logoutModal = useUserContext()['logoutModal'];
 	const navToHome = useUserContext()['navToHome'];
 	const navToCatalog = useUserContext()['navToCatalog'];
+
+	const [ modal, setModal ] = useState(false);
+	const toggleModal = () => setModal((prev) => !prev);
 
 	const [ isOpen, setOpen ] = useState(false);
 	const toggleDrawer = (e) => {
@@ -72,6 +78,12 @@ export const TopLeftMenu = () => {
 					<ListItemText primary={'View Catalog'} />
 				</ListItem>
 				<Divider sx={{ borderColor: 'rgb(255, 255, 255)' }} />
+				<MaterialModal
+					title={'Success'}
+					message={'You are now logged out.'}
+					open={modal}
+					handleClose={() => setModal(false)}
+				/>
 				<ListItem
 					button
 					onClick={logout}

@@ -1,0 +1,13 @@
+.modal-title {
+	text-align: center;
+}
+
+.modal-x-close-btn-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 1%;
+	right: 1%;
+}

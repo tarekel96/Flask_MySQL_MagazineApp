@@ -2,10 +2,18 @@ import Button from '@mui/material/Button';
 import { ButtonSx } from '../../../styles/MUI_styles';
 import { useAuthContext } from '../../../context/AdminContext';
 import axios from 'axios';
+import { MaterialModal } from '../../Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+// @ts-ignore
 import styles from './adminform.module.css';
 export const AdminForm = () => {
+	const [ modal, setModal ] = useState(false);
+	const toggleModal = () => setModal((prev) => !prev);
+
+	const [ modalTitle, setModalTitle ] = useState('');
+	const [ modalMsg, setModalMsg ] = useState('');
+
 	const authenticateAdmin = useAuthContext()['authenticateAdmin'];
 	let navigate = useNavigate();
 
@@ -25,13 +33,17 @@ export const AdminForm = () => {
 			.then((res) => {
 				if (res.status === 201) {
 					authenticateAdmin();
-					alert(res.data);
+					setModalTitle('Success:');
+					setModalMsg(res.data);
+					toggleModal();
 					navigate('/admin');
 				}
 			})
 			.catch((e) => {
+				setModalTitle('Error:');
+				setModalMsg(e);
+				toggleModal();
 				console.log(e);
-				alert(e);
 			});
 	};
 	return (
@@ -45,6 +57,12 @@ export const AdminForm = () => {
 						name="password"
 						placeholder="Password.."
 						className={styles['password-input']}
+					/>
+					<MaterialModal
+						title={modalTitle}
+						message={modalMsg}
+						open={modal}
+						handleClose={() => setModal(false)}
 					/>
 				</div>
 				<Button type="submit" sx={ButtonSx} disabled={password === ''}>

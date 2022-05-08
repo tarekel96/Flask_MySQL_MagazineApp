@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { AdminForm } from '../../components/Form/Admin/AdminForm';
 import { LoginForm } from '../../components/Form/User/Login/LoginForm';
+// @ts-ignore
 import styles from './login.module.css';
 
 const Login = () => {
@@ -43,11 +44,23 @@ const Login = () => {
 			<div className={styles['login-radio-section']}>
 				<div>
 					<label htmlFor="admin">Admin</label>
-					<input type="radio" name="admin" value={isAdmin} onChange={handleSelection} checked={isAdmin} />
+					<input
+						type="radio"
+						name="admin"
+						value={Number(isAdmin)}
+						onChange={handleSelection}
+						checked={isAdmin}
+					/>
 				</div>
 				<div>
 					<label htmlFor="user">User</label>
-					<input type="radio" name="user" value={!isAdmin} onChange={handleSelection} checked={!isAdmin} />
+					<input
+						type="radio"
+						name="user"
+						value={Number(!isAdmin)}
+						onChange={handleSelection}
+						checked={!isAdmin}
+					/>
 				</div>
 			</div>
 		</section>

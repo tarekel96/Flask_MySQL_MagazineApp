@@ -1,13 +1,29 @@
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import { MaterialModal } from '../../../Modal/Modal';
 import { ButtonSx } from '../../../../styles/MUI_styles';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from '../../../../context/UserContext';
+// @ts-ignore
 import styles from './loginform.module.css';
 export const LoginForm = () => {
+	let userID = null;
+	const [ modal, setModal ] = useState(false);
+	const toggleModal = () => setModal((prev) => !prev);
+	const handleClose = () => {
+		toggleModal();
+		if (statusCode === 201) {
+			navigate(`/dashboard/${userID}`);
+		}
+	};
+
+	const [ modalTitle, setModalTitle ] = useState('');
+	const [ modalMsg, setModalMsg ] = useState('');
+
 	const setUser = useUserContext()['updateUser'];
 	const fetchSubs = useUserContext()['fetchSubs'];
+	const [ statusCode, setStatusCode ] = useState(-1);
 
 	let navigate = useNavigate();
 
@@ -29,12 +45,15 @@ export const LoginForm = () => {
 				}
 			})
 			.then((res) => {
+				setStatusCode(res.status);
 				if (res.status === 201) {
-					const successMessage = `Success: Logged in as ${res.data['user_username']}.\nWelcome ${res.data[
+					const successMessage = `Logged in as ${res.data['user_username']}.\nWelcome ${res.data[
 						'user_first_name'
 					]} ${res.data['user_last_name']}!`;
-					alert(successMessage);
-					const userID = res.data['user_id'];
+					setModalTitle('Success:');
+					setModalMsg(successMessage);
+					toggleModal();
+					userID = res.data['user_id'];
 					const chosenUser = {
 						user_id: res.data['user_id'],
 						user_first_name: res.data['user_first_name'],
@@ -45,18 +64,21 @@ export const LoginForm = () => {
 					};
 					setUser(chosenUser);
 					fetchSubs(userID);
-					navigate(`/dashboard/${userID}`);
 				}
 				else if (res.status === 401) {
 					const errorMessage = `${res.data}\nError: Invalid password provided.`;
+					setModalTitle('Error:');
+					setModalMsg(errorMessage);
+					toggleModal();
 					console.log(res.status);
-					console.log(errorMessage);
-					alert(errorMessage);
 				}
 			})
 			.catch((e) => {
+				const errorMessage = `Error Message: ${e}`;
+				setModalTitle('Error:');
+				setModalMsg(errorMessage);
+				toggleModal();
 				console.log(e);
-				alert(e);
 			});
 	};
 	return (
@@ -86,6 +108,7 @@ export const LoginForm = () => {
 					Login
 				</Button>
 			</div>
+			<MaterialModal open={modal} handleClose={handleClose} message={modalMsg} title={modalTitle} />
 		</form>
 	);
 };

@@ -4,6 +4,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useUserContext } from '../../context/UserContext';
 import { useCartContext } from '../../context/CartContext';
+// @ts-ignore
 import styles from './cart.module.css';
 
 export const CartItem = ({ item }) => {
@@ -21,6 +22,7 @@ export const CartItem = ({ item }) => {
 				newSelectionMode.push(item.magID);
 				return item;
 			}
+			return null;
 		});
 
 		setSelectionModel(() => {
