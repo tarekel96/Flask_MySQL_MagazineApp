@@ -8,8 +8,17 @@ import { useState } from 'react';
 // @ts-ignore
 import styles from './adminform.module.css';
 export const AdminForm = () => {
+	const [ statusCode, setStatusCode ] = useState(-1);
 	const [ modal, setModal ] = useState(false);
 	const toggleModal = () => setModal((prev) => !prev);
+	const handleClose = () => {
+		console.log('clicked');
+		console.log(statusCode);
+		toggleModal();
+		if (statusCode === 201) {
+			navigate('/admin');
+		}
+	};
 
 	const [ modalTitle, setModalTitle ] = useState('');
 	const [ modalMsg, setModalMsg ] = useState('');
@@ -31,12 +40,13 @@ export const AdminForm = () => {
 				}
 			})
 			.then((res) => {
+				setStatusCode(res.status);
 				if (res.status === 201) {
-					authenticateAdmin();
+					authenticateAdmin({ admin: 'admin' });
 					setModalTitle('Success:');
 					setModalMsg(res.data);
 					toggleModal();
-					navigate('/admin');
+					console.log(res.data);
 				}
 			})
 			.catch((e) => {
@@ -58,12 +68,7 @@ export const AdminForm = () => {
 						placeholder="Password.."
 						className={styles['password-input']}
 					/>
-					<MaterialModal
-						title={modalTitle}
-						message={modalMsg}
-						open={modal}
-						handleClose={() => setModal(false)}
-					/>
+					<MaterialModal title={modalTitle} message={modalMsg} open={modal} handleClose={handleClose} />
 				</div>
 				<Button type="submit" sx={ButtonSx} disabled={password === ''}>
 					Authenticate

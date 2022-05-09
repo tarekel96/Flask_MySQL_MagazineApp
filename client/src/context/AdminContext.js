@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setupLocalStorage } from '../auth/auth';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { setupLocalStorageAdmin } from '../auth/auth';
 
 const AdminContext = createContext(null);
 export const useAuthContext = () => {
@@ -10,33 +11,37 @@ export const useAuthContext = () => {
 export const AuthProvider = ({ children }) => {
 	let navigate = useNavigate();
 
-	const [ isAdmin, setIsAdmin ] = useState(false);
+	// default state of user obj
+	const [ admin, setAdmin ] = useLocalStorage('admin', null);
 
-	const authenticateAdmin = useCallback(() => {
-		console.log('here');
-		window.localStorage.clear();
-		setIsAdmin(true);
-		setupLocalStorage('auth');
-	}, []);
+	const authenticateAdmin = useCallback(
+		(savedAdmin) => {
+			window.localStorage.clear();
+			setAdmin(savedAdmin);
+			setupLocalStorageAdmin();
+		},
+		[ setAdmin ]
+	);
 
 	const logoutAuth = useCallback(
 		() => {
-			setIsAdmin(false);
+			setAdmin(null);
 			window.localStorage.clear();
+			alert('You are not logged out.');
 			return navigate('/');
 		},
-		[ navigate ]
+		[ setAdmin, navigate ]
 	);
 
 	// memoize the full context value
 	const contextValue = useMemo(
 		() => ({
-			isAdmin,
-			setIsAdmin,
+			admin,
+			setAdmin,
 			authenticateAdmin,
 			logoutAuth
 		}),
-		[ isAdmin, setIsAdmin, authenticateAdmin, logoutAuth ]
+		[ admin, setAdmin, authenticateAdmin, logoutAuth ]
 	);
 
 	return <AdminContext.Provider value={contextValue}>{children}</AdminContext.Provider>;

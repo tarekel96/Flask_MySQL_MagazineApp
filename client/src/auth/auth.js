@@ -11,8 +11,8 @@ export const RequireAuth = ({ children }) => {
 
 export const RequireAdminAuth = ({ children }) => {
 	let location = useLocation();
-	let admin = useAuthContext()['isAdmin'];
-	let isAuthenticated = admin !== null && admin !== undefined && admin !== false;
+	let admin = useAuthContext()['admin'];
+	let isAuthenticated = admin !== null && admin !== undefined;
 	return isAuthenticated ? children : <Navigate to="/" state={{ from: location }} replace={true} />;
 };
 
@@ -28,6 +28,16 @@ export const setupLocalStorage = (user, ttl = 5000) => {
 			user_last_name,
 			user_username,
 			user_start_date,
+			expiry: now.getTime() + ttl
+		})
+	);
+};
+
+export const setupLocalStorageAdmin = (ttl = 5000) => {
+	const now = new Date();
+	window.localStorage.setItem(
+		'admin',
+		JSON.stringify({
 			expiry: now.getTime() + ttl
 		})
 	);

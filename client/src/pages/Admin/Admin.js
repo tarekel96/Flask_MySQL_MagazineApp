@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AdminContext';
 import Button from '@mui/material/Button';
 import { ButtonSx } from '../../styles/MUI_styles';
@@ -9,6 +10,9 @@ import axios from 'axios';
 import styles from './admin.module.css';
 
 const Admin = () => {
+	let navigate = useNavigate();
+	const admin = useAuthContext()['admin'];
+	const setAdmin = useAuthContext()['isAdmin'];
 	const logoutAuth = useAuthContext()['logoutAuth'];
 	const [ showForm, setFormVisibility ] = useState(true);
 	const [ content, setContent ] = useState([]);
@@ -19,6 +23,17 @@ const Admin = () => {
 	const [ fetchedCusts, setCustFetchStatus ] = useState(false);
 
 	const falsifyStates = (arr) => arr.forEach((setState) => setState(false));
+
+	useEffect(() => {
+		const savedAdmin = JSON.parse(window.localStorage.getItem('admin'));
+		console.log(savedAdmin);
+		if (admin === null && (savedAdmin === null || savedAdmin === undefined)) {
+			navigate('/');
+		}
+		else if (admin === null && savedAdmin !== null && savedAdmin !== undefined) {
+			setAdmin(savedAdmin);
+		}
+	}, []);
 
 	const getAllMags = async () => {
 		cleanForm();
@@ -160,9 +175,9 @@ const Admin = () => {
 			</form>
 			{!showForm ? (
 				<div className={styles['show-btn-wrapper']}>
-					<button className={styles['show-btn']} onClick={toggleForm}>
+					<Button sx={ButtonSx} onClick={toggleForm} variant="outlined">
 						Show Form
-					</button>
+					</Button>
 				</div>
 			) : (
 				''
