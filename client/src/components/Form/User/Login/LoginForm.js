@@ -74,7 +74,7 @@ export const LoginForm = () => {
 				}
 			})
 			.catch((e) => {
-				const errorMessage = `Error Message: ${e}`;
+				const errorMessage = `Error Message: ${String(e)}`;
 				setModalTitle('Error:');
 				setModalMsg(errorMessage);
 				toggleModal();

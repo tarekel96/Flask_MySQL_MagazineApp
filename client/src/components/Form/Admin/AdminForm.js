@@ -12,8 +12,6 @@ export const AdminForm = () => {
 	const [ modal, setModal ] = useState(false);
 	const toggleModal = () => setModal((prev) => !prev);
 	const handleClose = () => {
-		console.log('clicked');
-		console.log(statusCode);
 		toggleModal();
 		if (statusCode === 201) {
 			navigate('/admin');
@@ -48,12 +46,17 @@ export const AdminForm = () => {
 					toggleModal();
 					console.log(res.data);
 				}
+				else if (res.status === 401) {
+					setModalTitle('Error:');
+					setModalMsg(res.data);
+					toggleModal();
+				}
 			})
 			.catch((e) => {
-				setModalTitle('Error:');
-				setModalMsg(e);
-				toggleModal();
 				console.log(e);
+				setModalTitle('Error Message:');
+				setModalMsg(String(e));
+				toggleModal();
 			});
 	};
 	return (
