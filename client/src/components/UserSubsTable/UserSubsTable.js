@@ -115,6 +115,7 @@ export const UserSubsTable = ({
 			sx={{
 				backgroundColor: 'rgb(18, 18, 18)',
 				borderRadius: '4px',
+				zIndex: 2,
 				'& .MuiTableCell-root': {
 					color: 'rgb(255, 255, 255)'
 				},

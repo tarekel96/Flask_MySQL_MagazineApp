@@ -89,6 +89,7 @@ const Catalog = () => {
 					autoHeight={true}
 					getRowId={(r) => r.magID}
 					sx={{
+						zIndex: 2,
 						color: 'rgb(255, 255, 255)',
 						'& .MuiDataGrid-row:nth-of-type(even)': {
 							backgroundColor: 'rgb(26, 32, 39)'

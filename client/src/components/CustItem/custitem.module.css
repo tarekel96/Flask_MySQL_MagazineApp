@@ -1,12 +1,13 @@
 .cust-item-container {
+	z-index: 2;
 	display: grid;
 	grid-template-rows: auto;
 	grid-template-areas: "id username" "fist-name last-name";
 	width: 400px;
 	height: 175px;
-	background-color: #b4f1f1;
+	background-color: rgb(26, 32, 39);
 	border-style: solid;
-	border-color: rgb(190, 190, 190);
+	border-color: #000;
 	border-radius: 6px;
 	box-shadow: 8px;
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);

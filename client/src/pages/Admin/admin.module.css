@@ -10,9 +10,11 @@
 
 .grid-container {
 	margin: 0 auto;
+	z-index: 2;
 }
 
 .items-container {
+	z-index: 2;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;

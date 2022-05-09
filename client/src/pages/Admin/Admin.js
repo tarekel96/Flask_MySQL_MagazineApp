@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AdminContext';
 import Button from '@mui/material/Button';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import HideSourceIcon from '@mui/icons-material/HideSource';
 import { ButtonSx } from '../../styles/MUI_styles';
 import { MagItem } from '../../components/MagItem/MagItem';
 import { CustItem } from '../../components/CustItem/CustItem';
@@ -185,7 +188,7 @@ const Admin = () => {
 			{showForm ? (
 				<form className={styles['radio-form']} onSubmit={(e) => handleSubmit(e)}>
 					<span className={styles['form-hide-btn']} onClick={toggleForm}>
-						Hide
+						<HideSourceIcon />
 					</span>
 					<h3>Options: </h3>
 					<ol>
@@ -211,69 +214,59 @@ const Admin = () => {
 							<label htmlFor="mags_avg_cost_cat">
 								View average costs of magazines across categories.
 							</label>
-							<input
-								type="radio"
-								name="mags_avg_cost_cat"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="mags_avg_cost_cat" />
 						</li>
 						<li>
 							<label htmlFor="get_all_mags_by_year">View magazines by year.</label>
-							<input
-								type="radio"
-								name="get_all_mags_by_year"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="get_all_mags_by_year" />
 						</li>
 						<li>
 							<label htmlFor="get_all_cust_by_city">View all customers by city.</label>
-							<input
-								type="radio"
-								name="get_all_cust_by_city"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="get_all_cust_by_city" />
 						</li>
 						<li>
 							<label htmlFor="get_all_cust_prof">View all customer profiles.</label>
-							<input
-								type="radio"
-								name="get_all_cust_prof"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="get_all_cust_prof" />
 						</li>
 						<li>
 							<label htmlFor="get_all_mag_subs">View all magazine subscriptions.</label>
-							<input
-								type="radio"
-								name="get_all_mag_subs"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="get_all_mag_subs" />
 						</li>
 						<li>
 							<label htmlFor="max_cat_by_zip">View top categories by zip code.</label>
-							<input
-								type="radio"
-								name="max_cat_by_zip"
-								// value={viewAllMags}
-								// checked={viewAllMags}
-								// onChange={(e) => handleUserinput(e.target.name)}
-							/>
+							<input type="radio" name="max_cat_by_zip" />
 						</li>
 						<div className={styles['submit-btn-wrapper']}>
-							<input type="submit" />
-							<button type="button" className={styles['clear-btn']} onClick={handleClear}>
+							<Button
+								type="submit"
+								variant="outlined"
+								sx={{
+									color: '#20df7f',
+									borderColor: '#20df7f',
+									'&:hover': {
+										color: '#20df7f',
+										borderColor: '#20df7f',
+										cursor: 'pointer'
+									}
+								}}
+								endIcon={<KeyboardArrowUpIcon />}
+							>
+								Submit
+							</Button>
+							<Button
+								type="button"
+								onClick={handleClear}
+								variant="outlined"
+								color="error"
+								sx={{
+									'&:hover': {
+										cursor: 'pointer'
+									}
+								}}
+								endIcon={<DeleteForeverIcon />}
+							>
 								Clear
-							</button>
+							</Button>
 						</div>
 					</ol>
 				</form>

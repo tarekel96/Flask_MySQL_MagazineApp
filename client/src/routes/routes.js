@@ -55,6 +55,7 @@ const CatalogPage = () => {
 		<Fragment>
 			<Catalog />
 			<TopLeftMenu />
+			<Footer className="footer" />
 		</Fragment>
 	);
 };
@@ -102,7 +103,7 @@ export const routes = [
 		component: (
 			<Fragment>
 				<Test />
-				<Footer />
+				<Footer className="footer" />
 			</Fragment>
 		),
 		exact: true
@@ -110,10 +111,10 @@ export const routes = [
 	{
 		path: '/*',
 		component: (
-			<Footer>
+			<Fragment>
 				<NotFound />
-				<Footer />
-			</Footer>
+				<Footer className="footer" />
+			</Fragment>
 		),
 		exact: false
 	}
