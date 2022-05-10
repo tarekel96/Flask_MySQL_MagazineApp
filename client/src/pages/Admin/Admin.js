@@ -8,6 +8,14 @@ import HideSourceIcon from '@mui/icons-material/HideSource';
 import { ButtonSx } from '../../styles/MUI_styles';
 import { MagItem } from '../../components/MagItem/MagItem';
 import { CustItem } from '../../components/CustItem/CustItem';
+import {
+	AnimatedAxis, // any of these can be non-animated equivalents
+	AnimatedGrid,
+	AnimatedBarSeries,
+	XYChart,
+	Tooltip,
+	buildChartTheme
+} from '@visx/xychart';
 import axios from 'axios';
 // @ts-ignore
 import styles from './admin.module.css';
@@ -20,10 +28,15 @@ const Admin = () => {
 	const [ showForm, setFormVisibility ] = useState(true);
 	const [ content, setContent ] = useState([]);
 	const [ userSelection, setUserSelection ] = useState('');
+
 	const [ viewAllMags, setViewAllMags ] = useState(false);
 	const [ fetchedMags, setMagFetchStatus ] = useState(false);
+
 	const [ viewAllCust, setViewAllCust ] = useState(false);
 	const [ fetchedCusts, setCustFetchStatus ] = useState(false);
+
+	const [ viewAvgCatCost, setViewAvgCatCost ] = useState(false);
+	const [ fetchedAvgCatCost, setAvgCatCostStatus ] = useState(false);
 
 	const falsifyStates = (arr) => arr.forEach((setState) => setState(false));
 
@@ -116,18 +129,124 @@ const Admin = () => {
 
 	const custIsReady = () => content.length !== 0 && fetchedCusts === true;
 
+	const getAvgCatCost = async () => {
+		cleanForm();
+		try {
+			return await axios
+				.get('http://127.0.0.1:5000/auth/avg_cost_category')
+				.then((res) => {
+					if (res.status === 201) {
+						return res;
+					}
+					console.log(res);
+				})
+				.then((json) => {
+					setContent(json.data);
+					setAvgCatCostStatus(true);
+				})
+				.catch((e) => {
+					console.log(e);
+					alert(e);
+				});
+		} catch (e) {
+			console.log('An error occurred in fetching the data; see below:');
+			console.log(e);
+		}
+	};
+
+	const layoutAvgCost = () => {
+		let data = [];
+		let labels = [];
+		for (let i = 0; i < content.length; ++i) {
+			let currentData = {
+				x: content[i].category,
+				y: content[i].AverageCost
+			};
+			data.push(currentData);
+			labels.push(content[i].category);
+		}
+		console.log(data);
+		console.log(labels);
+		const accessors = {
+			xAccessor: (d) => d.x,
+			yAccessor: (d) => d.y
+		};
+
+		const customTheme = buildChartTheme({
+			// colors
+			colors: [ '#20df7f', '#aef' ], // categorical colors, mapped to series via `dataKey`s
+			backgroundColor: 'rgb(18, 18, 18)',
+			svgLabelSmall: { color: '#20df7f', fontWeight: 700, fill: '#20df7f' },
+			// labels
+			// svgLabelBig?: SVGTextProps;
+			// svgLabelSmall?: SVGTextProps;
+			// htmlLabel?: HTMLTextStyles;
+
+			// // lines
+			// xAxisLineStyles?: LineStyles;
+			// yAxisLineStyles?: LineStyles;
+			// xTickLineStyles: { className: "ticks" }
+			// yTickLineStyles?: LineStyles;
+			tickLength: 4,
+
+			// // grid
+			gridColor: 'lightgrey',
+			gridColorDark: 'black' // used for axis baseline if x/yxAxisLineStyles not set
+			// gridStyles?: CSSProperties;
+		});
+
+		return (
+			<XYChart
+				theme={customTheme}
+				height={500}
+				xScale={{ type: 'band', paddingInner: 0.5 }}
+				yScale={{ type: 'linear' }}
+			>
+				<AnimatedAxis hideAxisLine={true} hideTicks={true} orientation="left" />
+				<AnimatedGrid rows={true} columns={false} numTicks={16} />
+				<AnimatedBarSeries dataKey="Category" data={data} {...accessors} />
+
+				<Tooltip
+					// snapTooltipToDatumX
+					// snapTooltipToDatumY
+					// showVerticalCrosshair
+					// showSeriesGlyphs
+					renderTooltip={({ tooltipData, colorScale }) => (
+						<div>
+							<div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>
+								{tooltipData.nearestDatum.key}
+							</div>
+							{accessors.xAccessor(tooltipData.nearestDatum.datum).toString()}
+							{', '}
+							{accessors.yAccessor(tooltipData.nearestDatum.datum)}
+						</div>
+					)}
+				/>
+			</XYChart>
+		);
+
+		//return JSON.stringify(content);
+	};
+
+	const avgCatCostReady = () => content.length !== 0 && fetchedAvgCatCost === true;
+
 	const handleUserInput = (name) => {
 		setUserSelection(name);
 		switch (name) {
 			case 'view_all_mags':
 				setUserSelection('view_all_mags');
 				setViewAllMags(true);
-				falsifyStates([ setViewAllCust ]);
+				falsifyStates([ setViewAllCust, setAvgCatCostStatus ]);
 				break;
 			case 'view_all_cust':
 				setUserSelection('view_all_cust');
 				setViewAllCust(true);
-				falsifyStates([ setViewAllMags ]);
+				falsifyStates([ setViewAllMags, setAvgCatCostStatus ]);
+				break;
+			case 'avg_cat_cost':
+				setUserSelection('avg_cat_cost');
+				setViewAvgCatCost(true);
+				falsifyStates([ setViewAllCust, setViewAllMags ]);
 				break;
 			default:
 				return '';
@@ -138,12 +257,16 @@ const Admin = () => {
 		e.preventDefault();
 		switch (userSelection) {
 			case 'view_all_mags':
-				falsifyStates([ setCustFetchStatus ]);
+				falsifyStates([ setCustFetchStatus, setAvgCatCostStatus ]);
 				getAllMags();
 				break;
 			case 'view_all_cust':
-				falsifyStates([ setMagFetchStatus ]);
+				falsifyStates([ setMagFetchStatus, setAvgCatCostStatus ]);
 				getAllCust();
+				break;
+			case 'avg_cat_cost':
+				falsifyStates([ setCustFetchStatus, setMagFetchStatus ]);
+				getAvgCatCost();
 				break;
 			default:
 				return '';
@@ -156,7 +279,7 @@ const Admin = () => {
 
 	const handleClear = () => {
 		setContent([]);
-		falsifyStates([ setViewAllMags, setViewAllMags ]);
+		falsifyStates([ setViewAllMags, setViewAllMags, setViewAvgCatCost ]);
 	};
 
 	const cleanForm = () => {
@@ -166,6 +289,7 @@ const Admin = () => {
 	const retItems = () => {
 		if (magIsReady()) return layoutMags();
 		if (custIsReady()) return layoutCusts();
+		if (avgCatCostReady()) return layoutAvgCost();
 	};
 
 	return (
@@ -214,7 +338,12 @@ const Admin = () => {
 							<label htmlFor="mags_avg_cost_cat">
 								View average costs of magazines across categories.
 							</label>
-							<input type="radio" name="mags_avg_cost_cat" />
+							<input
+								type="radio"
+								name="avg_cat_cost"
+								checked={viewAvgCatCost}
+								onChange={(e) => handleUserInput(e.target.name)}
+							/>
 						</li>
 						<li>
 							<label htmlFor="get_all_mags_by_year">View magazines by year.</label>
@@ -238,22 +367,6 @@ const Admin = () => {
 						</li>
 						<div className={styles['submit-btn-wrapper']}>
 							<Button
-								type="submit"
-								variant="outlined"
-								sx={{
-									color: '#20df7f',
-									borderColor: '#20df7f',
-									'&:hover': {
-										color: '#20df7f',
-										borderColor: '#20df7f',
-										cursor: 'pointer'
-									}
-								}}
-								endIcon={<KeyboardArrowUpIcon />}
-							>
-								Submit
-							</Button>
-							<Button
 								type="button"
 								onClick={handleClear}
 								variant="outlined"
@@ -266,6 +379,28 @@ const Admin = () => {
 								endIcon={<DeleteForeverIcon />}
 							>
 								Clear
+							</Button>
+							<Button
+								type="submit"
+								variant="outlined"
+								sx={{
+									color: '#20df7f',
+									borderColor: '#20df7f',
+									'&:hover': {
+										color: '#20df7f',
+										borderColor: '#20df7f',
+										cursor: 'pointer'
+									}
+								}}
+								endIcon={
+									<KeyboardArrowUpIcon
+										sx={{
+											transform: 'rotate(90deg)'
+										}}
+									/>
+								}
+							>
+								Submit
 							</Button>
 						</div>
 					</ol>

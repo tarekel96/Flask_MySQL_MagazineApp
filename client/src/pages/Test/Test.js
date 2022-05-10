@@ -1,11 +1,14 @@
 import { Fragment } from 'react';
 import { CatalogBanner } from '../../components/CatalogBanner/CatalogBanner';
+import { Graph } from '../../components/Graph/Graph';
 import { UserSubsTable } from '../../components/UserSubsTable/UserSubsTable';
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
 //import { TopLeftMenu } from '../../components/TopLeftMenu/TopLeftMenu';
 
 const Test = () => {
 	return (
 		<Fragment>
+			<Graph />
 			{/*<TopLeftMenu isOpen={isOpen} handleClick={handleClick} logout={logout} /> */}
 			<CatalogBanner />
 			{/*

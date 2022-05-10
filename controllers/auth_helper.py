@@ -139,3 +139,24 @@ class auth_helper():
                         response = Response("{\n'message': 'Error - Unknown Error.'\n}", status=500, mimetype='application/json')
                         response.headers.add('Access-Control-Allow-Origin', '*')
                         return response
+
+
+
+        @staticmethod
+        def get_avg_cost_category(session):
+                cursor = session.execute(RE_QUERIES["MAGS_AVG_COST_BY_CAT"]).cursor
+                # category, COUNT(category) AS CountOfCategory, ROUND(AVG(cost), 2) AS AvgCost
+                try:
+                        data = db_helper.get_records(cursor, RE_QUERIES["MAGS_AVG_COST_BY_CAT"], ["category", "CountOfCatgory", "AverageCost"])
+                        json_data = json.dumps(data)
+                        response = Response(json_data, status=201, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except mysql.connector.Error as err:
+                        response = Response("{\n'message': {err}\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
+                except:
+                        response = Response("{\n'message': 'Error - Unknown Error.'\n}", status=500, mimetype='application/json')
+                        response.headers.add('Access-Control-Allow-Origin', '*')
+                        return response
