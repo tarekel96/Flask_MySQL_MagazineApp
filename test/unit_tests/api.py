@@ -45,6 +45,13 @@ def auth_get_customers():
         response = requests.get(f"{BASE_URL}/auth/customers", headers=headers)
         assert response.status_code == 201
 
+
+# /auth/avg_cost_category
+def auth_get_avg_cost_cat():
+        headers = {'Content-type': 'application/json'}
+        response = requests.get(f"{BASE_URL}/auth/avg_cost_category", headers=headers)
+        assert response.status_code == 201
+
 # /user/<user_id>
 def user_get_subs_by_id(user_id=3):
         headers = {'Content-type': 'application/json'}
@@ -53,7 +60,7 @@ def user_get_subs_by_id(user_id=3):
 
 # main
 def auth_tests():
-        tests = [auth_index, auth_admin_login, auth_admin_login_fail, auth_user_login, auth_user_login_fail, auth_get_catalog, auth_get_customers]
+        tests = [auth_index, auth_admin_login, auth_admin_login_fail, auth_user_login, auth_user_login_fail, auth_get_catalog, auth_get_customers, auth_get_avg_cost_cat]
         for test in tests:
                 test()
         print("Auth test have been run.")

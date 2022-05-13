@@ -347,23 +347,23 @@ const Admin = () => {
 						</li>
 						<li>
 							<label htmlFor="get_all_mags_by_year">View magazines by year.</label>
-							<input type="radio" name="get_all_mags_by_year" />
+							<input type="radio" name="get_all_mags_by_year" disabled={true} />
 						</li>
 						<li>
 							<label htmlFor="get_all_cust_by_city">View all customers by city.</label>
-							<input type="radio" name="get_all_cust_by_city" />
+							<input type="radio" name="get_all_cust_by_city" disabled={true} />
 						</li>
 						<li>
 							<label htmlFor="get_all_cust_prof">View all customer profiles.</label>
-							<input type="radio" name="get_all_cust_prof" />
+							<input type="radio" name="get_all_cust_prof" disabled={true} />
 						</li>
 						<li>
 							<label htmlFor="get_all_mag_subs">View all magazine subscriptions.</label>
-							<input type="radio" name="get_all_mag_subs" />
+							<input type="radio" name="get_all_mag_subs" disabled={true} />
 						</li>
 						<li>
 							<label htmlFor="max_cat_by_zip">View top categories by zip code.</label>
-							<input type="radio" name="max_cat_by_zip" />
+							<input type="radio" name="max_cat_by_zip" disabled={true} />
 						</li>
 						<div className={styles['submit-btn-wrapper']}>
 							<Button

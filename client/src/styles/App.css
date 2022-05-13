@@ -13,6 +13,11 @@ input {
 	border: none;
 	color: var(--color-text);
 }
+
+input:disabled {
+	cursor: not-allowed;
+}
+
 a {
 	color: var(--color-secondary);
 	font-weight: 500;
