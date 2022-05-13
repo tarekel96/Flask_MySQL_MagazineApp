@@ -178,21 +178,13 @@ const Admin = () => {
 			backgroundColor: 'rgb(18, 18, 18)',
 			svgLabelSmall: { color: '#20df7f', fontWeight: 700, fill: '#20df7f' },
 			// labels
-			// svgLabelBig?: SVGTextProps;
-			// svgLabelSmall?: SVGTextProps;
-			// htmlLabel?: HTMLTextStyles;
 
-			// // lines
-			// xAxisLineStyles?: LineStyles;
-			// yAxisLineStyles?: LineStyles;
-			// xTickLineStyles: { className: "ticks" }
-			// yTickLineStyles?: LineStyles;
+			// lines
 			tickLength: 4,
 
 			// // grid
 			gridColor: 'lightgrey',
 			gridColorDark: 'black' // used for axis baseline if x/yxAxisLineStyles not set
-			// gridStyles?: CSSProperties;
 		});
 
 		return (
@@ -207,10 +199,6 @@ const Admin = () => {
 				<AnimatedBarSeries dataKey="Category" data={data} {...accessors} />
 
 				<Tooltip
-					// snapTooltipToDatumX
-					// snapTooltipToDatumY
-					// showVerticalCrosshair
-					// showSeriesGlyphs
 					renderTooltip={({ tooltipData, colorScale }) => (
 						<div>
 							<div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>
@@ -224,8 +212,6 @@ const Admin = () => {
 				/>
 			</XYChart>
 		);
-
-		//return JSON.stringify(content);
 	};
 
 	const avgCatCostReady = () => content.length !== 0 && fetchedAvgCatCost === true;
@@ -236,12 +222,12 @@ const Admin = () => {
 			case 'view_all_mags':
 				setUserSelection('view_all_mags');
 				setViewAllMags(true);
-				falsifyStates([ setViewAllCust, setAvgCatCostStatus ]);
+				falsifyStates([ setViewAllCust, setViewAvgCatCost ]);
 				break;
 			case 'view_all_cust':
 				setUserSelection('view_all_cust');
 				setViewAllCust(true);
-				falsifyStates([ setViewAllMags, setAvgCatCostStatus ]);
+				falsifyStates([ setViewAllMags, setViewAvgCatCost ]);
 				break;
 			case 'avg_cat_cost':
 				setUserSelection('avg_cat_cost');
