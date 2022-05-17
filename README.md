@@ -73,6 +73,11 @@ npm run start
 
 - Note: admin user password is simply “password”
 
+## Known Bugs
+- In some instances after creating an account, an error message comes up (even though a user has been created).
+- No other bugs found.
+
+
 ### Admin user credentials
 <!-- admin user password -->
 password: password
