@@ -2,14 +2,14 @@
 
 ## Description of Program:
 -  A fullstack application that has 2 types of users
-* Client user
+### Client user
 - Can signup (feature not implemented yet)
 - Can login
 - Can deactivate account (feature not implemented yet)
 - Can subscribe to magazines (feature not implemented yet)
 - View catalog 
 - Add, update, or stop subscription
-* Admin user
+### Admin user
 - Can login with special admin password (“password”)
 - Presented with admin menu options which include queries for:
 - Viewing all customers
